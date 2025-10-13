@@ -1,5 +1,5 @@
 ---
-title: White Paper
+title: Klima 2.0
 date: last-modified
 date-format: MMM D, YYYY [(Version 1.45)]
 author:
