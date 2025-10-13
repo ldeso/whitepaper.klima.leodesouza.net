@@ -1,0 +1,11 @@
+logo:
+  small: brand/favicon.svg
+  medium: brand/favicon.svg
+  large: brand/favicon.svg
+
+typography:
+  fonts:
+    - family: Inter
+      source: google
+  base: Inter
+  headings: Inter

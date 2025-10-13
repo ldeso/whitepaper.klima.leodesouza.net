@@ -1,0 +1,111 @@
+% \documentclass[dvisvgm,tikz]{standalone}
+
+% \usepackage[sfdefault]{inter}
+% \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, decorations.pathmorphing}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %Colors
+% % Warm gray to turquoise
+% \definecolor{warm_gray}{RGB}{128, 120, 115}
+% \definecolor{sage_gray}{RGB}{110, 125, 120}
+% \definecolor{pewter}{RGB}{91, 112, 114}
+% \definecolor{slate_blue}{RGB}{72, 107, 115}
+% \definecolor{steel_teal}{RGB}{53, 118, 125}
+% \definecolor{teal}{RGB}{27, 136, 140}
+% \definecolor{deep_aqua}{RGB}{15, 152, 155}
+% \definecolor{peacock_blue}{RGB}{0, 167, 171}
+% \definecolor{blue_green}{RGB}{0, 181, 185}
+% \definecolor{turquoise}{RGB}{0, 195, 200}
+
+% \definecolor{mygray}{gray}{0.9}
+
+% % Match our established color scheme
+% \definecolor{atoken}{RGB}{255, 152, 0}        % Orange for A token
+% \definecolor{gtoken}{RGB}{76, 175, 80}        % Green for G token
+% \definecolor{mainblue}{RGB}{74, 144, 226}     % Blue for A classes
+% \definecolor{maingreen}{RGB}{102, 187, 106}   % Light green for G classes
+% \definecolor{timegray}{RGB}{158, 158, 158}    % Gray for time component
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \def \G {\textbf{G}}
+% \def \A {\textbf{A}}
+% \def \Q {\textbf{Q}}
+% \def \C {\textbf{C}}
+% \def \CC {\textbf{C*}}
+% \def \KA {\textbf{kVCM}}
+% \def \KG {\textbf{K2}}
+
+% \def \AG {$\overline{\textbf{AG}}$}
+% \def \AQ {$\overline{\textbf{AQ}}$}
+
+% \begin{document}
+\begin{tikzpicture}[
+    % Define the market node style
+    market/.style={
+        circle,
+        minimum size=2.5cm,
+        thick,
+        draw=#1,
+        fill=#1!05,
+        text=#1,
+        align=center,
+        font=\footnotesize
+    },
+    token/.style={
+        circle,
+        minimum size=2.0cm,
+        thick,
+        draw=#1,
+        fill=#1!70,
+        text=#1!05,
+        align=center,
+        font=\footnotesize
+    },
+    % Connection style
+    connect/.style={
+        ->,
+        thick,
+        #1
+    }, 
+    arrow/.style={
+        -{Stealth[length=8pt]},
+        thick,
+        #1
+    }   
+]
+
+
+% Position the three tenets
+\node[market=teal] (aam) at (0,5) {Porfolio \\ Manager};
+
+\node[market=steel_teal] (bond) at (-5,0) {Time-locked \\ \KA{} Market};
+
+\node[token=steel_teal] (astake) at (0,-5) {\KA{} };
+
+\node[token=sage_gray] (cstake) at (0,-1.75) {Portfolio \\Carbon };
+
+\node[token=peacock_blue] (gstake) at (0,1.75) {\KG{} };
+
+\node[market=peacock_blue] (liquidity) at (5,0) {Liquidity Market \\ (USDC)};
+
+\draw[connect=teal] (bond.north) |- node[pos=0.5, left, text=teal, font=\small\itshape\bfseries] {Core Selection}node[pos=0.45, left, text=teal, font=\small\itshape] {Assets} node[pos=0.4, left, text=teal, font=\small\itshape] {Forward Curve} (aam.west);
+
+\draw[connect=teal] (aam.east) -|  node[pos=0.5, right, text=teal, font=\small\itshape\bfseries] {Carbon Assets} node[pos=0.55, right, text=teal, font=\small\itshape] {Purchase Carbon} node[pos=0.6, right, text=teal, font=\small\itshape] {\enspace \& Sell Offsets} node[pos=0.65, right, text=teal, font=\small\itshape] {Mint \& Burn \KA{}}   (liquidity.north) ;
+
+\draw[connect=teal] (bond.east) -- node[pos=0.5, below, text=teal, font=\small\itshape] {Price Discovery}  (liquidity.west);
+
+\draw[connect=steel_teal,dashed] (astake.west) -| node[pos=0.3, below, text=steel_teal, font=\small] {Time-lock for Asset Selection}  (bond.south);
+
+\draw[connect=steel_teal,dashed] (astake.east) -| node[pos=0.35, below, text=steel_teal, font=\small] {Stake for Liquidity}  (liquidity.south);
+
+
+\draw[connect=peacock_blue,dashed] (gstake.north) -| node[pos=0.7, right, text=peacock_blue, font=\small] {Asset Selection}  (aam.south);
+\draw[connect=peacock_blue,dashed] (gstake.east) -- node[pos=0.20, right, text=peacock_blue, font=\small] {~~~~Stake}  (liquidity.west);
+
+\draw[arrow=warm_gray,very thick] (cstake.south) -- node[pos=0.30, right, text=warm_gray, font=\small\bfseries] {Carbon Yield} node[pos=0.6, right, text=warm_gray, font=\small\itshape]{Time-locked \KA{} holders}  (astake.north);
+
+\draw[arrow=steel_teal,thick] (bond.east) -- node[pos=0.9, left, text=steel_teal, font=\small\bfseries, align=center] {Protocol~~~~~~~~ \\ Distribution~~~~~~~~}  (gstake.west);
+\draw[connect=steel_teal,thick] (bond.south) -- node[pos=0.3, right, text=steel_teal, font=\small\bfseries, align=center] {~~~~~~Base \\ ~~~~~~Accrual}  (astake.north west);
+
+\end{tikzpicture}
+% \end{document}

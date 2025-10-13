@@ -1,0 +1,4212 @@
+---
+title: White Paper
+date: last-modified
+date-format: MMM D, YYYY [(Version 1.45)]
+author:
+  name: |
+    The Dark Sole Enterprise Ltd <ds@darksole.vip>\
+    with contributions from the Klima Foundation and Carbonmark
+abstract: |
+  An **Autonomous Asset Manager** incorporating asset pricing, liquidity and
+  time-locked markets powered by a dual token structure designed for efficient
+  and rational decentralised liquidity within the carbon credit asset class.
+execute:
+  echo: false
+format:
+  html: default
+  gfm: default
+  pdf:
+    include-in-header:
+      - file: figures/preamble.tex
+---
+
+![](brand/klimaprotocol.svg){
+  alt="Klima Protocol Logo."
+  width=50%
+  fig-align="center"
+}
+
+::::: {.content-visible when-format="pdf"}
+`\minisec{Copyright Notice}`{=latex}
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+**Copyright Notice**
+:::::
+
+This document represents original work by dark_sole <ds@darksole.vip>. While
+contributions from others are gratefully acknowledged, all intellectual property
+rights remain with the author. The models, algorithms, processes, products,
+methodologies, and concepts described herein are licensed exclusively for
+commercial use by the Klima Foundation. No other party may implement, copy,
+modify, or derive works from these materials without explicit written permission
+from the author.
+
+© 2025 dark_sole. All rights reserved.
+
+## Prologue {#sec-prologue}
+
+**Klima&nbsp;2.0 is an autonomous capital system for the carbon asset class.**
+It is neither a conventional token nor a traditional protocol, but rather a
+continuously adaptive financial structure governed entirely by endogenous
+signals and risk-weighted economic inputs.
+
+The system is based on a dual-token architecture: **kVCM**, representing capital
+and asset exposure, and **K2**, reflecting systemic risk preferences. Together,
+these tokens structure the internal market dynamics without the need for oracles
+or discretionary oversight. This architecture enables the system to:
+
+- Systematically select and price tokenised carbon credits,
+
+- Construct and maintain a forward-yield curve derived from on-chain capital
+commitments,
+
+- Govern portfolio allocation, liquidity provisioning, and incentive
+distribution through deterministic smart contract logic.
+
+All token-holder actions -- locking, allocation and staking -- serve as inputs
+to a reflexive coordination mechanism. **kVCM** governs the allocation of
+capital to carbon assets, while **K2** parametrises the system's risk
+assumptions and pricing capacity. This interaction defines a synthetic balance
+sheet where capital value, risk spread, and yield formation emerge from
+collective participation.
+
+The platform consists of three interdependent components: the **Portfolio
+Manager**, which acquires and retires carbon assets; the **Time-Locked Market**,
+which generates a time-structured synthetic yield curve; and the **Liquidity
+Market**, which facilitates price discovery and capital flow across **kVCM**,
+**K2**, and external currencies. These mechanisms are interlocked by design,
+enabling the system to continuously seek equilibrium.
+
+**Klima&nbsp;2.0 abstracts complex market operations into a formal economic
+structure** that integrates asset management, governance, and liquidity within a
+single protocol. **kVCM** offers structured exposure to carbon markets through
+tokenised yield and asset ownership, while **K2** modulates this exposure in
+response to endogenous risk metrics.
+
+In this model, staking constitutes an economic vote; liquidity provision informs
+portfolio capacity; and yield is an emergent function of structural
+configuration. The system is designed to operate without exogenous intervention,
+maintaining equilibrium through adaptive incentive distribution and real asset
+correlation.
+
+**Klima&nbsp;2.0 is a closed-form capital system with embedded governance and
+economic reflexivity, capable of continuously modelling and adjusting its
+internal state through its own token dynamics.**
+
+## Klima&nbsp;2.0 {#sec-klima-2.0}
+
+KlimaDAO launched in 2021 on the Polygon blockchain as a fork of OlympusDAO.
+The original system centred on the KLIMA token backed by a treasury of carbon
+credits. At its peak, the KLIMA token exceeded a one-billion-USD market cap and
+brought over 20 million tonnes of carbon credits on-chain through incentives and
+governance.
+
+Supporters agree that voluntary carbon markets benefit greatly from tokenisation
+and on-chain liquidity. This brings transparency, price discovery,
+accessibility, interoperability, programmability, and faster settlement for
+brokers and buyers. These benefits are proven by dozens of production-grade
+platforms and services built by Klima and partners after launch, including:
+
+- Integrations with major carbon registries.
+- Marketplaces, storefronts, and point-of-sale tools.
+- REST APIs for seamless integration into third-party apps.
+- Direct blockchain issuance by major project developers.
+
+All of these products are powered on KlimaDAO's tokenised carbon and liquidity,
+with measurable adoption. This makes the KLIMA token a leading case study for
+the adoption of tokenised Real World Assets.
+
+Still, after years of iteration it became clear that&nbsp;Klima 1.0 and the
+KLIMA token would not be able to scale or serve the largest enterprise buyers
+effectively.
+
+Hence we present **Klima&nbsp;2.0** as an **Autonomous Asset
+Manager**&nbsp;(AAM) with the new **Risk-Balanced Asset** token **kVCM** that:
+
+- Selects and purchases carbon credits on a spot and forward basis for its own
+portfolio.
+
+- Retires its carbon credits by issuing carbon offset certificates to buyers.
+
+- Continuously yields carbon credits from its portfolio.
+
+- Enables investors to:
+
+    - Hold a true _passive_ exposure to carbon markets, spreads and dislocations
+    via the new **kVCM** token.
+
+    - _Actively_ reflect their risk appetite collectively to optimise portfolio
+    selection and capacity.
+
+    - Determine the proportion of yield distribution vs capital retention,
+    allowing cyclical expansions and contractions and de-facto price modelling
+    of the **kVCM** token.
+
+::: {#fig-design fig-cap="Klima&nbsp;2.0 high-level design." fig-alt="Klima 2.0 high-level design."}
+
+::::: {.content-visible when-format="pdf"}
+![](figures/design.tex)
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+![](figures/design.svg)
+:::::
+
+:::
+
+Klima&nbsp;2.0 provides a fundamental capital, liquidity and execution layer for
+wholesale carbon trading, capturing spreads and structural pricing across the
+asset class. It employs rational adaptive financial models to reflect
+token-holders' collective risk-reward preferences, produced solely through
+[native]{.underline} smart contract balances from staking and liquidity
+functions allowing price discovery and harmonious functions to govern the
+stability and risk of the Risk-Balanced Asset token **kVCM**.
+
+The model grants clean _look-through_ economic ownership of tokenised carbon
+assets to **kVCM** token holders, as well as self-governance for risk and reward
+allowing maximum flexibility in this hybrid capital instrument for growth
+[and]{.underline} distribution.
+
+### Dual Utility Tokens {#sec-dual-utility-tokens}
+
+In addition to the **kVCM** token, Klima&nbsp;2.0 introduces a second **Risk
+Governance** token **K2**. This token is responsible for modelling risk across
+the ecosystem by responding to the **kVCM** token's core selections and adding
+essential derivative parameters that manage adverse selection and pricing
+capacity.
+
+::: {#fig-token-replacement fig-cap="Token replacement." fig-alt="Token replacement."}
+
+::::: {.content-visible when-format="pdf"}
+![](figures/token-replacement.tex)
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+![](figures/token-replacement.svg)
+:::::
+
+:::
+
+**kVCM** tokens have the beneficial ownership of the portfolio and set core
+allocation choices, whereas **K2** acts as the _risk-seeking_ gauge for the
+portfolio construction.
+
+**K2** is formally compensated with **kVCM** tokens hence the two tokens'
+interests are fully aligned, and together perform dynamic portfolio optimisation
+as a result of collective owner utility function.
+
+### High level Architecture {#sec-high-level-architecture}
+
+::: {#fig-architecture fig-cap="Klima&nbsp;2.0 architecture." fig-alt="Klima 2.0 architecture."}
+
+::::: {.content-visible when-format="pdf"}
+![](figures/architecture.tex)
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+![](figures/architecture.svg)
+:::::
+
+:::
+
+Three economic pillars support the Klima&nbsp;2.0 Automated Asset Manager:
+
+1. **Portfolio Manager**:
+
+    - Accumulates carbon credits for the portfolio by minting **kVCM**.
+    - Sells carbon offset certificates from the portfolio by burning **kVCM**.
+    - Prices **liquid carbon**&nbsp;('spot' or 'ex-post credits') and
+    **forward-delivery carbon**&nbsp;('ex-ante credits') using the system's
+    generated discount rates. 
+
+2. **Time-Locked Market**:
+
+    - **kVCM** holders **time-lock** their **kVCM** irreversibly for a fixed
+    time period.
+    - Time-locked **kVCM** holders are able to _select_ carbon assets for the
+    portfolio.
+    - The time-locking pattern creates a **kVCM** Base Accrual curve, which is
+    distributed to time-locked **kVCM** holders. This is utilised to derive
+    discount rates for forward delivery pricing in the Portfolio Manager and for
+    weightings for time-locked **kVCM** holders in governance, as well as for
+    their liquid carbon distribution.
+
+3. **Liquidity Market**:
+
+    - **kVCM** and **K2** holders are able to pair their tokens together, or in
+    the case of **kVCM** with USDC, in order to generate liquidity fees.
+    - Staking the resulting liquidity provider tokens generates a share of the
+    **kVCM** risk premium.
+    - Liquidity locked in the **kVCM**/**K2** liquidity pool participates in
+    general governance alongside time-locked **kVCM** holders.
+
+Noting that throughout the paper, _Locking_ and _Staking_ mean that asset
+transfers are disabled for a specified period.
+
+### Economics and Incentives {#sec-economics-and-incentives}
+
+#### kVCM Synthetic Yield {#sec-kvcm-synthetic-yield}
+
+**kVCM** emits a continuous yield rewarding:
+
+1. Time-locked **kVCM** holders ('**kVCM** Base Accrual'). 
+
+2. User-locked **K2** holders ('**kVCM** Risk Premium').
+
+3. Both **kVCM** and **K2** stakers, i.e. liquidity providers who staked their
+liquidity provider tokens ('**kVCM** Risk Premium').
+
+The proportions and quantities are dynamic depending on the system state.
+
+#### K2 Incentives {#sec-k2-incentives}
+
+The expansion of the **K2** token supply is allocated to stakeholders below in
+varying quantities depending on system balances.
+
+1. Time-locked **kVCM** holders. 
+
+2. User-locked **K2** holders.
+
+3. Both **kVCM** and **K2** stakers.
+
+#### Real Carbon Yield {#sec-real-carbon-yield}
+
+Assuming the Portfolio holds liquid (spot) carbon credits, the Portfolio Manager
+emits a continuous Liquid Carbon Yield to time-locked **kVCM** holders with the
+proportion a function of the system state.
+
+### Portfolio Manager {#sec-portfolio-manager}
+
+At the core of the platform, the Portfolio Manager accumulates, trades and
+distributes its carbon portfolio driven by parameters determined from collective
+token-holder actions&nbsp;(and inaction).
+
+::: {#fig-portfolio-manager fig-cap="Klima&nbsp;2.0 Portfolio Manager." fig-alt="Klima 2.0 Portfolio Manager."}
+
+::::: {.content-visible when-format="pdf"}
+![](figures/portfolio-manager.tex)
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+![](figures/portfolio-manager.svg)
+:::::
+
+:::
+
+The Portfolio Manager **purchases** carbon credits and **sells** offset
+certificates by pre-defined classification called **carbon class**. It does
+[not]{.underline} sell carbon credits as those are issued through the Liquid
+Carbon Yield function.
+
+Token-holders collectively set the risk parameters for the pricing of **each
+class** by defining:
+
+- Portfolio weighting.
+
+- Capacity curve and spreads.
+
+Additional **global** parameters are similarly determined: 
+
+- Forward-delivery discount rates.
+
+- **kVCM** synthetic yield curve creating incentives for Portfolio selection,
+liquidity provision and risk management contributions.
+
+- Proportion of Liquid Carbon Yield released for time-locked **kVCM** holders.
+
+There are no oracles or external inputs required for Klima&nbsp;2.0 as it is
+fully autonomous and responds to its own native state of token balances.
+
+### Tokens {#sec-tokens}
+
+#### Risk Balanced Asset Token: kVCM {#sec-risk-balanced-asset-token-kvcm}
+
+**kVCM** represents core ownership of the portfolio assets, and is designed to
+flex between asset and growth value drivers depending on token-holder activity.
+
+**kVCM** has [no maximum supply]{.underline} but inflates upon carbon credit
+accumulation, and contracts upon issuance of carbon offset certificates.
+
+- When **Time-Locked** for fixed maturities:
+      
+    - _Optionally_ selects carbon classes for portfolio weighting and
+    pricing&nbsp;('active').
+
+    - Sets the forward discount rate for carbon portfolio acquisition from the
+    collective time locking pattern over time.
+
+    - Generates a **synthetic yield** of **kVCM** based on the forward curve and
+    a **Liquid Carbon Yield** based on the active selection ratio.
+
+    - Participates in governance for whitelisting carbon assets.
+
+- **Transactional** usage:
+
+    - **Mint**: New **kVCM** is issued by the Portfolio Manager to purchase new
+    carbon credits for the Portfolio.
+
+    - **Burn**: **kVCM** are retired by the Portfolio Manager to issue carbon
+    offset certificates.
+
+- **Staked** liquidity:
+
+    - Generates a **kVCM** Risk Premium, which is a time-based relative share of
+    the **kVCM** synthetic yield reflecting the risks taken to support the price
+    of platform capital.
+
+Noting that the tokens can delegate utility as required.
+
+::: {#fig-aam-token-utility fig-cap="Automated Asset Manager token utility." fig-alt="Automated Asset Manager token utility."}
+
+::::: {.content-visible when-format="pdf"}
+![](figures/aam-token-utility.tex)
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+![](figures/aam-token-utility.svg)
+:::::
+
+:::
+
+#### Risk Governance Token: K2 {#sec-risk-governance-token-k2}
+
+**K2** is a [fixed-supply]{.underline} token issued programmatically over time
+with a dynamic allocation for **K2** **Incentives**.
+
+- When **User-Locked**:
+
+    - Shapes the pricing curve and spread of **kVCM**.
+    - Determines the **kVCM** Risk Premium for staked liquidity providers.
+    - Generates a share of the **kVCM** Risk Premium.
+    - Receives **K2** Incentives.
+
+- **Staked** Liquidity:
+
+    - Generates a share of the **kVCM** Risk Premium.
+    - Participates in governance.
+    - Receives **K2** Incentives.
+
+#### Utility Functions {#sec-staking-functions}
+
+The **kVCM** token has [two]{.underline} utility functions which are not
+independent:
+
+::: {#fig-kvcm-staking fig-cap="**kVCM** utility functions." fig-alt="kVCM utility functions."}
+
+::::: {.content-visible when-format="pdf"}
+![](figures/kvcm-staking.tex)
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+![](figures/kvcm-staking.svg)
+:::::
+
+:::
+
+1. **Time lock**: The **kVCM** token is locked for a specific period of time
+representing a liquidity preference for the holder in return for yield
+('**kVCM** base accrual'). This cannot be amended.
+
+2. **Price allocation**: Collective selection of carbon classes by **kVCM**
+allocations determines the **instantaneous** price ratio for **kVCM** token
+issuance. This selection can be amended and withdrawn at any time to allow price
+modulation for the platform of its carbon assets.
+
+The **K2** token also has [two]{.underline} utility functions:
+
+1. **User-lock**: The **K2** token remains locked for at least 24 hours.
+
+2. **Risk allocation**: collective selection of carbon classes by **K2**
+allocations determines the rate of issuance or price curve of **kVCM** for the
+specified carbon class, as well as the retirement burning rate.
+
+Both tokens facilitate the carbon market to function efficiently with the
+**kVCM** token responsible for portfolio selection and pricing, and the **K2**
+token modulating capacity and risk.
+
+### Initialisation of the kVCM Token {#sec-initialisation-of-the-kvcm-token}
+
+The Klima Protocol has approximately **20 million tonnes** of Carbon credits in
+its treasury as assets, a part of which will be used to create the initial
+issuance of **kVCM** tokens upon launch of Klima&nbsp;2.0.
+
++-------------+-------------+----------------------------------------------------------------------------+
+| Token       | Amount      | Notes                                                                      |
++:============+:============+:===========================================================================+
+| **kVCM** \  | 20 million  | - Supply expands and contracts perpetually.                                |
+| **A** Token |             | - 87.5% of initial supply available to existing KLIMA holders.             |
+|             |             | - Initially created approximately on a 1:1 basis with carbon tonnes held.  |
+|             |             | - Issues on carbon received, and burns on barbon retired.                  |
++-------------+-------------+----------------------------------------------------------------------------+
+| **K2** \    | 100 million | - Fixed supply.                                                            |
+| **G** Token |             | - 40% put into programmatic issuance as **K2** Incentives yield over time. |
+|             |             | - 40% for existing KLIMA holders.                                          |
++-------------+-------------+----------------------------------------------------------------------------+
+
+: Token Summary {#tbl-token-summary .column-body-outset tbl-colwidths="[10,15,75]"}
+
+### End Users {#sec-end-users}
+
+1. **Carbon Credit Sellers**
+  
+    Those wishing to monetise spot or forward delivery classes of Carbon. 
+
+    _**Portfolio Manager**: Continuously acquires carbon credits using an
+    autonomous pricing strategy based on carbon class, delivery and token
+    balances, issuing new **kVCM** tokens as consideration to build the carbon
+    portfolio._
+  
+2. **Offset Buyers**
+  
+    Those wishing to obtain carbon offset certificates by retiring carbon
+    credits from the portfolio.
+
+    _**Portfolio Manager**: Continuously sells carbon offset certificates, by
+    burning **kVCM** tokens and issuing carbon offset certificates by retiring
+    the quantity in the registry._
+
+3. **Investors**
+
+    Those who wish to own a liquid or yielding locked fixed-maturity financial
+    exposure to a basket of carbon assets.
+
+    _**Time-Locked Market**: Provides a daily time-based yield for those
+    time-locking **kVCM** tokens, comprised of both a synthetic **kVCM** Base
+    Accrual and real portfolio Liquid Carbon Yield component._
+
+4. **Liquidity Providers**
+
+    Those who wish to generate liquidity fees on their portfolio of
+    Klima&nbsp;2.0 assets coupled together or with USDC.
+
+    _**Liquidity Market**: Staked liquidity providers are incentivised by the
+    **kVCM** Risk Premium calculated from system metrics to compensate them for
+    risk._
+ 
+ 5. **Active Portfolio Optimisation**
+
+    _**K2 and kVCM Asset Selection**: The incentives and allocations are
+    designed for those who wish to participate in overall risk management to
+    collectively resolve for the optimal portfolio risks._
+
+### Automated Asset Manager Highlights {#sec-automated-asset-manager-highlights}
+
+- **Decentralised architecture**:
+
+    The Automated Asset Manager is smart-contract based, fully autonomous as to
+    pricing and distribution of its assets with governance power held by
+    risk-based capital.
+
+- **Adverse selection**:
+  
+    The Automated Asset Manager does not permit the direct purchase of carbon
+    credits from its portfolio&nbsp;(only carbon offset certificates), but
+    rather yields Liquid Carbon on a portfolio basis over time. 
+  
+- **Liquid carbon**:
+  
+    Users with liquid carbon credits can always access carbon offset
+    certificates through the registry, hold the specific carbon credits or sell
+    back to the Automated Asset Manager if required. Secondary markets and
+    utility for liquid carbon credits may emerge over time.
+
+- **Implied spreads**:
+
+    The Automated Asset Manager purchases carbon at relative discounts based on
+    capacity pricing and forward discount rates folding natural returns into the
+    portfolio capital.
+
+- **Dual tokens**:
+
+    Whilst the **kVCM** token reflects asset economics, the **K2** token is
+    essential for optimising pricing capacity and in return **maximising
+    risk-adjusted spreads** for the Portfolio. Since its earnings power is a
+    function of the **kVCM** token value, its role as this spread optimiser is
+    truly economically aligned and as such fundamental values of **kVCM** and
+    **K2** are highly correlated.
+
+- **Hybrid asset model**
+
+    The rate of Liquid Carbon Yield for **kVCM** generated from the underlying
+    portfolio is derived from the system state of the **kVCM** token balances.
+
+    - This enables investors collectively to model capital [and]{.underline}
+    yield proportions, allowing the price of the capital token to discover its
+    **equilibrium** value with respect to the combination of **current** and
+    **projected** underlying Portfolio value.
+
+    - This flexibility enables a 'pull to par' effect as growth expectations
+    lower, whilst not limiting price appreciation potential in high growth
+    projection markets.
+
+    - The hybrid model incorporates both **asset stabilisation** plus
+    **equity-like** returns.
+
+    Critically this approach enables the **kVCM** token to act as a true
+    [medium of exchange]{.underline} for the carbon trading activity of the
+    users, propagating the feedback loops to both the **kVCM** and **K2**
+    tokens.
+
+## Core Economic Pillars {#sec-core-economic-pillars}
+
+From this Section, we refer to **kVCM** and **K2** tokens as **A** and **G**
+respectively.
+
+The three tenets of Klima&nbsp;2.0 enable the model to find equilibrium through
+continuous dynamic feedback loops and system balances. There is no oversight or
+centralised management entity with discretionary powers.
+
+1. **Time-Locked Market**: **A** token holders stake tokens until a set expiry
+to create floating yield time locks and have the ability to select carbon
+classes for portfolio weighting.
+
+    - The collective temporal staking pattern produces a **Synthetic Yield**
+    curve in **A** tokens to reward time-locked token holders, as well as price
+    the forward curve for the AAM.
+
+    - A **Liquid Carbon Yield** is issued continuously from the Portfolio to
+    time-locked **A** holders depending on the participation in portfolio
+    weightings.
+
+    - Only **A** tokens participate in the Time-Locked Market.
+
+2. **Portfolio Manager**: The Portfolio Manager swaps its own token **A** for
+carbon credits **C**&nbsp;(in) or carbon offset certificates **C\***&nbsp;(out)
+to build a Portfolio of Carbon credits.
+
+    - Both **time-locked** **A** and **user-locked** **G** are used in the
+    portfolio manager whereby allocating **A** determines the pricing of any
+    given carbon class, and allocating **G** determines the rate of
+    acquisition&nbsp;(and disposal).
+  
+        _Only time-locked **A** tokens can participate in portfolio weighting
+        although it is not mandatory._
+
+    - Forward-delivery carbon&nbsp;(for a set of fixed dates out to 10 years) is
+    transacted simultaneously with spot liquid Carbon.
+
+3. **Liquidity Market**: Here the tokens are traded in two core liquidity pairs
+with various incentives available to staked liquidity providers&nbsp;(**LPs**),
+including a **Risk Premium** generated by the Time-Locked Market synthetic
+yield.
+
+    - [**AG**]{
+      .overline
+      .content-visible unless-format="pdf"
+    }[$\overline{\textbf{AG}}$]{
+      .content-visible when-format="pdf"
+    }: Native token swap **A** and **G**.
+
+    - [**AQ**]{
+      .overline
+      .content-visible unless-format="pdf"
+    }[$\overline{\textbf{AQ}}$]{
+      .content-visible when-format="pdf"
+    }: The asset token **A** with USDC **Q**.
+
+    The Liquidity Market provides the complementary facility to the Time-Locked
+    Market and the critical relationship between the native tokens and the hard
+    currency of USDC.
+
+The Klima&nbsp;2.0 system enables each participant in the various economic
+pillars to act in the interests of their own capital and utility, which through
+the harmonic model, enables price discovery, liquidity and stability for carbon
+trading which creates positive reinforcement cycles as catalysts for growth and
+scale.
+
+### Time-Locked Market {#sec-time-locked-market}
+
+Holders of **A** can time-lock their token until a maturity from the set of
+**standard maturities**. Time locks expire every 90 days on a rolling basis.
+There are always 40 maturities extending out to approximately 10 years.
+
+- **Forward curve**: Aggregate time locking determines the shape of the discount
+curve of the **A** token with regards to its purchasing rate of forward-delivery
+carbon.
+
+- **Synthetic yield**: Time-locked **A** token holders receive a floating yield
+of new **A** tokens following the shape of this discount curve called **Base
+Accrual**. Base Accrual is calculated daily and accumulates to the principal. 
+
+- **Liquid Carbon Yield**: Liquid Carbon emitted to time-locked **A** token
+holders on a daily basis assuming the portfolio holds liquid carbon assets. The
+emission rate responds to time-locked **A** token holders allocating their token
+for portfolio pricing, and up to ~22% per quarter is released.
+
+- **Liquidity**: There is no early unlocking; all principal and accumulated
+yield is released only at time lock expiration.
+
+**G** tokens are [not]{.underline} involved in the Time-Locked Market. The
+forward curve is agnostic to carbon class although only time-locked **A** token
+holders can allocate their token to carbon classes for portfolio pricing.
+
+#### Synthetic Yield and Forward-Delivery Curve {#sec-synthetic-yield-and-forward-delivery-curve}
+
+Defining:
+
+- $S$: Total time-locked **A** tokens expressed as a proportion of the
+outstanding supply of **A**.
+
+- $S_t$: Total **A** tokens time-locked in maturity bucket $t$, expressed as a
+proportion of the outstanding supply of **A**, where ${\sum S_t = S}$, and $t$
+is the index of standard maturities $t \in \{1, 2, 3, \dots, 40\}$.
+
+- $E_t$: Time to expiry expressed in years.
+
+Calculating curve parameters $D$ and $C$:
+
+$$
+D = \frac{1}{S} \sum_{t=1}^{40} S_t \, E_t
+$$ {#eq-curve-parameter-d}
+
+$$
+C = \frac{1}{S} \sum_{t=1}^{40} S_t \, E_t^2
+$$ {#eq-curve-parameter-c}
+
+The shape of the synthetic yield curve is produced:
+
+$$
+\gamma_t = \max \left( \frac{E_t}{D} - \frac{E_t^2}{2 \, C}, \, 0 \right)
+$$ {#eq-yield-curve-shape}
+
+Normalising $\gamma_t$ to $\hat \gamma_t$:
+
+$$
+\hat \gamma_t = \frac{\gamma_t}{\sum_{t=1}^{40} \gamma_t}
+$$ {#eq-yield-curve-shape-normalised}
+
+With the cumulative sum of the normalised values expressed as $\Gamma_t$:
+
+$$
+\Gamma_t = \sum_{i=1}^t \hat \gamma_i \quad \text{for } t = 1, \dots, 40
+$$ {#eq-yield-curve-shape-normalized-sum}
+
+The zero-coupon yield curve $Z_t$ is solved:
+
+$$
+Z_t = (1 - S) \, \frac{\Gamma_t}{E_t}
+$$ {#eq-yield-curve}
+
+Whereupon, the discount rate $B_t$ that forms the forward delivery curve is
+derived:
+
+$$
+B_t = \exp(-Z_t \, E_t)
+$$ {#eq-discount-rate}
+
+The yield due on time-locked **A** tokens is calculated daily and added to the
+staked principal, hence the daily yield for each time bucket is calculated:
+
+$$
+Y_t = \exp \left( \frac{Z_t}{365} \right) - 1
+$$ {#eq-daily-yield}
+
+Hence, any time-locked **A** stake $S_t$ will increase by $\Delta S_t$:
+
+$$
+\Delta S_t = S_t \, Y_t
+$$ {#eq-base-accrual}
+
+With the total **A** tokens created on a daily basis for time-locked inflation
+as
+
+$$
+R = \sum_{t=1}^{40} \Delta S_t
+$$ {#eq-inflation}
+
+::: {#fig-time-locked-market-state fig-cap="Example of a Time-Locked Market state."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function constAreaLinear(range, area, inputSlope, slopeFactor = 0.007) {
+  if (range.length === 1) {
+    return [area];
+  }
+
+  let y1 = 0;
+  let y2 = range.length - 1;
+  let slope = slopeFactor * Math.atanh(inputSlope);
+  let intercept = area / range.length;
+
+  if (Math.abs(slope) > 2 * intercept / (y2 - y1 - 1)) {
+    const yExactShift = Math.sqrt(Math.abs(2 * area / slope));
+    const yRoundShift = Math.max(1, Math.round(yExactShift));
+    if (slope > 0) {
+      y1 = y2 - yRoundShift;
+    } else {
+      y2 = y1 + yRoundShift;
+    }
+    slope = Math.sign(slope) * 2 * area / Math.pow((y2 - y1), 2);
+    intercept = Math.abs(slope) * (y2 - y1 - 1) / 2;
+  }
+
+  const yConstArea = [];
+  for (let i = 0; i < range.length; i++) {
+    const y = i - (y1 + y2) / 2;
+    yConstArea.push(Math.max(0, slope * y + intercept));
+  }
+
+  return yConstArea;
+}
+```
+
+```{ojs}
+vecE = d3.range(0.25, 10.1, 0.25);
+
+scaleE = d3.scaleLinear(d3.extent(vecE), [-1, 1]);
+
+vecS = constAreaLinear(vecE, 0.55, scaleE(inputD)).map(
+  x => x * inputS / 0.55,
+);
+
+vecReverseCumsumS = d3.cumsum(vecS.slice().reverse()).reverse();
+```
+
+```{ojs}
+function dotProduct(v, w) {
+  if (v.length !== w.length) {
+    throw new Error("Vectors must have the same length");
+  }
+  return v.reduce((acc, val, i) => acc + val * w[i], 0);
+}
+
+function weightedArithmeticMean(v, weights) {
+  return dotProduct(v, weights) / d3.sum(weights);
+}
+```
+
+```{ojs}
+paramD = weightedArithmeticMean(vecE, vecS);
+```
+
+```{ojs}
+paramC = weightedArithmeticMean(vecE.map(e => e * e), vecS);
+```
+
+```{ojs}
+function computeGamma(vecE, paramD, paramC) {
+  const twoC = 2 * paramC;
+  return vecE.map(e => Math.max(0, e/paramD - e*e/twoC));
+}
+```
+
+```{ojs}
+vecGamma = computeGamma(vecE, paramD, paramC);
+```
+
+```{ojs}
+function normalize(v) {
+  const sum = d3.sum(v);
+  return v.map(val => val / sum);
+}
+```
+
+```{ojs}
+vecNormGamma = normalize(vecGamma);
+```
+
+```{ojs}
+vecCumSumGamma = d3.cumsum(vecNormGamma);
+```
+
+```{ojs}
+function computeZ(paramS, vecCumSumGamma, vecE) {
+  return vecCumSumGamma.map((g, t) => (1 - paramS) * g / vecE[t]);
+}
+```
+
+```{ojs}
+vecZ = computeZ(inputS, vecCumSumGamma, vecE);
+```
+
+```{ojs}
+function computeB(vecZ, vecE) {
+  return vecZ.map((z, t) => Math.exp(-z * vecE[t]));
+}
+```
+
+```{ojs}
+vecB = computeB(vecZ, vecE);
+```
+
+```{ojs}
+function computeY(vecZ) {
+  return vecZ.map(z => Math.expm1(z));
+}
+```
+
+```{ojs}
+vecY = computeY(vecZ);
+```
+
+```{ojs}
+paramI = dotProduct(vecS, vecY);
+```
+
+```{ojs}
+yieldData = {
+   const yieldData = [];
+   for (let t = 3; t < vecE.length; t += 4) {
+      yieldData.push({
+         key: "Stake A",
+         value: 100 * d3.sum(vecS.slice(t - 3, t + 1)),
+         time: vecE[t],
+      });
+      yieldData.push({
+         key: "Yield Term Structure",
+         value: 100 * vecZ[t],
+         time: vecE[t],
+      });
+      yieldData.push({
+         key: "Real Yield",
+         value: 100 * (vecZ[t] - paramI),
+         time: vecE[t],
+      });
+      yieldData.push({
+         key: "Discount Curve",
+         value: 100 * vecB[t],
+         time: vecE[t],
+      });
+      yieldData.push({
+         key: "Cumulative Stake A",
+         value: 100 * vecReverseCumsumS[t - 3],
+         time: vecE[t],
+      });
+   }
+   return yieldData;
+};
+getStake = d => d.key === "Stake A" ? d.value : NaN;
+getYieldTerm = d => d.key === "Yield Term Structure" ? d.value : NaN;
+getRealYield = d => d.key === "Real Yield" ? d.value : NaN;
+getDiscount = d => d.key === "Discount Curve" ? d.value : NaN;
+getCumStake = d => d.key === "Cumulative Stake A" ? d.value : NaN;
+
+stringS = "Total Stake = " + inputS.toLocaleString(
+  "en-GB",
+  { style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2 },
+);
+stringI = "Inflation = " + paramI.toLocaleString(
+  "en-GB",
+  { style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2 },
+);
+stringD = `D = ${paramD.toLocaleString(
+  "en-GB",
+  { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+)} years`;
+stringC = `√C = ${Math.sqrt(paramC).toLocaleString(
+  "en-GB",
+  { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+)} years`;
+
+yieldParams = [
+  { key: stringD, time: paramD },
+  { key: stringC, time: Math.sqrt(paramC) },
+];
+```
+
+```{ojs}
+//| fig-cap: Yield (${stringS}, ${stringI}).
+Plot.plot({
+  color: {
+    legend: true,
+    range: d3.schemeCategory10,
+    domain: ["Stake A", "Yield Term Structure", "Real Yield", stringD, stringC],
+  },
+  x: {
+    ticks: d3.range(1, 11),
+    domain: [0.25, 10.45],
+    label: "Time to Expiry (Years)",
+  },
+  y: {
+    domain: [
+      0,
+      Math.max(d3.max(yieldData, getStake), d3.max(yieldData, getYieldTerm)),
+    ],
+    grid: true,
+  },
+  insetTop: 16,
+  insetLeft: 8,
+  insetRight: 8,
+  clip: true,
+  marks: [
+    Plot.frame(),
+    Plot.axisY({ anchor: "left", label: "Stake A by Maturity (%)" }),
+    Plot.axisY({ anchor: "right", label: "Yield Rates (%)" }),
+    Plot.rectY(yieldData, {
+      x1: d => d.time - 0.45,
+      x2: d => d.time + 0.45,
+      y: getStake,
+      fill: "key",
+    }),
+    Plot.ruleX(yieldParams, {
+      x: "time",
+      stroke: "key",
+      strokeWidth : 2,
+      strokeDasharray: 4,
+    }),
+    Plot.lineY(yieldData, { x: "time", y: getYieldTerm, stroke: "key" }),
+    Plot.dotY(yieldData, { x: "time", y: getYieldTerm, fill: "key" }),
+    Plot.lineY(yieldData, { x: "time", y: getRealYield, stroke: "key" }),
+    Plot.dotY(yieldData, { x: "time", y: getRealYield, fill: "key" }),
+  ],
+});
+```
+
+```{ojs}
+viewof inputS = Inputs.range([1e-4, 1], {
+  label: tex`S`,
+  step: 1e-4,
+  value: 0.55,
+});
+viewof inputD = Inputs.range([0.25, 10], {
+  label: tex`D`,
+  step: 0.01,
+  value: 4.69,
+});
+```
+
+```{ojs}
+//| fig-cap: Discount rate.
+Plot.plot({
+  color: {
+    legend: true,
+    range: [8, 5, 3, 4].map(i => d3.schemeCategory10[i]),
+    domain: ["Cumulative Stake A", "Discount Curve", stringD, stringC],
+  },
+  x: {
+    ticks: d3.range(1, 11),
+    domain: [0.25, 10.45],
+    label: "Time to Expiry (Years)"
+  },
+  y: { domain: [0, 100], grid: true },
+  clip: true,
+  insetTop: 16,
+  insetLeft: 8,
+  insetRight: 8,
+  marks: [
+    Plot.frame(),
+    Plot.axisY({ anchor: "left", label: "Cumulative Stake (%)" }),
+    Plot.axisY({ anchor: "right", label: "Discount (%)" }),
+    Plot.rectY(yieldData, {
+      x1: d => d.time - 0.45,
+      x2: d => d.time + 0.45,
+      y: getCumStake,
+      fill: "key",
+    }),
+    Plot.ruleX(yieldParams, {
+      x: "time",
+      stroke: "key",
+      strokeWidth : 2,
+      strokeDasharray: 4,
+    }),
+    Plot.lineY(yieldData, { x: "time", y: getDiscount, stroke: "key" }),
+    Plot.dotY(yieldData, { x: "time", y: getDiscount, fill: "key" }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![Yield (Total Stake = 55.00%, Inflation = 1.75%).](figures/time-locked-market-state-yield.svg){
+  #fig-time-locked-market-state-yield
+  fig-alt="Yield (Total Stake = 55.00%, Inflation = 1.75%)."
+}
+
+![Discount rate.](figures/time-locked-market-state-discount-rate.svg){
+  #fig-time-locked-market-state-discount-rate
+  fig-alt="Discount rate."
+}
+:::::
+
+:::
+
+For visualising the sensitivity of overall **A** inflation rates with respect to
+staking and duration, @fig-inflation-rate assumes a single maturity over the
+staking range to provide an approximation of inflation
+$\Delta S \approx Z \, S$.
+
+::: {#fig-inflation-rate fig-cap="**A** inflation rate from time-locked token yields $\Delta S$." fig-alt="A inflation rate from time-locked token yields Delta S."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function contrastingTextColor(backgroundColor) {
+  if (d3.hsl(backgroundColor).l < 0.5) {
+    return "white";
+  } else {
+    return "black";
+  }
+}
+```
+
+```{ojs}
+function computeApproxDeltaA(paramS, paramE) {
+  return paramS * (1 - paramS) / paramE;
+}
+```
+
+```{ojs}
+inflationData = {
+  const inflationData = [];
+  for (let paramS = 0; paramS < 1.01; paramS += 0.1) {
+    for (let paramE = 1; paramE <= 10; paramE++) {
+      inflationData.push({
+        key: "ΔA",
+        e: paramE,
+        s: paramS,
+        value: computeApproxDeltaA(paramS, paramE),
+      });
+    }
+  }
+  return inflationData;
+};
+```
+
+```{ojs}
+Plot.plot({
+  color: { legend: true, scheme: "Spectral", type: "sequential", label: "ΔS" },
+  x: { ticks: d3.range(1, 10.1, 1), domain: [10.5, 0.5], label: "Expiry Time E" },
+  y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Staking S" },
+  marks: [
+    Plot.frame(),
+    Plot.rect(inflationData, {
+      x1: d => d.e - 0.5,
+      x2: d => d.e + 0.5,
+      y1: d => d.s - 0.05,
+      y2: d => d.s + 0.05,
+      fill: "value",
+    }),
+    Plot.text(inflationData, {
+      x: "e",
+      y: "s",
+      text: d => Number.isNaN(d.value) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(
+        d3.scaleSequential(
+          [0, computeApproxDeltaA(0.5, 1)],
+          d3.interpolateSpectral,
+        )(d.value),
+      ),
+    }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/inflation-rate.svg)
+:::::
+
+:::
+
+#### Governance Weightings {#sec-governance-weightings}
+
+Governance rights, for example the whitelisting&nbsp;(and blacklisting) of
+Carbon classes, and any other matter requiring token stakeholder voting, are
+allocated to two cohorts:
+
+1. Time-locked **A** tokens: $S_t$
+
+2. Staked liquidity in the **A**-**G** pair [**AG**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AG}}$]{
+  .content-visible when-format="pdf"
+}&nbsp;(see @sec-liquidity-markets), defined here as $A_{Gt}$, representing the
+quantity of **A** tokens held in the liquidity pool expressed as a proportion of
+circulating supply.
+
+Voting power is allocated by time and applied to the respective balance of
+**A**:
+
+1. Initial voting weights for time-locked **A** tokens $v_t$:
+
+    $$
+    v_t = Z_t \, S_t
+    $$ {#eq-voting-weights-time-locks-initial}
+
+2. Initial voting weights for staked liquidity $w_t$:
+
+    $$
+    w_t = Z_t \, A_{Gt}
+    $$ {#eq-voting-weights-lps-initial}
+
+1. Final voting weights for time-locked **A** tokens $V_t$:
+
+    $$
+    V_t = \frac{v_t}{\sum_{j=1}^{40} (v_j + 2 w_j)}
+    $$ {#eq-voting-weights-time-locks}
+
+2. Final voting weights for staked liquidity $W_t$:
+
+    $$
+    W_t = \frac{w_t}{\sum_{j=1}^{40} \left( \frac 1 2 v_j + w_j \right)}
+    $$ {#eq-voting-weights-lps}
+
+#### Liquid Carbon Yield {#sec-liquid-carbon-yield}
+
+Defining:
+
+- $A$: Total time-locked **A** tokens allocated for pricing of Carbon classes,
+expressed as a proportion of the outstanding supply of **A** tokens.
+
+With $\mu$ as the daily emission factor applied to the portfolio holding spot
+delivery **C** tokens:
+
+$$
+\mu = \frac{A \, (1 - A)}{90}
+$$ {#eq-liquid-carbon-yield}
+
+Liquid Carbon Yield is allocated to time-locked **A** tokens holders
+using the&nbsp;(normalised) _initial voting weight_ $v_t$ determined in
+@eq-voting-weights-time-locks-initial.
+
+### Portfolio Manager {#sec-portfolio-manager-detailed}
+
+The Portfolio Manager's role of swapping **A** for carbon is managed through a
+set of smart contracts driven by allocation choices from the token system, the
+balances of assets held, and the discount rates generated by the Time-Locked
+Market.
+
+The combined allocations of **A** and **G** tokens creates a dynamic pricing
+matrix by carbon class and by time, enabling spot and forward trading of Carbon. 
+
+::: {#fig-portfolio-manager-detailed fig-cap="Klima&nbsp;2.0 Portfolio Manager." fig-alt="Klima 2.0 Portfolio Manager."}
+
+::::: {.content-visible when-format="pdf"}
+![](figures/portfolio-manager-detailed.tex)
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+![](figures/portfolio-manager-detailed.svg)
+:::::
+
+:::
+
+#### Purchase Carbon {#sec-purchase-carbon}
+
+_User swaps carbon credits for **A** tokens._
+
+##### Existing Carbon in the Portfolio {#sec-existing-carbon-in-the-portfolio}
+
+Carbon classes ${i \in \{1, 2, 3, \dots, n\}}$ are whitelisted through
+governance by time-locked **A** token and staked [**AG**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AG}}$]{
+  .content-visible when-format="pdf"
+} liquidity providers&nbsp;(see @sec-governance-weightings).
+
+For carbon pricing, both **A** tokens and **G** tokens may be allocated to
+specific carbon classes $i$ and these are independent allocations between the
+two-token systems.
+
+::: {#fig-token-staking-class-structure fig-cap="Token staking class structure." fig-alt="Token staking class structure."}
+
+::::: {.content-visible when-format="pdf"}
+![](figures/token-staking-class-structure.tex)
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+![](figures/token-staking-class-structure.svg)
+:::::
+
+:::
+
+For a carbon class quantity to be sold to the Automated Asset Manager, it must
+have a strictly positive quantity of **A** tokens allocated to that carbon
+class, otherwise there is no price, and the carbon cannot be sold.
+
+Defining:
+
+- $C_i$: Total tonnes of carbon class $i$ currently held in the portfolio.
+
+- $A_i$: **A** tokens allocated to carbon class $i$ expressed as a proportion of
+the outstanding supply of **A** tokens, where ${\sum A_i = A}$.
+
+- $G_i$: **G** tokens allocated to carbon class $i$ expressed as a proportion of
+the outstanding supply of **G** Tokens.
+
+- $C_{it}$: The quantity of carbon class $i$ held in the Automated Asset Manager
+deliverable per maturity $t$ where $C_{i0}$ reflects the liquid quantity.
+
+In order to determine the present-value quantity of Carbon, $\bar C_i$, we
+apply the discount curve from @eq-discount-rate to the liquidity schedule and
+sum the discounted holdings:
+
+$$
+\bar C_i = C_{i0} + \sum_{t=1}^{40} B_t \, C_{it}
+$$ {#eq-present-value-carbon}
+
+::: {.content-visible when-format="html"}
+```{ojs}
+viewof inputCi0 = Inputs.range([0, 1], {
+  label: tex`C_{i0}`,
+  step: 1e-3,
+});
+viewof inputLiqShape = Inputs.range([-1, 1], {
+  label: tex`\text{Shape}`,
+  step: 1e-3,
+});
+```
+:::
+
+::: {#fig-carbon-held-in-the-aam fig-cap="Carbon held in the portfolio." fig-alt="Carbon held in the portfolio."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+vecCi = constAreaLinear(vecE, 1 - inputCi0, inputLiqShape, 0.01);
+
+paramBarCi = inputCi0 + dotProduct(vecB, vecCi);
+```
+
+```{ojs}
+carbonHeldData = {
+  const carbonHeldData = [];
+  carbonHeldData.push({
+    key: "Liquidity Schedule",
+    value: 100 * inputCi0,
+    time: 0,
+  });
+  for (let t = 3; t < vecE.length; t += 4) {
+    carbonHeldData.push({
+      key: "Liquidity Schedule",
+      value: 100 * d3.sum(vecCi.slice(t - 3, t + 1)),
+      time: vecE[t],
+    });
+    carbonHeldData.push({
+      key: "Discount Curve",
+      value: 100 * vecB[t],
+      time: vecE[t],
+    });
+  }
+  return carbonHeldData;
+};
+getLiqSchedule = d => d.key === "Liquidity Schedule" ? d.value : NaN;
+
+stringBarCi = `Present-Value Carbon C̄ᵢ = ${paramBarCi.toLocaleString(
+  "en-GB",
+  { style: "percent", maximumFractionDigits: 0 },
+)}`;
+
+heldCarbonParam = [{ key: stringBarCi, value: 100 * paramBarCi }];
+```
+
+```{ojs}
+Plot.plot({
+  color: {
+    legend: true,
+    range: [2, 5, 6].map(i => d3.schemeCategory10[i]),
+    domain: ["Liquidity Schedule", "Discount Curve", stringBarCi],
+  },
+  x: {
+    label: "Time to Expiry (Years)",
+    labelAnchor: "right",
+    labelArrow: true,
+  },
+  y: { domain: [0, 100], grid: true },
+  insetTop: 16,
+  insetLeft: 8,
+  insetRight: 8,
+  clip: true,
+  marks: [
+    Plot.frame(),
+    Plot.axisY({ anchor: "left", label: "Quantity of Carbon (%)" }),
+    Plot.axisY({ anchor: "right", label: "Discount (%)" }),
+    Plot.rectY(carbonHeldData, {
+      x1: d => d.time - 0.45,
+      x2: d => d.time + 0.45,
+      y: getLiqSchedule,
+      fill: "key",
+    }),
+    Plot.ruleY(heldCarbonParam, {
+      y: "value",
+      stroke: "key",
+      strokeWidth : 2,
+      strokeDasharray: 4,
+    }),
+    Plot.lineY(carbonHeldData, { x: "time", y: getDiscount, stroke: "key" }),
+    Plot.dotY(carbonHeldData, { x: "time", y: getDiscount, fill: "key" }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/carbon-held-in-the-aam.svg)
+:::::
+
+:::
+
+Similarly, taking $\Delta C_{it}$ as the quantity of carbon $i$ to be sold with
+a specific maturity index $t$:
+
+$$
+\Delta \bar C_i = \Delta C_{i0} + \sum_{t=1}^{40} B_t \, \Delta C_{it}
+$$ {#eq-present-value-carbon-change}
+
+Once standardised by the discount curve, trades can be aggregated in the same
+class for the defined trade or auction period.
+
+::: {.content-visible when-format="html"}
+```{ojs}
+viewof inputDeltaCi = Inputs.range([0, 1], {
+  label: tex`\Delta C_i`,
+  step: 1e-3,
+  value: 1,
+});
+viewof inputEt = Inputs.range([0, 10], {
+  label: tex`E_t`,
+  step: 1,
+  value: 6,
+});
+```
+:::
+
+::: {#fig-carbon-bought-by-the-aam fig-cap="Carbon bought by the Portfolio Manager." fig-alt="Carbon bought by the Portfolio Manager."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeDeltaCi0(deltaCi, t) {
+  return t === 0 ? deltaCi : 0;
+}
+
+function computeVecDeltaCi(deltaCi, t) {
+  const vecDeltaCi = Array(40).fill(0);
+  if (t !== 0) {
+    vecDeltaCi[t - 1] = deltaCi;
+  }
+  return vecDeltaCi;
+}
+```
+
+```{ojs}
+paramMaturityIdx = 4 * inputEt;
+
+paramDeltaCi0 = computeDeltaCi0(inputDeltaCi, paramMaturityIdx);
+
+vecDeltaCi = computeVecDeltaCi(inputDeltaCi, paramMaturityIdx);
+
+paramDeltaBarCi = paramDeltaCi0 + dotProduct(vecB, vecDeltaCi);
+```
+
+```{ojs}
+carbonBuyData = {
+  const carbonBuyData = [];
+  carbonBuyData.push({
+    key: "Carbon Bought by AAM",
+    value: 100 * paramDeltaCi0,
+    time: 0,
+  });
+  for (let t = 3; t < vecE.length; t += 4) {
+    carbonBuyData.push({
+      key: "Carbon Bought by AAM",
+      value: 100 * d3.sum(vecDeltaCi.slice(t - 3, t + 1)),
+      time: vecE[t],
+    });
+    carbonBuyData.push({
+      key: "Discount Curve",
+      value: 100 * vecB[t],
+      time: vecE[t],
+    });
+  }
+  return carbonBuyData;
+};
+getCarbonBought = d => d.key === "Carbon Bought by AAM" ? d.value : NaN;
+
+stringDeltaBarCi = "Present-Value Carbon Bought by AAM ΔC̄ᵢ = " +
+        paramDeltaBarCi.toLocaleString(
+          "en-GB",
+          {
+            style: "percent",
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+          },
+        );
+boughtCarbonParam = [{ key: stringDeltaBarCi, value: 100 * paramDeltaBarCi }];
+```
+
+```{ojs}
+Plot.plot({
+  color: {
+    legend: true,
+    range: [3, 5, 7].map(i => d3.schemeCategory10[i]),
+    domain: ["Carbon Bought by AAM", "Discount Curve", stringDeltaBarCi],
+  },
+  x: {
+    label: "Time to Expiry (Years)",
+    labelAnchor: "right",
+    labelArrow: true,
+  },
+  y: { domain: [0, 100], grid: true },
+  insetTop: 16,
+  insetLeft: 8,
+  insetRight: 8,
+  clip: true,
+  marks: [
+    Plot.frame(),
+    Plot.axisY({ anchor: "left", label: "Quantity of Carbon (%)" }),
+    Plot.axisY({ anchor: "right", label: "Discount (%)" }),
+    Plot.rectY(carbonBuyData, {
+      x1: d => d.time - 0.45,
+      x2: d => d.time + 0.45,
+      y: getCarbonBought,
+      fill: "key",
+    }),
+    Plot.ruleY(boughtCarbonParam, {
+      y: "value",
+      stroke: "key",
+      strokeWidth : 2,
+      strokeDasharray: 4,
+    }),
+    Plot.lineY(carbonBuyData, { x: "time", y: getDiscount, stroke: "key" }),
+    Plot.dotY(carbonBuyData, { x: "time", y: getDiscount, fill: "key" }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/carbon-bought-by-the-aam.svg)
+:::::
+
+:::
+
+Where $\Delta \bar C_i$ is expressed as the relative increment to its respective
+pool balance, the amount of **A** tokens issued to pay for carbon, $\Delta A$,
+expressed as a proportion of current supply, is determined as:
+
+$$
+\ln(1 + \Delta A) =
+  \left( A_i - \frac{A_i^2 \, (1 - G_i)^2}{2} \right) \ln(1 + \Delta \bar C_i)
+$$ {#eq-a-change-intermediary-step}
+
+Denoting the expression on the right hand side of @eq-a-change-intermediary-step
+as $\mathsf{RHS}$:
+
+$$
+\Delta A = \exp(\mathsf{RHS}) - 1
+$$ {#eq-a-change}
+
+Finally, $\Delta A$ is applied to the outstanding supply of **A** to solve for
+token quantities.
+
+@fig-a-price-curves illustrates the **G** token's capacity to maintain the
+initial portfolio pricing of the **A** token. The data has been normalised in
+@fig-a-price-curves-normalised to $\Delta \bar C_i \, A_i$.
+
+::: {#fig-a-price-curves fig-cap="**A** price curves ($\Delta A$)." fig-alt="A price curves."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeDeltaA(Ai, Gi, deltaCi) {
+  return Math.expm1((Ai - (Ai**2 * (1 - Gi)**2 / 2)) * Math.log1p(deltaCi));
+}
+```
+
+```{ojs}
+pricingData = {
+  const pricingData = [];
+  for (let paramGi = 0; paramGi < 1.01; paramGi += 0.1) {
+    pricingData.push({
+      key: "ΔA",
+      ai: 0,
+      gi: paramGi,
+      value: NaN,
+    });
+    pricingData.push({
+      key: "Normalised ΔA",
+      ai: 0,
+      gi: paramGi,
+      value: NaN,
+    });
+    for (let paramAi = 0.1; paramAi < 1.01; paramAi += 0.1) {
+      pricingData.push({
+        key: "ΔA",
+        ai: paramAi,
+        gi: paramGi,
+        value: computeDeltaA(paramAi, paramGi, inputDeltaBarCi),
+      });
+      pricingData.push({
+        key: "Normalised ΔA",
+        ai: paramAi,
+        gi: paramGi,
+        value: computeDeltaA(paramAi, paramGi, inputDeltaBarCi) /
+                (inputDeltaBarCi * paramAi),
+      });
+    }
+  }
+  return pricingData;
+};
+getDeltaA = d => d.key === "ΔA" ? d.value : NaN;
+getNormDeltaA = d => d.key === "Normalised ΔA" ? d.value : NaN;
+
+stringInputDeltaBarCi = inputDeltaBarCi.toLocaleString(
+  "en-GB",
+  { style: "percent", maximumFractionDigits: 0 },
+);
+```
+
+```{ojs}
+Plot.plot({
+  color: {
+    legend: true,
+    scheme: "Spectral",
+    type: "sequential",
+    label: `ΔA, where ΔC̄ᵢ = ${stringInputDeltaBarCi}`,
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
+  y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
+  marks: [
+    Plot.frame(),
+    Plot.rect(pricingData, {
+      x1: d => d.ai - 0.05,
+      x2: d => d.ai + 0.05,
+      y1: d => d.gi - 0.05,
+      y2: d => d.gi + 0.05,
+      fill: getDeltaA,
+    }),
+    Plot.text(pricingData, {
+      x: "ai",
+      y: "gi",
+      text: d => Number.isNaN(getDeltaA(d)) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(
+        d3.scaleSequential(
+          [
+            computeDeltaA(0.1, 1, inputDeltaBarCi),
+            computeDeltaA(1, 1, inputDeltaBarCi),
+          ],
+          d3.interpolateSpectral,
+        )(d.value),
+      ),
+    }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/a-price-curves.svg)
+:::::
+
+:::
+
+::: {.content-visible when-format="html"}
+```{ojs}
+viewof inputDeltaBarCi = Inputs.range([0.01, 1], {
+  label: tex`\Delta \bar C_i`,
+  step: 0.01,
+  value: 1,
+});
+```
+:::
+
+::: {#fig-a-price-curves-normalised fig-cap="Normalised **A** price curves." fig-alt="Normalised A price curves."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+Plot.plot({
+  color: {
+    legend: true,
+    scheme: "Spectral",
+    type: "sequential",
+    label: `Normalised ΔA, where ΔC̄ᵢ = ${stringInputDeltaBarCi}`,
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
+  y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
+  marks: [
+    Plot.frame(),
+    Plot.rect(pricingData, {
+      x1: d => d.ai - 0.05,
+      x2: d => d.ai + 0.05,
+      y1: d => d.gi - 0.05,
+      y2: d => d.gi + 0.05,
+      fill: getNormDeltaA,
+    }),
+    Plot.text(pricingData, {
+      x: "ai",
+      y: "gi",
+      text: d => Number.isNaN(getNormDeltaA(d)) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(
+        d3.scaleSequential(
+          [
+            computeDeltaA(1, 0, inputDeltaBarCi) / inputDeltaBarCi,
+            computeDeltaA(1, 1, inputDeltaBarCi) / inputDeltaBarCi,
+          ],
+          d3.interpolateSpectral,
+        )(d.value),
+      ),
+    }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/a-price-curves-normalised.svg)
+:::::
+
+:::
+
+Noting that the sensitivity to $G_i$ increases as $A_i$ increases and the
+effects become more pronounced as $\Delta \bar C_i$ increases.
+
+##### Zero Carbon Scenario {#sec-zero-carbon-scenario}
+
+There are circumstances when there is zero carbon held in the Portfolio for a
+particular class, i.e. ${C_i = 0}$, which invalidates the calculation of
+$\Delta \bar C_i$ and a different approach is required.
+
+Taking $\Delta \bar C_\emptyset$ as the tonnes of carbon tokens (implying an
+existing balance of 1 tonne), adjusted for forward discounting, to be sold for
+any carbon class that has a strictly positive **A** allocation $A_\emptyset$,
+together with **G** allocation $G_\emptyset$:
+
+$$
+\Delta A =
+  \frac{\Delta \bar C_\emptyset}{1 + \Delta \bar C_\emptyset} \, 
+  \left( A_\emptyset - \frac{A_\emptyset^2 (1 - G_\emptyset)^2}{2} \right)^2
+$$ {#eq-a-change-zero-carbon}
+
+::: {#fig-a-price-curves-zero-carbon fig-cap="**A** price curves ($\Delta A$) in the zero carbon scenario." fig-alt="A price curves in the zero carbon scenario."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeZeroCarbonDeltaA(Ai, Gi, deltaCnull) {
+  return (deltaCnull / (1 + deltaCnull)) * (Ai - (Ai**2 * (1 - Gi)**2 / 2))**2;
+}
+
+function computeTrueDeltaA(Ai, Gi, barCiTonnes, deltaBarCiTonnes) {
+  if (barCiTonnes === 0) {
+    return computeZeroCarbonDeltaA(Ai, Gi, deltaBarCiTonnes);
+  } else {
+    const deltaBarCi = deltaBarCiTonnes / barCiTonnes;
+    return computeDeltaA(Ai, Gi, deltaBarCi);
+  }
+}
+
+function numberOfDigits(x) {
+  return x === 0 ? 1 : (1 + Math.floor(Math.log10(x)));
+}
+```
+
+```{ojs}
+zeroCarbonData = {
+  const zeroCarbonData = [];
+  for (let paramGi = 0; paramGi < 1.01; paramGi += 0.1) {
+    zeroCarbonData.push({
+      key: "ΔA",
+      ai: 0,
+      gi: paramGi,
+      value: NaN,
+    });
+    zeroCarbonData.push({
+      key: "Normalised ΔA",
+      ai: 0,
+      gi: paramGi,
+      value: NaN,
+    });
+    for (let paramAi = 0.1; paramAi < 1.01; paramAi += 0.1) {
+      zeroCarbonData.push({
+        key: "ΔA",
+        ai: paramAi,
+        gi: paramGi,
+        value: computeZeroCarbonDeltaA(paramAi, paramGi, inputDeltaBarCnull),
+      });
+      zeroCarbonData.push({
+        key: "Normalised ΔA",
+        ai: paramAi,
+        gi: paramGi,
+        value: computeZeroCarbonDeltaA(paramAi, paramGi, inputDeltaBarCnull) /
+                ((inputDeltaBarCnull / (1 + inputDeltaBarCnull)) * paramAi**2),
+      });
+    }
+  }
+  return zeroCarbonData;
+};
+
+stringDeltaBarCnull = inputDeltaBarCnull.toLocaleString(
+  "en-GB",
+  {
+    minimumSignificantDigits: Math.max(1, numberOfDigits(inputDeltaBarCnull)),
+    maximumSignificantDigits: Math.max(1, numberOfDigits(inputDeltaBarCnull)),
+  },
+);
+```
+
+```{ojs}
+Plot.plot({
+  color: {
+    legend: true,
+    scheme: "Spectral",
+    type: "sequential",
+    label: `ΔA, where ΔC̄∅ = ${stringDeltaBarCnull} tCO2eq`,
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
+  y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
+  marks: [
+    Plot.frame(),
+    Plot.rect(zeroCarbonData, {
+      x1: d => d.ai - 0.05,
+      x2: d => d.ai + 0.05,
+      y1: d => d.gi - 0.05,
+      y2: d => d.gi + 0.05,
+      fill: getDeltaA,
+    }),
+    Plot.text(zeroCarbonData, {
+      x: "ai",
+      y: "gi",
+      text: d => Number.isNaN(getDeltaA(d)) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 4, maximumFractionDigits: 4 },
+      ),
+      fill: d => contrastingTextColor(
+        d3.scaleSequential(
+          [
+            computeZeroCarbonDeltaA(0.1, 1, inputDeltaBarCnull),
+            computeZeroCarbonDeltaA(1, 1, inputDeltaBarCnull),
+          ],
+          d3.interpolateSpectral,
+        )(d.value),
+      ),
+    }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/a-price-curves-zero-carbon.svg)
+:::::
+
+:::
+
+::: {.content-visible when-format="html"}
+```{ojs}
+viewof inputDeltaBarCnull = Inputs.range([1e-1, 1e5], {
+  label: tex`\Delta \bar C_\emptyset`,
+  step: 1e-1,
+  value: 1e2,
+  transform: Math.log,
+});
+```
+:::
+
+::: {#fig-a-price-curves-zero-carbon-normalised fig-cap="Normalised **A** price curves in the zero carbon scenario." fig-alt="Normalised A price curves in the zero carbon scenario."}
+
+::::: {.content-visible when-format="html"}
+
+```{ojs}
+Plot.plot({
+  color: {
+    legend: true,
+    scheme: "Spectral",
+    type: "sequential",
+    label: `Normalised ΔA, where ΔC̄∅ = ${stringDeltaBarCnull} tCO2eq`,
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
+  y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
+  marks: [
+    Plot.frame(),
+    Plot.rect(zeroCarbonData, {
+      x1: d => d.ai - 0.05,
+      x2: d => d.ai + 0.05,
+      y1: d => d.gi - 0.05,
+      y2: d => d.gi + 0.05,
+      fill: getNormDeltaA,
+    }),
+    Plot.text(zeroCarbonData, {
+      x: "ai",
+      y: "gi",
+      text: d => Number.isNaN(getNormDeltaA(d)) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(
+        d3.scaleSequential(
+          [
+            computeZeroCarbonDeltaA(1, 0, inputDeltaBarCnull) /
+                    (inputDeltaBarCnull / (1 + inputDeltaBarCnull)),
+            computeZeroCarbonDeltaA(1, 1, inputDeltaBarCnull) /
+                    (inputDeltaBarCnull / (1 + inputDeltaBarCnull)),
+          ],
+          d3.interpolateSpectral,
+        )(d.value),
+      ),
+    }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/a-price-curves-zero-carbon-normalised.svg)
+:::::
+
+:::
+
+#### Sell Offset Certificates {#sec-sell-offset-certificates}
+
+_User swaps **A** tokens for carbon offset certificates._
+
+##### Weighted Carbon Class {#sec-weighted-carbon-class}
+
+For retiring carbon that is _weighted_, that is for which there is a strictly
+positive **A** token allocation, an **A** token holder can extract the carbon
+class offset certificate of their choice $C_i$ but the available pool is only
+the liquid carbon balance, namely the element $C_{i0}$:
+
+$$
+\ln(1 + \Delta C_i) =
+  \frac{-\ln(1 + \Delta A)}{A_i + \frac 1 2 A_i^2 \, (1 - G_i)^2}
+$$ {#eq-carbon-change-intermediary-step}
+
+As before, denoting the expression on the right hand side of
+@eq-carbon-change-intermediary-step as $\mathsf{RHS}$:
+
+$$
+\Delta C_i = \exp(\mathsf{RHS}) - 1
+$$ {#eq-carbon-change}
+
+::: {.content-visible when-format="html"}
+```{ojs}
+viewof inputDeltaA = Inputs.range([0.001, 0.999], {
+  label: tex`\Delta A`,
+  step: 0.001,
+  value: 0.1,
+});
+```
+:::
+
+::: {#fig-proportion-of-carbon-retired fig-cap="Proportion of carbon retired." fig-alt="Proportion of carbon retired."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeDeltaCi(Ai, Gi, deltaA) {
+  return Math.expm1(-Math.log1p(deltaA) / (Ai + (Ai**2 * (1 - Gi)**2 / 2)));
+}
+```
+
+```{ojs}
+retirementData = {
+  const retirementData = [];
+  for (let paramGi = 0; paramGi < 1.01; paramGi += 0.1) {
+    retirementData.push({
+      key: "-ΔCᵢ",
+      ai: 0,
+      gi: paramGi,
+      value: NaN,
+    });
+    for (let paramAi = 0.1; paramAi < 1.01; paramAi += 0.1) {
+      retirementData.push({
+        key: "-ΔCᵢ",
+        ai: paramAi,
+        gi: paramGi,
+        value: -computeDeltaCi(paramAi, paramGi, inputDeltaA),
+      });
+    }
+  }
+  return retirementData;
+};
+
+stringInputDeltaA = inputDeltaA.toLocaleString(
+  "en-GB",
+  { style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 1 },
+);
+```
+
+```{ojs}
+Plot.plot({
+  color: {
+    legend: true,
+    scheme: "Spectral",
+    type: "sequential",
+    label: `-ΔCᵢ, where ΔA = ${stringInputDeltaA}`,
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
+  y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
+  marks: [
+    Plot.frame(),
+    Plot.rect(retirementData, {
+      x1: d => d.ai - 0.05,
+      x2: d => d.ai + 0.05,
+      y1: d => d.gi - 0.05,
+      y2: d => d.gi + 0.05,
+      fill: "value",
+    }),
+    Plot.text(retirementData, {
+      x: "ai",
+      y: "gi",
+      text: d => Number.isNaN(d.value) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(
+        d3.scaleSequential(
+          [
+            -computeDeltaCi(1, 0, inputDeltaA),
+            -computeDeltaCi(0.1, 1, inputDeltaA),
+          ],
+          d3.interpolateSpectral,
+        )(d.value),
+      ),
+    }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/proportion-of-carbon-retired.svg)
+:::::
+
+:::
+
+@fig-proportion-of-carbon-retired shows the cost of carbon increasing with $A_i$
+and decreasing on $G_i$.
+
+##### Unweighted Carbon Class {#sec-unweighted-carbon-class}
+
+An offset certificate for a carbon class with a zero **A** allocation cannot be
+extracted from the portfolio by swapping in **A** tokens. However, it is still
+part of the Liquid Carbon Yield detailed in @sec-liquid-carbon-yield.
+
+##### Liquidation: $\Delta A = 1$ {#sec-liquidation-delta-a-1}
+
+In the event that 100% of **A** tokens are placed into the burn mechanism for
+carbon offset certificates, the balances of all carbon held in the portfolio
+post-trade are distributed to all **G** token holders.
+
+@fig-carbon-spread below shows the spread captured on a 'round trip' by the
+system where $\varepsilon$ is the proportion retained:
+
+::: {.content-visible when-format="html"}
+```{ojs}
+viewof inputDeltaCinitial = Inputs.range([0.001, 1], {
+  label: tex`\Delta C`,
+  step: 0.001,
+  value: 0.1,
+});
+```
+:::
+
+::: {#fig-carbon-spread fig-cap="Carbon ‘spread’." fig-alt="Carbon spread."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeSpread(Ai, Gi, deltaCinitial) {
+  const deltaA = computeDeltaA(Ai, Gi, deltaCinitial);
+  const deltaCfinal = -computeDeltaCi(Ai, Gi, deltaA);
+  return (deltaCinitial - deltaCfinal) / deltaCinitial;
+}
+```
+
+```{ojs}
+liquidationData = {
+  const liquidationData = [];
+  for (let paramGi = 0; paramGi < 1.01; paramGi += 0.1) {
+    liquidationData.push({ key: "deltaa", ai: 0, gi: paramGi, value: NaN });
+    liquidationData.push({ key: "deltac", ai: 0, gi: paramGi, value: NaN });
+    liquidationData.push({ key: "spread", ai: 0, gi: paramGi, value: NaN });
+    for (let paramAi = 0.1; paramAi < 1.01; paramAi += 0.1) {
+      const deltaA = computeDeltaA(paramAi, paramGi, inputDeltaCinitial)
+      liquidationData.push({
+        key: "deltaa",
+        ai: paramAi,
+        gi: paramGi,
+        value: computeDeltaA(paramAi, paramGi, inputDeltaCinitial) /
+                inputDeltaCinitial,
+      });
+      liquidationData.push({
+        key: "deltac",
+        ai: paramAi,
+        gi: paramGi,
+        value: computeDeltaCi(paramAi, paramGi, deltaA) / inputDeltaCinitial,
+      });
+      liquidationData.push({
+        key: "spread",
+        ai: paramAi,
+        gi: paramGi,
+        value: computeSpread(paramAi, paramGi, inputDeltaCinitial),
+      });
+    }
+  }
+  return liquidationData;
+};
+getLiqDeltaA = d => d.key === "deltaa" ? d.value : NaN;
+getLiqDeltaCi = d => d.key === "deltac" ? d.value : NaN;
+getLiqSpread = d => d.key === "spread" ? d.value : NaN;
+
+stringInputDeltaCinitial = inputDeltaCinitial.toLocaleString(
+  "en-GB",
+  { style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 1 },
+);
+```
+
+```{ojs}
+Plot.plot({
+  color: {
+    legend: true,
+    scheme: "Spectral",
+    domain: [0, computeSpread(1, 0, 1)],
+    type: "sequential",
+    label: `Carbon Spread ε, where initial ΔC = ${stringInputDeltaCinitial}`,
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
+  y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
+  marks: [
+    Plot.frame(),
+    Plot.rect(liquidationData, {
+      x1: d => d.ai - 0.05,
+      x2: d => d.ai + 0.05,
+      y1: d => d.gi - 0.05,
+      y2: d => d.gi + 0.05,
+      fill: getLiqSpread,
+    }),
+    Plot.text(liquidationData, {
+      x: "ai",
+      y: "gi",
+      text: d => Number.isNaN(getLiqSpread(d)) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(
+        d3.scaleSequential(
+          [0, computeSpread(1, 0, inputDeltaCinitial)],
+          d3.interpolateSpectral,
+        )(d.value),
+      ),
+    }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/carbon-spread.svg)
+:::::
+
+:::
+
+@fig-carbon-spread-components shows the component 'spread' contributions on a
+carbon sale and purchase round trip of a carbon offset certificate.
+
+::: {#fig-carbon-spread-components fig-cap="Carbon ‘spread’ components."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+//|fig-cap: Carbon ‘spread’ component ΔA.
+Plot.plot({
+  color: {
+    legend: true,
+    scheme: "Spectral",
+    domain: [0, 1],
+    type: "sequential",
+    label: `Component ΔA, where initial ΔC = ${
+      stringInputDeltaCinitial
+    }`,
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
+  y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
+  marks: [
+    Plot.frame(),
+    Plot.rect(liquidationData, {
+      x1: d => d.ai - 0.05,
+      x2: d => d.ai + 0.05,
+      y1: d => d.gi - 0.05,
+      y2: d => d.gi + 0.05,
+      fill: getLiqDeltaA,
+    }),
+    Plot.text(liquidationData, {
+      x: "ai",
+      y: "gi",
+      text: d => Number.isNaN(getLiqDeltaA(d)) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(d3.interpolateSpectral(d.value)),
+    }),
+  ],
+});
+```
+
+```{ojs}
+//|fig-cap: Carbon ‘spread’ component ΔC.
+Plot.plot({
+  color: {
+    legend: true,
+    scheme: "Greys",
+    domain: [
+      -1,
+      computeDeltaCi(
+        1,
+        0,
+        computeDeltaA(1, 0, inputDeltaCinitial) / inputDeltaCinitial,
+      ),
+    ],
+    label: `Component ΔC, where initial ΔC = ${
+      stringInputDeltaCinitial
+    }`,
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
+  y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
+  marks: [
+    Plot.frame(),
+    Plot.rect(liquidationData, {
+      x1: d => d.ai - 0.05,
+      x2: d => d.ai + 0.05,
+      y1: d => d.gi - 0.05,
+      y2: d => d.gi + 0.05,
+      fill: getLiqDeltaCi,
+    }),
+    Plot.text(liquidationData, {
+      x: "ai",
+      y: "gi",
+      text: d => Number.isNaN(getLiqDeltaCi(d)) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(
+        d3.scaleSequential(
+          [
+            -1,
+            computeDeltaCi(
+              1,
+              0,
+              computeDeltaA(1, 0, inputDeltaCinitial) / inputDeltaCinitial,
+            ),
+          ],
+          d3.interpolateGreys,
+        )(d.value),
+      ),
+    }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![Carbon ‘spread’ component $\Delta A$.](figures/carbon-spread-component-delta-a.svg){
+  #fig-carbon-spread-component-delta-a
+  fig-alt="Carbon Spread Component Delta A."
+}
+
+![Carbon ‘spread’ component $\Delta C$.](figures/carbon-spread-component-delta-c.svg){
+  #fig-carbon-spread-component-delta-c
+  fig-alt="Carbon Spread Component Delta C."
+}
+:::::
+
+:::
+
+### Liquidity Markets {#sec-liquidity-markets}
+
+Both **A** and **G** tokens can be used for providing liquidity.
+
+::: {#fig-token-liquidity fig-cap="Token liquidity and pricing structure." fig-alt="Token liquidity and pricing structure."}
+
+::::: {.content-visible when-format="pdf"}
+![](figures/token-liquidity.tex)
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+![](figures/token-liquidity.svg)
+:::::
+
+:::
+
+There are two core liquidity pools:
+
+1. An AAM 50:50 pairing of **A** and **G**&nbsp;tokens: pool [**AG**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AG}}$]{
+  .content-visible when-format="pdf"
+}.
+
+2. A hard currency USDC denoted as **Q** paired with **A**: pool [**AQ**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AQ}}$]{
+  .content-visible when-format="pdf"
+}.
+
+#### Liquidity Fees {#sec-liquidity-fees}
+
+The [**AQ**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AQ}}$]{
+  .content-visible when-format="pdf"
+} pool will have its own set of fees in the normal way.[^1]
+
+The [**AG**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AG}}$]{
+  .content-visible when-format="pdf"
+} pool has different economics as the assets are highly correlated since they
+represent the same economy. For this reason, the fees are extremely low.
+
+By staking liquidity&nbsp;(liquidity provider tokens) to the **standard
+maturities**, both pools may receive a distribution of **A** tokens determined
+from the Risk Premium calculation below. This is an [additional]{.underline}
+primary issuance to the Base Accrual already discussed.
+
+[^1]: Note the development of liquidity pool pricing functionality may be
+applicable.
+
+#### Risk Premium: Beta Determination {#sec-risk-premium-beta-determination}
+
+We can consider the Time-Locked Market yield as the system's _risk-free_ rate.
+In addition to this mechanism, a _risky_ spread is determined that is ultimately
+paid to the staked liquidity providers of the **A** and **G** tokens as
+compensation for the risk levels assumed.
+
+As we have seen, the **G** token has an impact on risk-pricing of **A**. As
+**G** staking increases, the relationship between the carbon class selected
+under $G_i$ and the portfolio token **A** strengthens. We can consider $G_i$
+staking as an estimate of residual or idiosyncratic risk in the carbon-class and
+this allows us to calculate a portfolio beta $\beta$ from the implied betas of
+each carbon class $i$.
+
+$$
+\beta = \sqrt{\sum_{i=1}^n A_i - A_i \, (1 - G_i)^2}
+$$ {#eq-beta}
+
+The portfolio $\beta$ determines a yield factor for the liquidity pools of **A**
+to compensate for the implied risk levels.
+
+For intuition, the map in @fig-range-of-beta-i shows the various outputs of the
+function per carbon class.
+
+::: {#fig-range-of-beta-i fig-cap="Range of $\beta_i$." fig-alt="Range of Beta i."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeBeta(vecAi, vecGi) {
+  const beta2 = vecAi.reduce(
+    (acc, Ai, i) => acc + Ai - Ai * (1 - vecGi[i])**2,
+    0,
+  );
+  return Math.sqrt(beta2);
+}
+```
+
+```{ojs}
+function computeBetai(Ai, Gi) {
+  return Math.sqrt(Ai - Ai * (1 - Gi)**2);
+}
+```
+
+```{ojs}
+betaData = {
+  const betaData = [];
+  for (let paramGi = 0; paramGi < 1.01; paramGi += 0.1) {
+    betaData.push({
+      key: "βᵢ",
+      ai: 0,
+      gi: paramGi,
+      value: NaN,
+    });
+    for (let paramAi = 0.1; paramAi < 1.01; paramAi += 0.1) {
+      betaData.push({
+        key: "βᵢ",
+        ai: paramAi,
+        gi: paramGi,
+        value: computeBetai(paramAi, paramGi),
+      });
+    }
+  }
+  return betaData;
+};
+```
+
+```{ojs}
+Plot.plot({
+  color: {
+    legend: true,
+    scheme: "Spectral",
+    type: "sequential",
+    label: "βᵢ",
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
+  y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
+  marks: [
+    Plot.frame(),
+    Plot.rect(betaData, {
+      x1: d => d.ai - 0.05,
+      x2: d => d.ai + 0.05,
+      y1: d => d.gi - 0.05,
+      y2: d => d.gi + 0.05,
+      fill: "value",
+    }),
+    Plot.text(betaData, {
+      x: "ai",
+      y: "gi",
+      text: d => Number.isNaN(d.value) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(d3.interpolateSpectral(d.value)),
+    }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/range-of-beta-i.svg)
+:::::
+
+:::
+
+The table and figure below show an example of the effects on $\beta$ of
+allocating large $G_i$ values to small $A_i$ values where the shift in $G_i$
+results in a lower $\beta$&nbsp;(0.27 from 0.55) with no change to total **G**
+and **A** allocations.
+
+::: {#tbl-effect-on-beta-from-outsized-g-staking tbl-cap="Effect on $\beta$ from outsized **G** allocation." tbl-colwidths="[15,10,10,10,10,10]"}
+
+::::: {.content-visible when-format="pdf"}
+| Class               | 1                      | 2                      | 3                      | 4                      | $\beta$                  |
+|---------------------|------------------------|------------------------|------------------------|------------------------|--------------------------|
+| $A_i$               | 0.50                   | 0.20                   | 0.10                   | 0.05                   |                          |
+| Initial $G_i$       | \textcolor{blue}{0.30} | \textcolor{blue}{0.10} | \textcolor{blue}{0.05} | \textcolor{blue}{0.01} |                          |
+| Initial $\beta_i^2$ | 0.2550                 | 0.0380                 | 0.0098                 | 0.0010                 | \textcolor{blue}{0.5511} |
+| New $G_i$           | \textcolor{red}{0.01}  | \textcolor{red}{0.05}  | \textcolor{red}{0.10}  | \textcolor{red}{0.30}  |                          |
+| New $\beta_i^2$     | 0.0100                 | 0.0195                 | 0.0190                 | 0.0255                 | \textcolor{red}{0.2719}  |
+| $\Delta G_i$        | (0.29)                 | (0.05)                 | 0.05                   | 0.29                   |                          |
+| $\Delta \beta_i^2$  | (0.2451)               | (0.0185)               | 0.0092                 | 0.0245                 |                          |
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+| Class               | 1             | 2             | 3             | 4             | $\beta$         |
+|:--------------------|:--------------|:--------------|:--------------|:--------------|:----------------|
+| $A_i$               | 0.50          | 0.20          | 0.10          | 0.05          |                 |
+| Initial $G_i$       | [0.30]{.blue} | [0.10]{.blue} | [0.05]{.blue} | [0.01]{.blue} |                 |
+| Initial $\beta_i^2$ | 0.2550        | 0.0380        | 0.0098        | 0.0010        | [0.5511]{.blue} |
+| New $G_i$           | [0.01]{.red}  | [0.05]{.red}  | [0.10]{.red}  | [0.30]{.red}  |                 |
+| New $\beta_i^2$     | 0.0100        | 0.0195        | 0.0190        | 0.0255        | [0.2719]{.red}  |
+| $\Delta G_i$        | (0.29)        | (0.05)        | 0.05          | 0.29          |                 |
+| $\Delta \beta_i^2$  | (0.2451)      | (0.0185)      | 0.0092        | 0.0245        |                 |
+:::::
+
+:::
+
+::: {#fig-example-of-g-stake-on-beta fig-cap="Example of **G** allocation on $\beta$." fig-alt="Example of G allocation on Beta."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+arrayAi = [0.5, 0.2, 0.1, 0.05];
+arrayInitialGi = [0.3, 0.1, 0.05, 0.01];
+arrayNewGi = arrayInitialGi.toReversed();
+betaContribData = {
+  const betaContribData = [];
+  for (let i = 0; i < arrayAi.length; i++) {
+    const Ai = arrayAi[i];
+    const initialGi = arrayInitialGi[i];
+    const initialBeta2 = computeBetai(Ai, initialGi)**2;
+    const newGi = arrayNewGi[i];
+    const newBeta2 = computeBetai(Ai, newGi)**2;
+    betaContribData.push({ key: "Initial Gᵢ", class: i, value: initialGi });
+    betaContribData.push({ key: "Initial βᵢ²", class: i, value: initialBeta2 });
+    betaContribData.push({ key: "New Gᵢ", class: i, value: newGi });
+    betaContribData.push({ key: "New βᵢ²", class: i, value: newBeta2 });
+  }
+  return betaContribData;
+};
+getInitialG = d => d.key === "Initial Gᵢ" ? d.value : NaN;
+getInitialBeta2 = d => d.key === "Initial βᵢ²" ? d.value : NaN;
+getNewG = d => d.key === "New Gᵢ" ? d.value : NaN;
+getNewBeta2 = d => d.key === "New βᵢ²" ? d.value : NaN;
+
+domainG = [0, Math.max(d3.max(arrayInitialGi), d3.max(arrayNewGi))];
+rangeBeta2 = [
+  0,
+  Math.max(
+    d3.max(betaContribData, getInitialBeta2),
+    d3.max(betaContribData, getNewBeta2),
+  ),
+];
+scaleG = d3.scaleLinear(domainG, rangeBeta2);
+mapScaleG = x => x.map(scaleG);
+
+paramInitialBeta = computeBeta(arrayAi, arrayInitialGi);
+paramNewBeta = computeBeta(arrayAi, arrayNewGi);
+
+stringInitialBeta = "Initial β = " + paramInitialBeta.toLocaleString(
+  "en-GB",
+  { minimumFractionDigits: 4, maximumFractionDigits: 4 },
+);
+stringNewBeta = "New β = " + paramNewBeta.toLocaleString(
+  "en-GB",
+  { minimumFractionDigits: 4, maximumFractionDigits: 4 },
+);
+```
+
+```{ojs}
+Plot.plot({
+  color: {
+    legend: true,
+    range: ["gray", "black", "blue", "red"],
+    domain: ["Initial βᵢ²", "New βᵢ²", "Initial Gᵢ", "New Gᵢ"],
+  },
+  x: {
+    ticks: d3.range(4),
+    label: "Aᵢ Over 4 Classes",
+    tickFormat: d => arrayAi[d],
+  },
+  y: { domain: rangeBeta2 },
+  insetTop: 16,
+  insetLeft: 8,
+  insetRight: 8,
+  marks: [
+    Plot.frame(),
+    Plot.axisY({ anchor: "left", label: "βᵢ²" }),
+    Plot.axisY(scaleG.ticks(), { anchor: "right", label: "Gᵢ", y: scaleG }),
+    Plot.rectY(betaContribData, {
+      x1: d => d.class - 0.45,
+      x2: d => d.class,
+      y: getInitialBeta2,
+      fill: "key",
+    }),
+    Plot.rectY(betaContribData, {
+      x1: d => d.class,
+      x2: d => d.class + 0.45,
+      y: getNewBeta2,
+      fill: "key",
+    }),
+    Plot.lineY(betaContribData, Plot.mapY(mapScaleG, {
+      x: "class",
+      y: getInitialG,
+      stroke: "key",
+      strokeDasharray: 4,
+    })),
+    Plot.dotY(betaContribData, Plot.mapY(mapScaleG, {
+      x: "class",
+      y: getInitialG,
+      fill: "key",
+    })),
+    Plot.lineY(betaContribData, Plot.mapY(mapScaleG, {
+      x: "class",
+      y: getNewG,
+      stroke: "key",
+      strokeDasharray: 4,
+    })),
+    Plot.dotY(betaContribData, Plot.mapY(mapScaleG, {
+      x: "class",
+      y: getNewG,
+      fill: "key",
+    })),
+    Plot.text([stringInitialBeta], { x: 0.5, y: 0.23, fill: d => "blue" }),
+    Plot.text([stringNewBeta], { x: 2.5, y: 0.23, fill: d => "red" }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/example-of-g-stake-on-beta.svg)
+:::::
+
+:::
+
+@fig-example-of-g-stake-on-beta shows $\beta$'s sensitivity to **G** allocation
+as a function of **A** allocation; that is to say that a large $G_i$ stake on a
+small $A_i$ stake has limited effects&nbsp;(notwithstanding other consequential
+factors).
+
+#### Allocation of Risk Premium {#sec-allocation-of-risk-premium}
+
+The full issuance of **A** tokens is depicted below including now the Risk
+Premium for the liquidity pools accordingly.
+
+::: {#fig-a-token-flow-structure fig-cap="**A** token flow structure." fig-alt="A token flow structure."}
+
+::::: {.content-visible when-format="pdf"}
+![](figures/a-token-flow-structure.tex)
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+![](figures/a-token-flow-structure.svg)
+:::::
+
+:::
+
+#### Share of Risk Premium {#sec-share-of-risk-premium}
+
+The Risk Premium allocation is shared between user-locked **G** tokens,
+[**AG**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AG}}$]{
+  .content-visible when-format="pdf"
+}. and [**AQ**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AQ}}$]{
+  .content-visible when-format="pdf"
+} pools, with shares $\lambda_{GG}$, $\lambda_G$, and $\lambda_Q$ respectively.
+
+Defining:
+
+- $G_G$: Total **G** tokens in the [**AG**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AG}}$]{
+  .content-visible when-format="pdf"
+} pool, expressed as a proportion of the outstanding supply of **G**.
+
+- $A_G$: Total **A**&nbsp;tokens in the [**AG**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AG}}$]{
+  .content-visible when-format="pdf"
+} pool, expressed as a proportion of the outstanding supply of **A**.
+
+- $A_Q$: Total **A**&nbsp;tokens in the [**AQ**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AQ}}$]{
+  .content-visible when-format="pdf"
+} pool, expressed as a proportion of the outstanding supply of **A**.
+
+The allocation to user-locked **G** tokens, $\lambda_{GG}$:
+
+$$
+\lambda_{GG} = \frac{1 - A_Q}{1 + \left( \frac{\sum_{i=1}^{n}{G_i}}{G_G} \right)^2}
+$$ {#eq-lambda-gg}
+
+::: {#fig-g-stake-allocation fig-cap="**G** stake allocation&nbsp;(assuming $G_G = 1 - G_i$)." fig-alt="G stake allocation."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeLambdaGG(AQ, Gi, GG) {
+  return (1 - AQ) / (1 + (Gi / GG)**2);
+}
+
+function changeTranslation(dx, dy) {
+  return function () {
+    const svgTransformList = this.transform.baseVal;
+    if (svgTransformList.length > 1) {
+      throw new Error("SVGTransformList must only contain one translation");
+    }
+    const {e, f} = svgTransformList.consolidate().matrix;
+    return `translate(${e + dx},${f + dy})`;
+  }
+}
+```
+
+```{ojs}
+lambdaGGData = {
+  const lambdaGGData = [];
+  for (let paramGi = 0; paramGi < 1.01; paramGi += 0.1) {
+    for (let paramAQ = 0; paramAQ < 1.01; paramAQ += 0.1) {
+      lambdaGGData.push({
+        key: "λ",
+        aq: paramAQ,
+        gi: paramGi,
+        value: computeLambdaGG(paramAQ, paramGi, 1 - paramGi),
+      });
+    }
+  }
+  return lambdaGGData;
+};
+```
+
+```{ojs}
+plotLambdaGG = {
+  const plotLambdaGG = Plot.plot({
+    color: {
+      legend: true,
+      scheme: "Spectral",
+      domain: [0, 1],
+      type: "sequential",
+      label: "λ",
+    },
+    x: { ticks: d3.range(0, 1.01, 0.1), label: "A  " },
+    y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
+    marks: [
+      Plot.frame(),
+      Plot.rect(lambdaGGData, {
+        x1: d => d.aq - 0.05,
+        x2: d => d.aq + 0.05,
+        y1: d => d.gi - 0.05,
+        y2: d => d.gi + 0.05,
+        fill: "value",
+      }),
+      Plot.text(lambdaGGData, {
+        x: "aq",
+        y: "gi",
+        text: d => Number.isNaN(d.value) ? "" : d.value.toLocaleString(
+          "en-GB",
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+        ),
+        fill: d => contrastingTextColor(
+          d3.scaleSequential([0, 1], d3.interpolateSpectral)(d.value),
+        ),
+      }),
+    ],
+  });
+
+  d3.select(plotLambdaGG)
+    .select("g[aria-label='x-axis label']")
+    .select("text")
+      .clone(false)
+      .attr("transform", changeTranslation(-12, 1.5))
+      .attr("font-size", "0.6em")
+      .attr("font-weight", "600")
+      .text("Q");
+
+  return plotLambdaGG;
+};
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/g-stake-allocation.svg)
+:::::
+
+:::
+
+Noting the relationship between $G$ and $\beta$, and particularly if $G = 0$,
+$\beta = 0$.
+
+The residual share, $1 - \lambda_{GG}$, is split between the liquidity pools:
+
+$$
+\lambda_G = (1 - \lambda_{GG}) \frac{2 A_G}{2 A_G + A_Q \sqrt 2}
+$$ {#eq-lambda-g}
+
+For completeness:
+
+$$
+\lambda_Q = 1 - \lambda_{GG} - \lambda_G
+$$ {#eq-lambda-q}
+
+::: {#fig-liquidity-pool-split fig-cap="Liquidity pool split $\lambda_G, \lambda_Q$." fig-alt="Liquidity pool split."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeLambdaG(AQ, AG) {
+  return 2 * AG / (2 * AG + AQ * Math.sqrt(2));
+}
+```
+
+```{ojs}
+function computeLambdaQ(AQ, AG) {
+  return 1 - computeLambdaG(AQ, AG);
+}
+```
+
+```{ojs}
+lambdaGQData = {
+  const lambdaGQData = [];
+  for (let paramAG = 0; paramAG < 1.01; paramAG += 0.1) {
+    for (let paramAQ = 0; paramAQ < 1.01; paramAQ += 0.1) {
+      if (paramAG + paramAQ < 1.01) {
+        lambdaGQData.push({
+          key: "Relative 𝗔𝗚 Liquidity Pool Share",
+          aq: paramAQ,
+          ag: paramAG,
+          value: computeLambdaG(paramAQ, paramAG),
+        });
+        lambdaGQData.push({
+          key: "Relative 𝗔𝗤 Liquidity Pool Share",
+          aq: paramAQ,
+          ag: paramAG,
+          value: computeLambdaQ(paramAQ, paramAG),
+        });
+      }
+    }
+  }
+  return lambdaGQData;
+};
+```
+
+```{ojs}
+plotLambdaGQ = {
+  const plotLambdaGQ = Plot.plot({
+    aspectRatio: 1,
+    color: {
+      legend: true,
+      scheme: "Spectral",
+      domain: [0, 1],
+      type: "sequential",
+      label: "λ",
+    },
+    x: { ticks: d3.range(0, 1.01, 0.1), label: "A  " },
+    y: {
+      ticks: d3.range(0, 1.01, 0.1),
+      domain: [1.05, -0.05],
+      label: "A",
+    },
+    fx: { label: null },
+    className: "LambdaGQ",
+    marks: [
+      Plot.frame(),
+      Plot.rect(lambdaGQData, {
+        x1: d => d.aq - 0.05,
+        x2: d => d.aq + 0.05,
+        y1: d => d.ag - 0.05,
+        y2: d => d.ag + 0.05,
+        fx: "key",
+        fill: "value",
+      }),
+      Plot.text(lambdaGQData, {
+        x: "aq",
+        y: "ag",
+        fx: "key",
+        text: d => Number.isNaN(d.value) ? "" : d.value.toLocaleString(
+          "en-GB",
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+        ),
+        fill: d => contrastingTextColor(
+          d3.scaleSequential([0, 1], d3.interpolateSpectral)(d.value),
+        ),
+      }),
+    ],
+  });
+
+  d3.select(plotLambdaGQ)
+    .select("g[aria-label='x-axis label']")
+    .select("text")
+    .clone(false)
+      .attr("transform", changeTranslation(-12, 1.5))
+      .attr("font-size", "0.6em")
+      .attr("font-weight", "600")
+      .text("Q");
+
+  d3.select(plotLambdaGQ)
+    .select("g[aria-label='y-axis label']")
+    .select("text")
+      .attr("transform", changeTranslation(0, 10))
+    .clone(false)
+      .attr("transform", changeTranslation(14, 4.1))
+      .attr("font-size", "0.6em")
+      .attr("font-weight", "600")
+      .text("G");
+
+  return plotLambdaGQ;
+};
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/liquidity-pool-split.svg)
+:::::
+
+:::
+
+#### Risk Premium Distribution {#sec-risk-premium-distribution}
+
+For $\lambda_{GG}$, $\lambda_G$, $\lambda_Q$ we apply $\beta$:
+
+$$
+\Lambda_X = \lambda_X \, \beta, \quad \text{for } X \in \{GG, G, Q\}
+$$ {#eq-capital-lambda}
+
+Taking $b$ as a discount parameter:
+
+$$
+b = \frac{\sum_1^{40} Z_t \, S_t \, B_t}{\sum_1^{40} Z_t \, S_t }
+$$ {#eq-discount-parameter}
+
+The total Risk Premium tokens $R_\lambda$:
+
+$$
+R_\lambda = b \, R \, (\Lambda_{GG} + \Lambda_G + \Lambda_Q)
+$$ {#eq-risk-premium}
+
+The allocations of $R_\lambda$ are pro-rata to $\Lambda_{GG}$, $\Lambda_G$,
+$\Lambda_Q$, and thereafter:
+
+1. Locked **G**: $\Lambda_{GG}$ in proportion to **G**.
+
+2. Locked [**AG**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AG}}$]{
+  .content-visible when-format="pdf"
+}, [**AQ**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AQ}}$]{
+  .content-visible when-format="pdf"
+} tokens are allocated a weighting $G_t$, $Q_t$ depending on their time bucket
+$t$:
+
+    $$
+    G_t = \frac{Z_t \, L_{Gt} \, B_t}{\sum Z_t \, L_{Gt} \, B_t}
+    $$ {#eq-risky-premium-weighting-ag-pool}
+
+    $$
+    Q_t = \frac{Z_t \, L_{Qt} \, B_t}{\sum Z_t \, L_{Qt} \, B_t}
+    $$ {#eq-risky-premium-weighting-aq-pool}
+
+    Where $L_{Gt}$, $L_{Qt}$ are the proportion of all liquidity locked in each
+    time bucket for [**AG**]{
+      .overline
+      .content-visible unless-format="pdf"
+    }[$\overline{\textbf{AG}}$]{
+      .content-visible when-format="pdf"
+    } and [**AQ**]{
+      .overline
+      .content-visible unless-format="pdf"
+    }[$\overline{\textbf{AQ}}$]{
+      .content-visible when-format="pdf"
+    } respectively.
+
+Thereafter each time bucket allocation is proportionate to staked liquidity
+provider token holdings.
+
+## Klima&nbsp;2.0 Token Distribution {#sec-klima-2.0-token-distribution}
+
+### Planned Allocations {#sec-planned-allocations}
+
+| Cohort        | Proportion | Quantity (m) |
+|:--------------|-----------:|-------------:|
+| Klima Holders | 87.5%      | 17.5         |
+| DAO/Treasury  | 10.0%      | 2.0          |
+| 01X           | 2.5%       | 0.5          |
+| **Total**     | **100.0%** | **20.0**     |
+
+: **kVCM** token. {#tbl-kvcm-token}
+
+| Cohort                         | Proportion | Quantity (m) | Liquidity                                                                                                                                    |
+|:-------------------------------|-----------:|-------------:|:---------------------------------------------------------------------------------------------------------------------------------------------|
+| Klima Holders                  | 40.0%      | 40.0         | Logistic Vesting 48 months                                                                                                                   |
+| Ecosystem Grant                | 5.0%       | 5.0          | Logistic Vesting 48 months                                                                                                                   |
+| Programmatic Incentives        | 40.0%      | 40.0         | Incentive Curve                                                                                                                              |
+| pKlima Holders                 | 3.0%       | 3.0          | Logistic Vesting 48 months                                                                                                                   |
+| DAO/Treasury                   | 4.5%       | 4.5          | 24 month locked LP of [**AG**]{.overline .content-visible unless-format="pdf"}[$\overline{\textbf{AG}}$]{.content-visible when-format="pdf"} |
+| 01X                            | 2.5%       | 2.5          | 24 month locked LP of [**AG**]{.overline .content-visible unless-format="pdf"}[$\overline{\textbf{AG}}$]{.content-visible when-format="pdf"} |
+| Product Design and Development | 5.0%       | 5.0          | Logistic Vesting 48 months                                                                                                                   |
+| **Total**                      | **100.0%** | **100.0**    |                                                                                                                                              |
+
+: **K2** token. {#tbl-k2-token tbl-colwidths="[40,10,15,30]"}
+
+::: {#fig-k2-token-allocations fig-cap="**K2** token allocations." fig-alt="K2 token allocations."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+allocInitGData = {
+  const allocInitGData = [];
+  for (let i = 0; i < 100.01; i += 0.25) {
+    if (i < 2.51) {
+      allocInitGData.push({ key: "01X", value: i });
+    }
+    if (2.49 < i && i < 5.51) {
+      allocInitGData.push({ key: "pKlima Holders", value: i });
+    }
+    if (5.49 < i && i < 10.01) {
+      allocInitGData.push({ key: "DAO/Treasury", value: i });
+    }
+    if (9.99 < i && i < 15.01) {
+      allocInitGData.push({ key: "Ecosystem Grant", value: i });
+    }
+    if (14.99 < i && i < 20.01) {
+      allocInitGData.push({ key: "Product Design", value: i });
+    }
+    if (19.99 < i && i < 60.01) {
+      allocInitGData.push({ key: "Klima Holders", value: i });
+    }
+    if (59.99 < i) {
+      allocInitGData.push({ key: "Incentives", value: i });
+    }
+  }
+  return allocInitGData;
+};
+longitudeScale = d3.scaleLinear([180, -180]);
+getCenter = d =>
+        [1.25, 4, 7.75, 12.5, 17.5, 40, 80].includes(d.value) ? d.value : NaN;
+
+cohortsDomain = [
+  "Incentives",
+  "Klima Holders",
+  "Product Design",
+  "Ecosystem Grant",
+  "DAO/Treasury",
+  "pKlima Holders",
+  "01X",
+];
+```
+
+```{ojs}
+Plot.plot({
+  projection: { type: "azimuthal-equidistant", rotate: [0, -90], scale: 2 },
+  color: { legend: true, range: d3.schemeCategory10, domain: cohortsDomain },
+  marks: [
+    Plot.area(allocInitGData, {
+      x1: ({ value }) => longitudeScale(value / 100),
+      y1: -20,
+      x2: ({ value }) => longitudeScale(value / 100),
+      y2: -70,
+      fill: "key",
+    }),
+  ]
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/k2-token-allocations.svg)
+:::::
+
+:::
+
+### Programmatic Incentive Curve {#sec-programmatic-incentive-curve}
+
+The incentive issuance is built on a logistic function, $\operatorname{P}$, to
+generate total proportion of supply in issue. It is calibrated from the initial
+issuance at TGE $P_0$ and the inflection point time $T$ where 50% of **G** token
+incentives have been released.
+
+Setting $x_0$ from the initial supply parameter:
+
+$$
+x_0 = \ln\left( \frac{P_0}{1 - P_0} \right)
+$$ {#eq-incentives-issuance-x-0}
+
+With $x_t$ at time point $t \in (0, \infty)$:
+
+$$
+x_t = x_0 \, \left( 1 - \frac t T \right)
+$$ {#eq-incentives-issuance-x-t}
+
+Giving supply function $\operatorname{P}(t)$ as:
+
+$$
+\operatorname{P}(t) = \frac{\exp(x_t)}{\exp(x_t) + 1}
+$$ {#eq-incentives-issuance-curve}
+
+::: {.content-visible when-format="html"}
+$P_0$ set at ${stringInputP0} and $T$ at ${stringInputT} months:
+
+```{ojs}
+viewof inputP0 = Inputs.range([0.01, 0.5], {
+  label: tex`P_0`,
+  step: 0.01,
+  value: 0.07,
+});
+viewof inputT = Inputs.range([2, 60], {
+  label: tex`T`,
+  step: 1,
+  value: 24,
+});
+
+stringInputP0 = inputP0.toLocaleString(
+  "en-GB",
+  { style: "percent", maximumFractionDigits: 0 },
+);
+stringInputT = inputT.toLocaleString("en-GB", { maximumFractionDigits: 0 });
+```
+:::
+
+::: {.content-visible unless-format="html"}
+$P_0$ set at 7% and $T$ at 24 months:
+:::
+
+::: {#fig-incentive-issuance fig-cap="Incentive Issuance" fig-alt="Incentive Issuance."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeP(t, P0, T) {
+  const x0 = Math.log(P0 / (1 - P0));
+  const xt = x0 * (1 - t / T);
+  const exp = Math.exp(xt);
+  return exp / (exp + 1);
+}
+
+function computeDerivP(t, P0, T) {
+  const x0 = Math.log(P0 / (1 - P0));
+  const xt = x0 * (1 - t / T);
+  const exp = Math.exp(xt);
+  const P = exp / (1 + exp);
+  return -(x0 / T) * P * (1 - P);
+}
+
+function getVesting(vecVesting, t, tStart, tEnd) {
+  if (t < tStart)
+    return 0;
+  else if (t < tEnd) {
+    return vecVesting[t - tStart];
+  } else {
+    return vecVesting[tEnd - tStart - 1];
+  }
+}
+```
+
+```{ojs}
+tVestStart = 3;
+tVestEnd = 2 * inputT;
+tVesting = d3.range(tVestStart, tVestEnd);
+vecVestingDeriv = normalize(tVesting.map(t =>
+  computeDerivP(t, inputP0, inputT)
+));
+vecVesting = d3.cumsum(vecVestingDeriv);
+
+supplyDataAll = {
+  let paramVestingPrevious = 0;
+  const vecSupplyIncentives = [];
+  const vecSupplyCirculating = [];
+  const supplyData = [];
+  for (let t = 0; t <= 72; t++) {
+    const paramP = computeP(t, inputP0, inputT);
+    const paramDerivP = computeDerivP(t, inputP0, inputT);
+    const paramVesting = getVesting(vecVesting, t, tVestStart, tVestEnd);
+    const paramVestingDiff = paramVesting - paramVestingPrevious;
+    paramVestingPrevious = paramVesting;
+
+    const supply01X = 2.5;
+    const supplyPKlima = 3 * paramVesting;
+    const supplyTreasury = 4.5;
+    const supplyGrant = 5 * paramVesting;
+    const supplyProduct = 5 * paramVesting;
+    const supplyKlima = 40 * paramVesting;
+    const supplyIncentives = 40 * paramP;
+    vecSupplyIncentives.push(supplyIncentives);
+
+    const supply01XStacked = supply01X;
+    const supplyPKlimaStacked = supplyPKlima + supply01XStacked;
+    const supplyTreasuryStacked = supplyTreasury + supplyPKlimaStacked;
+    const supplyGrantStacked = supplyGrant + supplyTreasuryStacked;
+    const supplyProductStacked = supplyProduct + supplyGrantStacked;
+    const supplyKlimaStacked = supplyKlima + supplyProductStacked;
+    const supplyIncentivesStacked = supplyIncentives + supplyKlimaStacked;
+    const supplyCirculating = supplyIncentivesStacked / 100;
+    vecSupplyCirculating.push(supplyIncentivesStacked);
+
+    if (t <= 60) {
+      const diffIncentives = 40 * (t === 0 ? inputP0 : paramDerivP);
+      const diffKlima = 40 * paramVestingDiff;
+      const diffProduct = 5 * paramVestingDiff;
+      const diffGrant = 5 * paramVestingDiff;
+      const diffPKlima = 3 * paramVestingDiff;
+      const diffTreasury = t === 0 ? 4.5: 0;
+      const diff01X = t === 0 ? 2.5 : 0;
+
+      const diffIncentivesStacked = diffIncentives;
+      const diffKlimaStacked = diffKlima + diffIncentivesStacked;
+      const diffProductStacked = diffProduct + diffKlimaStacked;
+      const diffGrantStacked = diffGrant + diffProductStacked;
+      const diffPKlimaStacked = diffPKlima + diffGrantStacked;
+      const diffTreasuryStacked = diffTreasury + diffPKlimaStacked;
+      const diff01XStacked = diff01X + diffTreasuryStacked;
+
+      supplyData.push({
+        key: "Proportion of Supply",
+        x: t,
+        y: 100 * paramP,
+      });
+      supplyData.push({
+        key: "Rate of Change",
+        x: t,
+        y: 100 * paramDerivP,
+      });
+
+      supplyData.push({
+        key: "Circulating Supply (Stacked)",
+        cohort: "01X",
+        x: t,
+        y: supply01XStacked / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Stacked)",
+        cohort: "pKlima Holders",
+        x: t,
+        y: supplyPKlimaStacked / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Stacked)",
+        cohort: "DAO/Treasury",
+        x: t,
+        y: supplyTreasuryStacked / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Stacked)",
+        cohort: "Ecosystem Grant",
+        x: t,
+        y: supplyGrantStacked / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Stacked)",
+        cohort: "Product Design",
+        x: t,
+        y: supplyProductStacked / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Stacked)",
+        cohort: "Klima Holders",
+        x: t,
+        y: supplyKlimaStacked / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Stacked)",
+        cohort: "Incentives",
+        x: t,
+        y: supplyIncentivesStacked / supplyCirculating,
+      });
+
+      supplyData.push({
+        key: "Circulating Supply (Unstacked)",
+        cohort: "01X",
+        x: t,
+        y: supply01X / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Unstacked)",
+        cohort: "pKlima Holders",
+        x: t,
+        y: supplyPKlima / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Unstacked)",
+        cohort: "DAO/Treasury",
+        x: t,
+        y: supplyTreasury / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Unstacked)",
+        cohort: "Ecosystem Grant",
+        x: t,
+        y: supplyGrant / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Unstacked)",
+        cohort: "Product Design",
+        x: t,
+        y: supplyProduct / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Unstacked)",
+        cohort: "Klima Holders",
+        x: t,
+        y: supplyKlima / supplyCirculating,
+      });
+      supplyData.push({
+        key: "Circulating Supply (Unstacked)",
+        cohort: "Incentives",
+        x: t,
+        y: supplyIncentives / supplyCirculating,
+      });
+
+      supplyData.push({
+        key: "Total Supply (Stacked)",
+        cohort: "01X",
+        x: t,
+        y: supply01XStacked,
+      });
+      supplyData.push({
+        key: "Total Supply (Stacked)",
+        cohort: "pKlima Holders",
+        x: t,
+        y: supplyPKlimaStacked,
+      });
+      supplyData.push({
+        key: "Total Supply (Stacked)",
+        cohort: "DAO/Treasury",
+        x: t,
+        y: supplyTreasuryStacked,
+      });
+      supplyData.push({
+        key: "Total Supply (Stacked)",
+        cohort: "Ecosystem Grant",
+        x: t,
+        y: supplyGrantStacked,
+      });
+      supplyData.push({
+        key: "Total Supply (Stacked)",
+        cohort: "Product Design",
+        x: t,
+        y: supplyProductStacked,
+      });
+      supplyData.push({
+        key: "Total Supply (Stacked)",
+        cohort: "Klima Holders",
+        x: t,
+        y: supplyKlimaStacked,
+      });
+      supplyData.push({
+        key: "Total Supply (Stacked)",
+        cohort: "Incentives",
+        x: t,
+        y: supplyIncentivesStacked,
+      });
+
+      supplyData.push({
+        key: "Total Supply (Unstacked)",
+        cohort: "01X",
+        x: t,
+        y: supply01X,
+      });
+      supplyData.push({
+        key: "Total Supply (Unstacked)",
+        cohort: "pKlima Holders",
+        x: t,
+        y: supplyPKlima,
+      });
+      supplyData.push({
+        key: "Total Supply (Unstacked)",
+        cohort: "DAO/Treasury",
+        x: t,
+        y: supplyTreasury,
+      });
+      supplyData.push({
+        key: "Total Supply (Unstacked)",
+        cohort: "Ecosystem Grant",
+        x: t,
+        y: supplyGrant,
+      });
+      supplyData.push({
+        key: "Total Supply (Unstacked)",
+        cohort: "Product Design",
+        x: t,
+        y: supplyProduct,
+      });
+      supplyData.push({
+        key: "Total Supply (Unstacked)",
+        cohort: "Klima Holders",
+        x: t,
+        y: supplyKlima,
+      });
+      supplyData.push({
+        key: "Total Supply (Unstacked)",
+        cohort: "Incentives",
+        x: t,
+        y: supplyIncentives,
+      });
+
+      supplyData.push({
+        key: "Total Supply Differential (Unstacked)",
+        cohort: "Incentives",
+        x: t,
+        y: diffIncentives,
+      });
+      supplyData.push({
+        key: "Total Supply Differential (Unstacked)",
+        cohort: "Klima Holders",
+        x: t,
+        y: diffKlima,
+      });
+      supplyData.push({
+        key: "Total Supply Differential (Unstacked)",
+        cohort: "Product Design",
+        x: t,
+        y: diffProduct,
+      });
+      supplyData.push({
+        key: "Total Supply Differential (Unstacked)",
+        cohort: "Ecosystem Grant",
+        x: t,
+        y: diffGrant,
+      });
+      supplyData.push({
+        key: "Total Supply Differential (Unstacked)",
+        cohort: "pKlima Holders",
+        x: t,
+        y: diffPKlima,
+      });
+      supplyData.push({
+        key: "Total Supply Differential (Unstacked)",
+        cohort: "DAO/Treasury",
+        x: t,
+        y: diffTreasury,
+      });
+      supplyData.push({
+        key: "Total Supply Differential (Unstacked)",
+        cohort: "01X",
+        x: t,
+        y: diff01X,
+      });
+    }
+  }
+
+  const vecNextYearIncentives = vecSupplyIncentives.map((val, t) =>
+    vecSupplyIncentives[t + 12] - val);
+  const vecAPY = vecSupplyCirculating.map((val, t) =>
+    100 * (vecSupplyCirculating[t + 12] - val) / val);
+  const vecAPR = vecSupplyCirculating.map((val, t) =>
+    100 * (vecSupplyCirculating[t + 12] - vecNextYearIncentives[t] - val) / val);
+
+  for (let t = 0; t <= 60; t++) {
+    supplyData.push({ key: "APY", x: t, y: vecAPY[t] });
+    supplyData.push({ key: "APR", x: t, y: vecAPR[t] });
+  }
+  return [
+    vecSupplyIncentives,
+    vecSupplyCirculating,
+    supplyData,
+    vecAPY,
+    vecAPR,
+  ];
+}
+vecSupplyIncentives = supplyDataAll[0];
+vecSupplyCirculating = supplyDataAll[1];
+supplyData = supplyDataAll[2];
+vecAPY = supplyDataAll[3];
+vecAPR = supplyDataAll[4];
+
+getLogisticCurve = d => d.key === "Proportion of Supply" ? d.y : NaN;
+getRateOfChange = d => d.key === "Rate of Change" ? d.y : NaN;
+getCirculatingStacked = d =>
+        d.key === "Circulating Supply (Stacked)" ? d.y : NaN;
+getCirculatingUnstacked = d =>
+        d.key === "Circulating Supply (Unstacked)" ? d.y : NaN;
+getTotalStacked = d => d.key === "Total Supply (Stacked)" ? d.y : NaN;
+getTotalUnstacked = d => d.key === "Total Supply (Unstacked)" ? d.y : NaN;
+getDiffUnstacked = d =>
+        d.key === "Total Supply Differential (Unstacked)" ? d.y : NaN;
+getCohortCirculatingStacked = d =>
+        d.key === "Circulating Supply (Stacked)" ? d.cohort : NaN;
+getCohortCirculatingUnstacked = d =>
+        d.key === "Circulating Supply (Unstacked)" ? d.cohort : NaN;
+getCohortTotalStacked = d =>
+        d.key === "Total Supply (Stacked)" ? d.cohort : NaN;
+getCohortTotalUnstacked = d =>
+        d.key === "Total Supply (Unstacked)" ? d.cohort : NaN;
+getCohortDiffUnstacked = d =>
+        d.key === "Total Supply Differential (Unstacked)" ? d.cohort : NaN;
+getAPY = d => d.key === "APY" ? d.y : NaN;
+getAPR = d => d.key === "APR" ? d.y : NaN;
+
+domainRateOfChange = [0, d3.max(supplyData, getRateOfChange)];
+scaleRateOfChange = d3.scaleLinear(domainRateOfChange, [0, 100]);
+mapScaleRateOfChange = x => x.map(scaleRateOfChange);
+
+stringP0 = "Initial Issuance P₀ = " + inputP0.toLocaleString(
+  "en-GB",
+  { style: "percent", maximumFractionDigits: 0 },
+);
+stringT = "Inflection Point Time T = " + inputT.toLocaleString(
+  "en-GB",
+  { maximumFractionDigits: 0 },
+) + " months";
+
+supplyParams = [
+  { key: stringP0, x: 0.5, y: 100 * inputP0 },
+  { key: stringT, x: inputT, y: 50 },
+];
+```
+
+```{ojs}
+Plot.plot({
+  color: {
+    legend: true,
+    range: [5, 7, 0, 2].map(i => d3.schemeCategory10[i]),
+    domain: ["Proportion of Supply", "Rate of Change", stringP0, stringT],
+  },
+  x: {
+    ticks: d3.range(0, 60.1, 12),
+    label: "‘Life’ Span (Months)",
+    grid: true,
+  },
+  y: { domain: [0, 100] },
+  insetTop: 16,
+  clip: true,
+  marks: [
+    Plot.frame(),
+    Plot.axisY({ anchor: "left", label: "Proportion of Supply (%)" }),
+    Plot.axisY(scaleRateOfChange.ticks(), {
+      anchor: "right",
+      tickFormat: scaleRateOfChange.tickFormat(),
+      label: "Rate of Change (%/Month)",
+      y: scaleRateOfChange
+    }),
+    Plot.lineY(supplyData, Plot.mapY(mapScaleRateOfChange, {
+      x: "x",
+      y: getRateOfChange,
+      stroke: "key",
+      strokeWidth : 2,
+      strokeDasharray: 4,
+    })),
+    Plot.lineY(supplyData, {
+      x: "x",
+      y: getLogisticCurve,
+      stroke: "key",
+      strokeWidth : 2,
+    }),
+    Plot.areaY(supplyData, Plot.mapY(mapScaleRateOfChange, {
+      x: "x",
+      y: getRateOfChange,
+      fill: "key",
+      fillOpacity: 0.3,
+    })),
+    Plot.areaY(supplyData, {
+      x: "x",
+      y: getLogisticCurve,
+      fill: "key",
+      fillOpacity: 0.3,
+    }),
+    Plot.ruleX(supplyParams, {
+      x: d => d.key === stringT ? d.x : NaN,
+      y: "y",
+      stroke: "key",
+      strokeWidth : 2,
+      strokeDasharray: 4,
+    }),
+    Plot.dotY(supplyParams, {
+      x: "x",
+      y: "y",
+      r: 5,
+      fill: "key",
+    }),
+  ]
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/incentive-issuance.svg)
+:::::
+
+:::
+
+::: {#fig-k2-token-supply-circulating fig-cap="**K2** token circulating supply over time." fig-alt="K2 token circulating supply over time."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+Plot.plot({
+  color: { legend: true, range: d3.schemeCategory10, domain: cohortsDomain },
+  x: { ticks: d3.range(0, 60.1, 12), label: "Time (Months)", grid: true },
+  y: { domain: [0, 100], label: "Circulating Supply (%)", grid: true },
+  clip: true,
+  marks: [
+    Plot.frame(),
+    Plot.lineY(supplyData, {
+      x: "x",
+      y: getCirculatingStacked,
+      stroke: getCohortCirculatingStacked,
+      strokeWidth : 2,
+    }),
+    Plot.areaY(supplyData, {
+      x: "x",
+      y: getCirculatingUnstacked,
+      fill: getCohortCirculatingUnstacked,
+      fillOpacity: 0.5,
+    }),
+  ]
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/k2-token-supply-circulating.svg)
+:::::
+
+:::
+
+::: {#fig-k2-token-supply-total fig-cap="**K2** token total supply over time."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+//| fig-cap: Total supply (stacked).
+Plot.plot({
+  color: { legend: true, range: d3.schemeCategory10, domain: cohortsDomain },
+  x: { ticks: d3.range(0, 60.1, 12), label: "Time (Months)", grid: true },
+  y: { domain: [0, 100], label: "Total Supply (%)", grid: true },
+  clip: true,
+  marks: [
+    Plot.frame(),
+    Plot.lineY(supplyData, {
+      x: "x",
+      y: getTotalStacked,
+      stroke: getCohortTotalStacked,
+      strokeWidth : 2,
+    }),
+    Plot.areaY(supplyData, {
+      x: "x",
+      y: getTotalUnstacked,
+      fill: getCohortTotalUnstacked,
+      fillOpacity: 0.5,
+    }),
+  ]
+})
+```
+
+```{ojs}
+//| fig-cap: Total supply (unstacked).
+Plot.plot({
+  color: { legend: true, range: d3.schemeCategory10, domain: cohortsDomain },
+  x: { ticks: d3.range(0, 60.1, 12), label: "Time (Months)", grid: true },
+  y: { label: "Total Supply (%)", grid: true },
+  insetTop: 16,
+  clip: true,
+  marks: [
+    Plot.frame(),
+    Plot.lineY(supplyData, {
+      x: "x",
+      y: getTotalUnstacked,
+      stroke: getCohortTotalUnstacked,
+      strokeWidth : 2,
+    }),
+    Plot.areaY(supplyData, {
+      x: "x",
+      y1: 0,
+      y2: getTotalUnstacked,
+      fill: getCohortTotalUnstacked,
+      fillOpacity: 0.2,
+    }),
+  ]
+})
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![Total supply (stacked).](figures/k2-token-supply-total-stacked.svg){
+  #fig-k2-token-supply-total-stacked
+  fig-alt="Total Supply (Stacked)."
+}
+
+![Total supply (unstacked).](figures/k2-token-supply-total-unstacked.svg){
+  #fig-k2-token-supply-total-unstacked
+  fig-alt="Total Supply (Unstacked)."
+}
+:::::
+
+:::
+
+::: {#fig-k2-risk-metrics fig-cap="**K2** token supply risk metrics."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+//| fig-cap: Total supply differential (stacked).
+Plot.plot({
+  color: { legend: true, range: d3.schemeCategory10, domain: cohortsDomain },
+  x: { ticks: d3.range(0, 60.1, 12), label: "Time (Months)", grid: true },
+  y: { label: "Rate of Growth (%/Month)", grid: true },
+  insetTop: 16,
+  insetLeft: 8,
+  insetRight: 8,
+  clip: true,
+  marks: [
+    Plot.frame(),
+    Plot.rectY(supplyData, {
+      x1: d => d.x - 0.45,
+      x2: d => d.x + 0.45,
+      y: getDiffUnstacked,
+      fill: getCohortDiffUnstacked,
+    }),
+  ]
+});
+```
+
+```{ojs}
+//| fig-cap: Utility incentive yield.
+Plot.plot({
+  color: {
+    legend: true,
+    range: [9, 8].map(i => d3.schemeCategory10[i]),
+    domain: ["APY", "APR"],
+  },
+  x: { ticks: d3.range(0, 60.1, 12), label: "Time (Months)", grid: true },
+  y: {
+    domain: [0, Math.max(d3.max(vecAPR), d3.max(vecAPY))],
+    label: "Annual Percentage (%)",
+    grid: true,
+  },
+  insetTop: 16,
+  clip: true,
+  marks: [
+    Plot.frame(),
+    Plot.lineY(supplyData, {
+      x: "x",
+      y: getAPY,
+      stroke: "key",
+      strokeWidth : 2,
+    }),
+    Plot.areaY(supplyData, {
+      x: "x",
+      y1: 0,
+      y2: getAPY,
+      fill: "key",
+      fillOpacity: 0.2,
+    }),
+    Plot.lineY(supplyData, {
+      x: "x",
+      y: getAPR,
+      stroke: "key",
+      strokeWidth : 2,
+      strokeDasharray: 4,
+    }),
+  ]
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![Total supply differential (stacked).](figures/k2-risk-metrics-differential.svg){
+  #fig-k2-risk-metrics-differential
+  fig-alt="Total supply differential (stacked)."
+}
+
+![Utility incentive yield.](figures/k2-risk-metrics-yield.svg){
+  #fig-k2-risk-metrics-yield
+  fig-alt="Utility incentive yield."
+}
+:::::
+
+:::
+
+### Incentive Allocations {#sec-incentive-allocations}
+
+::: {#fig-k2-incentive-distribution fig-cap="**K2** token incentive distribution structure." fig-alt="K2 token incentive distribution structure"}
+
+::::: {.content-visible when-format="pdf"}
+![](figures/k2-incentive-distribution.tex)
+:::::
+
+::::: {.content-visible unless-format="pdf"}
+![](figures/k2-incentive-distribution.svg)
+:::::
+
+:::
+
+The **relative utilisation** measurement factor $\upsilon$ is calculated as
+follows.
+
+Defining initially:
+
+- $G$: Total **G** tokens staked expressed as a proportion of the circulating
+supply, $G \in [0, 1]$.
+
+- $L$: Total **G** tokens held in the [**AG**]{
+  .overline
+  .content-visible unless-format="pdf"
+}[$\overline{\textbf{AG}}$]{
+  .content-visible when-format="pdf"
+} pool expressed as a proportion of circulating supply, $L \in (0, 1]$.
+
+Where $\upsilon = 0$ if $G + L = 0$, otherwise:
+
+$$
+\upsilon = \left( \frac{2 G L}{G^2 + L^2} \right)^2
+$$ {#eq-relative-utilisation}
+
+::: {#fig-relative-utilisation fig-cap="Upsilon $\upsilon$ range of values." fig-alt="Upsilon range of values."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeUpsilon(G, L) {
+  if (G === 0 && L === 0) {
+    return 0;
+  } else {
+    return (2 * G * L / (G**2 + L**2))**2;
+  }
+}
+```
+
+```{ojs}
+upsilonData = {
+  const upsilonData = [];
+  for (let paramG = 0; paramG < 1.01; paramG += 0.05) {
+    for (let paramL = 0; paramL < 1.01; paramL += 0.05) {
+      if (paramG + paramL < 1.01) {
+        upsilonData.push({
+          key: "υ",
+          l: paramL,
+          g: paramG,
+          value: computeUpsilon(paramG, paramL),
+        });
+      }
+    }
+  }
+  return upsilonData;
+};
+```
+
+```{ojs}
+Plot.plot({
+  aspectRatio: 1,
+  color: {
+    legend: true,
+    scheme: "Spectral",
+    domain: [0, 1],
+    type: "sequential",
+    label: "Relative Utilisation υ",
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Liquidity L" },
+  y: {
+    ticks: d3.range(0, 1.01, 0.1),
+    domain: [1.025, -0.025],
+    label: "Stake G",
+  },
+  marks: [
+    Plot.frame(),
+    Plot.rect(upsilonData, {
+      x1: d => d.l - 0.025,
+      x2: d => d.l + 0.025,
+      y1: d => d.g - 0.025,
+      y2: d => d.g + 0.025,
+      fill: "value",
+    }),
+    Plot.text(upsilonData, {
+      x: "l",
+      y: "g",
+      text: d => Number.isNaN(d.value) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(
+        d3.scaleSequential([0, 1], d3.interpolateSpectral)(d.value),
+      ),
+    }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/relative-utilisation.svg)
+:::::
+
+:::
+
+The **absolute utilisation** parameter $\eta$ is defined as $\eta = 0$ if
+$G + L = 0$, otherwise:
+
+$$
+\eta = \frac{2 G L}{G (1 - G) + L ( 1 - L)}
+$$ {#eq-absolute-utilisation}
+
+::: {#fig-absolute-utilisation fig-cap="Eta $\eta$ range of values." fig-alt="Eta range of values."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeEta(G, L) {
+  if (G === 0 && L === 0) {
+    return 0;
+  } else {
+    return 2 * G * L / (G * (1 - G) + L * (1 - L));
+  }
+}
+```
+
+```{ojs}
+etaData = {
+  const etaData = [];
+  for (let paramG = 0; paramG < 1.01; paramG += 0.05) {
+    for (let paramL = 0; paramL < 1.01; paramL += 0.05) {
+      if (paramG + paramL < 1.01) {
+        etaData.push({
+          key: "η",
+          l: paramL,
+          g: paramG,
+          value: computeEta(paramG, paramL),
+        });
+      }
+    }
+  }
+  return etaData;
+};
+```
+
+```{ojs}
+Plot.plot({
+  aspectRatio: 1,
+  color: {
+    legend: true,
+    scheme: "Spectral",
+    domain: [0, 1],
+    type: "sequential",
+    label: "Absolute Utilisation η",
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Liquidity L" },
+  y: {
+    ticks: d3.range(0, 1.01, 0.1),
+    domain: [1.025, -0.025],
+    label: "Stake G",
+  },
+  marks: [
+    Plot.frame(),
+    Plot.rect(etaData, {
+      x1: d => d.l - 0.025,
+      x2: d => d.l + 0.025,
+      y1: d => d.g - 0.025,
+      y2: d => d.g + 0.025,
+      fill: "value",
+    }),
+    Plot.text(etaData, {
+      x: "l",
+      y: "g",
+      text: d => Number.isNaN(d.value) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(
+        d3.scaleSequential([0, 1], d3.interpolateSpectral)(d.value),
+      ),
+    }),
+  ],
+});
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/absolute-utilisation.svg)
+:::::
+
+:::
+
+Incentives $I$ are allocated as follows:
+
+#### Treasury
+
+The allocation to the Treasury $I_T$ is the imbalance generated from $\upsilon$:
+
+$$
+I_T = 1 - \upsilon \, \eta
+$$ {#eq-allocation-treasury}
+
+#### Post Treasury
+
+The residual post-treasury allocation is shared four ways within 2 buckets:
+
+1. Time-locked **A** & user-locked **G** tokens
+
+    Where $S$ is the proportion of time-locked **A** tokens&nbsp;(as defined
+    previously in @sec-time-locked-market):
+
+    1. Time-locked **A**, $I_S$:
+
+        $$
+        I_S = S \, \frac{L^2}{G^2 + L^2}
+        $$ {#eq-allocation-locked-a}
+
+    2. User-locked **G**, $I_G$:
+
+        $$
+        I_G = (1 - S) \, \frac{L^2}{G^2 + L^2}
+        $$ {#eq-allocation-locked-g}
+
+2. Liquidity
+
+    With $\lambda_G$, $\lambda_Q$, $\lambda_{GG}$ as defined in
+    @sec-share-of-risk-premium:
+
+    3. [**AG**]{
+      .overline
+      .content-visible unless-format="pdf"
+    }[$\overline{\textbf{AG}}$]{
+      .content-visible when-format="pdf"
+    } pool $I_{AG}$:
+
+        $$
+        I_{AG} = \frac{\lambda_G}{1 - \lambda_{GG}} \, \frac{G^2}{G^2 + L^2}
+        $$ {#eq-allocation-pool-ag}
+
+    4. [**AQ**]{
+      .overline
+      .content-visible unless-format="pdf"
+    }[$\overline{\textbf{AQ}}$]{
+      .content-visible when-format="pdf"
+    } pool $I_{AQ}$:
+
+        $$
+        I_{AQ} = \frac{\lambda_Q}{1 - \lambda_{GG}} \, \frac{G^2}{G^2 + L^2}
+        $$ {#eq-allocation-pool-aq}
+
+::: {#fig-incentives-non-treasury fig-cap="Share of non-treasury incentives $I_S$, $I_G$, $I_{AG}$ and $I_{AQ}$."}
+
+::::: {.content-visible when-format="html"}
+```{ojs}
+function computeTreasury(G, L) {
+  return Math.max(0, 1 - computeUpsilon(G, L) * computeEta(G, L));
+}
+```
+
+```{ojs}
+function computeIBonds(G, L, S) {
+  if (G === 0 && L === 0) {
+    return 0;
+  } else {
+    return S * L**2 / (G**2 + L**2);
+  }
+}
+
+function computeIStaking(G, L, S) {
+  if (G === 0 && L === 0) {
+    return 0;
+  } else {
+    return (1 - S) * L**2 / (G**2 + L**2);
+  }
+}
+```
+
+```{ojs}
+function computeIPool(G, L, weight) {
+  if (G === 0 && L === 0) {
+    return 0;
+  } else {
+    return weight * G**2 / (G**2 + L**2);
+  }
+}
+```
+
+```{ojs}
+allocationSQData = {
+  const allocationSQData = [];
+  for (let paramG = 0; paramG < 1.01; paramG += 0.1) {
+    for (let paramL = 0; paramL < 1.01; paramL += 0.1) {
+      if (paramG + paramL < 1.01) {
+        allocationSQData.push({
+          key: "𝗔 Time-locks Allocation",
+          l: paramL,
+          g: paramG,
+          value: computeIBonds(paramG, paramL, inputS_),
+        });
+        allocationSQData.push({
+          key: "𝗚 User-locks Allocation",
+          l: paramL,
+          g: paramG,
+          value: computeIStaking(paramG, paramL, inputS_),
+        });
+      }
+    }
+  }
+  return allocationSQData;
+};
+```
+
+```{ojs}
+viewof inputS_ = Inputs.range([1, 0], {
+  label: tex`S`,
+  step: 0.01,
+  value: 0.5,
+});
+```
+
+```{ojs}
+//| fig-cap: Time-locked **A** and user-locked **G** allocations.
+plotAllocationSQ = {
+  const plotAllocationSQ = Plot.plot({
+    aspectRatio: 1,
+    color: {
+      legend: true,
+      scheme: "Spectral",
+      domain: [0, 1],
+      type: "sequential",
+      label: "Allocation I",
+    },
+    x: { ticks: d3.range(0, 1.01, 0.1), label: "Liquidity L" },
+    y: {
+      ticks: d3.range(0, 1.01, 0.1),
+      domain: [1.05, -0.05],
+      label: "Stake G",
+    },
+    fx: { label: null },
+    marks: [
+      Plot.frame(),
+      Plot.rect(allocationSQData, {
+        x1: d => d.l - 0.05,
+        x2: d => d.l + 0.05,
+        y1: d => d.g - 0.05,
+        y2: d => d.g + 0.05,
+        fx: "key",
+        fill: "value",
+      }),
+      Plot.text(allocationSQData, {
+        x: "l",
+        y: "g",
+        fx: "key",
+        text: d => Number.isNaN(d.value) ? "" : d.value.toLocaleString(
+          "en-GB",
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+        ),
+        fill: d => contrastingTextColor(
+          d3.scaleSequential([0, 1], d3.interpolateSpectral)(d.value),
+        ),
+      }),
+    ],
+  });
+
+  d3.select(plotAllocationSQ)
+    .select("g[aria-label='y-axis label']")
+    .select("text")
+      .attr("transform", changeTranslation(0, 10));
+
+  return plotAllocationSQ;
+};
+```
+
+```{ojs}
+allocationPoolData = {
+  const allocationPoolData = [];
+  for (let paramG = 0; paramG < 1.01; paramG += 0.1) {
+    for (let paramL = 0; paramL < 1.01; paramL += 0.1) {
+      if (paramG + paramL < 1.01) {
+        allocationPoolData.push({
+          key: "𝗔𝗚 Pool Allocation",
+          l: paramL,
+          g: paramG,
+          value: computeIPool(paramG, paramL, inputWeightAG),
+        });
+        allocationPoolData.push({
+          key: "𝗔𝗤 Pool Allocation",
+          l: paramL,
+          g: paramG,
+          value: computeIPool(paramG, paramL, paramWeightAQ),
+        });
+      }
+    }
+  }
+  return allocationPoolData;
+};
+```
+
+```{ojs}
+viewof inputWeightAG = Inputs.range([1, 0], {
+  label: tex`\text{Coefficient}`,
+  step: 0.01,
+  value: 0.5,
+});
+
+paramWeightAQ = 1 - inputWeightAG;
+```
+
+```{ojs}
+//| fig-cap: Liquidity pools allocations.
+plotAllocationPool = {
+  const plotAllocationPool = Plot.plot({
+    aspectRatio: 1,
+    color: {
+      legend: true,
+      scheme: "Spectral",
+      domain: [0, 1],
+      type: "sequential",
+      label: "Allocation I",
+    },
+    x: { ticks: d3.range(0, 1.01, 0.1), label: "Liquidity L" },
+    y: {
+      ticks: d3.range(0, 1.01, 0.1),
+      domain: [1.05, -0.05],
+      label: "Stake G",
+    },
+    fx: { label: null },
+    marks: [
+      Plot.frame(),
+      Plot.rect(allocationPoolData, {
+        x1: d => d.l - 0.05,
+        x2: d => d.l + 0.05,
+        y1: d => d.g - 0.05,
+        y2: d => d.g + 0.05,
+        fx: "key",
+        fill: "value",
+      }),
+      Plot.text(allocationPoolData, {
+        x: "l",
+        y: "g",
+        fx: "key",
+        text: d => Number.isNaN(d.value) ? "" : d.value.toLocaleString(
+          "en-GB",
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+        ),
+        fill: d => contrastingTextColor(
+          d3.scaleSequential([0, 1], d3.interpolateSpectral)(d.value),
+        ),
+      }),
+    ],
+  });
+
+  d3.select(plotAllocationPool)
+    .select("g[aria-label='y-axis label']")
+    .select("text")
+      .attr("transform", changeTranslation(0, 10));
+
+  return plotAllocationPool;
+};
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![Time-locked **A** and user-locked **G** allocations.](figures/allocation-token-locks.svg){
+  #fig-allocation-token-locks
+  fig-alt="Time-locked A and user-locked G allocations."
+}
+
+![Liquidity pools allocations](figures/allocation-liquidity-pools.svg){
+  #fig-allocation-liquidity-pools
+  fig-alt="Liquidity pools allocations."
+}
+:::::
+
+:::
+
+::: {#fig-incentives-treasury fig-cap="Treasury incentives $I_T$." fig-alt="Treasury incentives."}
+
+::::: {.content-visible when-format="html"}
+
+```{ojs}
+treasuryData = {
+  const treasuryData = [];
+  for (let paramG = 0; paramG < 1.01; paramG += 0.05) {
+    for (let paramL = 0; paramL < 1.01; paramL += 0.05) {
+      if (paramG + paramL < 1.01) {
+        treasuryData.push({
+          key: "I_T",
+          l: paramL,
+          g: paramG,
+          value: computeTreasury(paramG, paramL),
+        });
+      }
+    }
+  }
+  return treasuryData;
+};
+```
+
+```{ojs}
+Plot.plot({
+  aspectRatio: 1,
+  color: {
+    legend: true,
+    scheme: "Spectral",
+    domain: [0, 1],
+    type: "sequential",
+    label: "Allocation I",
+  },
+  x: { ticks: d3.range(0, 1.01, 0.1), label: "Liquidity L" },
+  y: {
+    ticks: d3.range(0, 1.01, 0.1),
+    domain: [1.025, -0.025],
+    label: "Stake G",
+  },
+  marks: [
+    Plot.frame(),
+    Plot.rect(treasuryData, {
+      x1: d => d.l - 0.025,
+      x2: d => d.l + 0.025,
+      y1: d => d.g - 0.025,
+      y2: d => d.g + 0.025,
+      fill: "value",
+    }),
+    Plot.text(treasuryData, {
+      x: "l",
+      y: "g",
+      text: d => Number.isNaN(d.value) ? "" : d.value.toLocaleString(
+        "en-GB",
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+      ),
+      fill: d => contrastingTextColor(
+        d3.scaleSequential([0, 1], d3.interpolateSpectral)(d.value),
+      ),
+    }),
+  ],
+})
+```
+:::::
+
+::::: {.content-visible unless-format="html"}
+![](figures/incentives-treasury.svg)
+:::::
+
+:::

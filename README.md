@@ -1,59 +1,40 @@
-# Klima Protocol White Paper
+# Klima 2.0 White Paper
 
-This is an [Observable Framework](https://observablehq.com/framework/) app. To install the required dependencies, run:
+This repo is to house the canonical Klima 2.0 white paper text in `index.qmd`.
+The goal is to derive sites, docs, PDFs from this canonical .qmd file, while
+using `git` for document version control.
 
-```
-npm install
-```
+This package is powered by Quarto. Quarto makes it possible to derive and export
+a variety of different documents (TeX, PDF, HTML, etc.) from the `index.qmd`
+source file. It also provides tools for modularizing content, embedding
+visualizations, and more.
 
-Then, to start the local preview server, run:
+## Getting Started
 
-```
-npm run dev
-```
+If you want to edit or export these docs, install VS Code, Quarto, and the VS
+Code Quarto Extension.
 
-Then visit <http://localhost:3000> to preview your app.
+https://quarto.org/docs/get-started/
 
-For more, see <https://observablehq.com/framework/getting-started>.
+## Prerequisites / Dependencies
 
-## Project structure
+Install `tinytex` by running `quarto install tinytex`, and install
+`rsvg-convert` by running `sudo apt install -y librsvg2-bin`.
 
-A typical Framework project looks like this:
+## Usage
 
-```ini
-.
-├─ src
-│  ├─ components
-│  │  └─ timeline.js           # an importable module
-│  ├─ data
-│  │  ├─ launches.csv.js       # a data loader
-│  │  └─ events.json           # a static data file
-│  ├─ example-dashboard.md     # a page
-│  ├─ example-report.md        # another page
-│  └─ index.md                 # the home page
-├─ .gitignore
-├─ observablehq.config.js      # the app config file
-├─ package.json
-└─ README.md
+All outputs can be found in the `./out` directory.
+
+**Website Preview with Hot Reload**
+
+```bash
+# Start interactive editing in the browser
+quarto preview
 ```
 
-**`src`** - This is the “source root” — where your source files live. Pages go here. Each page is a Markdown file. Observable Framework uses [file-based routing](https://observablehq.com/framework/project-structure#routing), which means that the name of the file controls where the page is served. You can create as many pages as you like. Use folders to organize your pages.
+**Output All Documents**
 
-**`src/index.md`** - This is the home page for your app. You can have as many additional pages as you’d like, but you should always have a home page, too.
-
-**`src/data`** - You can put [data loaders](https://observablehq.com/framework/data-loaders) or static data files anywhere in your source root, but we recommend putting them here.
-
-**`src/components`** - You can put shared [JavaScript modules](https://observablehq.com/framework/imports) anywhere in your source root, but we recommend putting them here. This helps you pull code out of Markdown files and into JavaScript modules, making it easier to reuse code across pages, write tests and run linters, and even share code with vanilla web applications.
-
-**`observablehq.config.js`** - This is the [app configuration](https://observablehq.com/framework/config) file, such as the pages and sections in the sidebar navigation, and the app’s title.
-
-## Command reference
-
-| Command           | Description                                              |
-| ----------------- | -------------------------------------------------------- |
-| `npm install`            | Install or reinstall dependencies                        |
-| `npm run dev`        | Start local preview server                               |
-| `npm run build`      | Build your static site, generating `./dist`              |
-| `npm run deploy`     | Deploy your app to Observable                            |
-| `npm run clean`      | Clear the local data loader cache                        |
-| `npm run observable` | Run commands like `observable help`                      |
+```bash
+# Outputs html, pdf, and .md to ./out
+quarto render
+```
