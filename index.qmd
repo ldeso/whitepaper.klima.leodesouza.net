@@ -320,7 +320,7 @@ fully autonomous and responds to its own native state of token balances.
 
 ### Tokens {#sec-tokens}
 
-#### Risk Balanced Asset Token: kVCM {#sec-risk-balanced-asset-token-kvcm}
+#### Risk-Balanced Asset Token: kVCM {#sec-risk-balanced-asset-token-kvcm}
 
 **kVCM** represents core ownership of the portfolio assets, and is designed to
 flex between asset and growth value drivers depending on token-holder activity.
