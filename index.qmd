@@ -26,13 +26,13 @@ format:
   fig-align="center"
 }
 
-::::: {.content-visible when-format="pdf"}
-`\minisec{Copyright Notice}`{=latex}
-:::::
-
-::::: {.content-visible unless-format="pdf"}
+::: {.content-visible unless-format="pdf"}
 **Copyright Notice**
-:::::
+:::
+
+::: {.content-visible when-format="pdf"}
+`\minisec{Copyright Notice}`{=latex}
+:::
 
 This document represents original work by dark_sole <ds@darksole.vip>. While
 contributions from others are gratefully acknowledged, all intellectual property
@@ -486,7 +486,7 @@ issuance of **kVCM** tokens upon launch of Klima&nbsp;2.0.
  
  5. **Active Portfolio Optimisation**
 
-    _**K2 and kVCM Asset Selection**: The incentives and allocations are
+    _**K2 and kVCM asset selection**: The incentives and allocations are
     designed for those who wish to participate in overall risk management to
     collectively resolve for the optimal portfolio risks._
 
