@@ -20,8 +20,8 @@ format:
   html:
     css: styles.css
     html-math-method:
-      method: mathjax
-      url: https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-chtml.js
+      method: katex
+      url: https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/
     toc: true
     include-in-header:
       - text: |

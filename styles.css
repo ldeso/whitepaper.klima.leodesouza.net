@@ -9,3 +9,17 @@
 .red {
   color: red;
 }
+
+.quarto-float-tbl {
+  overflow: auto hidden;
+}
+
+.katex-display {
+  overflow: auto hidden;
+  padding: 6px 0;
+}
+
+.katex-display > .katex > .katex-html > .tag {
+  position: relative !important;
+  float: right;
+}
