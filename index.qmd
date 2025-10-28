@@ -2956,14 +2956,14 @@ This additional section is only in the interactive version of the whitepaper. It
 presents an interactive model of the AAM where each parameter of interest can be
 adjusted by the reader.
 
-In @sec-klima-tokens-minted-when-the-aam-purchases-carbon, a Carbon holder sells
+In @sec-kvcm-tokens-minted-when-the-aam-purchases-carbon, a Carbon holder sells
 Carbon to the AAM in exchange for **A** tokens; from the point of view of the
 AAM, this represents a Carbon purchase. In
-@sec-carbon-sold-by-the-aam-when-it-burns-klima-tokens, a holder of **A** tokens
+@sec-carbon-sold-by-the-aam-when-it-burns-kvcm-tokens, a holder of **A** tokens
 burns **A** tokens to buy Carbon from the AAM; from the point of view of the
 AAM, this represents a Carbon sale.
 
-#### KLIMA Tokens Minted When the AAM Purchases Carbon {#sec-klima-tokens-minted-when-the-aam-purchases-carbon}
+#### kVCM Tokens Minted When the AAM Purchases Carbon {#sec-kvcm-tokens-minted-when-the-aam-purchases-carbon}
 
 In this section, the reader controls how many present-value tonnes of Carbon
 class $i$ are purchased by the AAM. The number of **A** tokens emitted in
@@ -3071,7 +3071,7 @@ stringASupply = inputASupply.toLocaleString(
     minimumFractionDigits: Math.max(0, 2 - numDigits(paramAEmitted)),
     maximumFractionDigits: Math.max(0, 2 - numDigits(paramAEmitted)),
   },
-) + " KLIMA";
+) + " kVCM";
 stringPresentTonnes = inputPresentTonnes.toLocaleString(
   "en-GB",
   {
@@ -3085,7 +3085,7 @@ stringAEmitted = "+" + paramAEmitted.toLocaleString(
     minimumSignificantDigits: Math.max(2, numDigits(paramAEmitted)),
     maximumSignificantDigits: Math.max(2, numDigits(paramAEmitted)),
   },
-) + " KLIMA";
+) + " kVCM";
 stringDeltaTonnes = "+" + paramDeltaTonnes.toLocaleString(
   "en-GB",
   {
@@ -3122,7 +3122,7 @@ stringBarCiPrice = "$" + paramBarCiPrice.toLocaleString(
 
 :::::
 
-#### Carbon Sold by the AAM When it Burns KLIMA Tokens {#sec-carbon-sold-by-the-aam-when-it-burns-klima-tokens}
+#### Carbon Sold by the AAM When it Burns kVCM Tokens {#sec-carbon-sold-by-the-aam-when-it-burns-kvcm-tokens}
 
 In this section, the reader controls how many **A** tokens are burnt by the AAM.
 The number of liquid tonnes of Carbon class $i$ sold by the AAM in exchange is
@@ -3215,7 +3215,7 @@ stringASupply_ = inputASupply_.toLocaleString(
     minimumFractionDigits: Math.max(0, 2 - numDigits(paramABurnt)),
     maximumFractionDigits: Math.max(0, 2 - numDigits(paramABurnt)),
   },
-) + " KLIMA";
+) + " kVCM";
 stringLiquidTonnes = inputLiquidTonnes.toLocaleString(
   "en-GB",
   {
@@ -3229,7 +3229,7 @@ stringABurnt = "−" + paramABurnt.toLocaleString(
     minimumSignificantDigits: Math.max(2, numDigits(paramABurnt)),
     maximumSignificantDigits: Math.max(2, numDigits(paramABurnt)),
   },
-) + " KLIMA";
+) + " kVCM";
 stringDeltaCiTonnes = "−" + paramDeltaCiTonnes.toLocaleString(
   "en-GB",
   {
