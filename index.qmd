@@ -2167,7 +2167,7 @@ Inputs.bind(
     step: 0.001,
     value: 0.1,
   }),
-  viewof inputDeltaCinitial
+  viewof inputDeltaCinitial,
 );
 ```
 :::::
@@ -2947,6 +2947,326 @@ $t$:
 
 Thereafter each time bucket allocation is proportionate to staked liquidity
 provider token holdings.
+
+::: {.content-visible when-format="html"}
+
+### Interactive Model {#sec-interactive-model}
+
+This additional section is only in the interactive version of the whitepaper. It
+presents an interactive model of the AAM where each parameter of interest can be
+adjusted by the reader.
+
+In @sec-klima-tokens-minted-when-the-aam-purchases-carbon, a Carbon holder sells
+Carbon to the AAM in exchange for **A** tokens; from the point of view of the
+AAM, this represents a Carbon purchase. In
+@sec-carbon-sold-by-the-aam-when-it-burns-klima-tokens, a holder of **A** tokens
+burns **A** tokens to buy Carbon from the AAM; from the point of view of the
+AAM, this represents a Carbon sale.
+
+#### KLIMA Tokens Minted When the AAM Purchases Carbon {#sec-klima-tokens-minted-when-the-aam-purchases-carbon}
+
+In this section, the reader controls how many present-value tonnes of Carbon
+class $i$ are purchased by the AAM. The number of **A** tokens emitted in
+exchange is calculated in real time. The price of Carbon class $i$ is calculated
+by dividing the number of **A** tokens emitted by the AAM by the number of
+present-value tonnes of Carbon class $i$ purchased by the AAM.
+
+::::: {.panel-sidebar}
+```{ojs}
+function piecewiseLogTransform(xTran = 1) {
+  return x => x > xTran ? Math.log(x) : x - xTran + Math.log(xTran);
+}
+
+function piecewiseLogInvert(xTran = 1) {
+  return y => y > Math.log(xTran) ? Math.exp(y) : y - Math.log10(xTran) + xTran;
+}
+
+function setInput(input, value) {
+  input.value = value;
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+}
+
+function numDigits(x) {
+  return x === 0 ? 1 : (1 + Math.floor(Math.log10(x)));
+}
+```
+
+```{ojs}
+defaultAValue = 2e6;
+defaultASupply = 2e7;
+defaultPresentTonnes = 1e7;
+defaultDeltaTonnes = 1e2;
+defaultAi = 0.5;
+defaultGi = 0.5;
+```
+
+```{ojs}
+Inputs.button(
+  [["Reset", () => {
+    setInput(viewof inputAValue, defaultAValue);
+    setInput(viewof inputASupply, defaultASupply);
+    setInput(viewof inputPresentTonnes, defaultPresentTonnes);
+    setInput(viewof inputDeltaTonnes, defaultDeltaTonnes);
+    setInput(viewof inputAi, defaultAi);
+    setInput(viewof inputGi, defaultGi);
+  }]],
+);
+```
+
+```{ojs}
+viewof inputAValue = Inputs.range([1e5, 1e9], {
+  label: tex`\text{Market cap. of \textbf{A}}`,
+  step: 1,
+  value: defaultAValue,
+  transform: Math.log,
+});
+viewof inputASupply = Inputs.range([1e6, 1e10], {
+  label: tex`\text{Supply of \textbf{A}}`,
+  step: 1,
+  value: defaultASupply,
+  transform: Math.log,
+});
+viewof inputPresentTonnes = Inputs.range([0, 1e9], {
+  label: tex`\text{Portfolio } \bar C_i`,
+  step: 1e-3,
+  value: defaultPresentTonnes,
+  transform: piecewiseLogTransform(1e-3),
+  invert: piecewiseLogInvert(1e-3),
+});
+viewof inputDeltaTonnes = Inputs.range([1e-3, 1e7], {
+  label: tex`\text{Purchased tonnes}`,
+  step: 1e-3,
+  value: defaultDeltaTonnes,
+  transform: Math.log,
+});
+viewof inputAi = Inputs.range([0, 1], {
+  label: tex`\text{Allocation } A_i`,
+  step: 1e-6,
+  value: defaultAi,
+  transform: piecewiseLogTransform(1e-6),
+  invert: piecewiseLogInvert(1e-6),
+});
+viewof inputGi = Inputs.range([0, 1], {
+  label: tex`\text{Allocation } G_i`,
+  step: 1e-6,
+  value: defaultGi,
+});
+```
+
+```{ojs}
+paramDeltaA = computeTrueDeltaA(
+  inputAi,
+  inputGi,
+  inputPresentTonnes,
+  inputDeltaTonnes,
+);
+paramDeltaTonnes = paramDeltaA === 0 ? 0 : inputDeltaTonnes;
+paramAEmitted = paramDeltaA * inputASupply;
+paramAPrice = inputAValue / inputASupply;
+paramBarCiPrice = inputAValue * paramDeltaA / inputDeltaTonnes;
+
+stringASupply = inputASupply.toLocaleString(
+  "en-GB",
+  {
+    minimumFractionDigits: Math.max(0, 2 - numDigits(paramAEmitted)),
+    maximumFractionDigits: Math.max(0, 2 - numDigits(paramAEmitted)),
+  },
+) + " KLIMA";
+stringPresentTonnes = inputPresentTonnes.toLocaleString(
+  "en-GB",
+  {
+    minimumFractionDigits: Math.max(0, 3 - numDigits(paramDeltaTonnes)),
+    maximumFractionDigits: Math.max(0, 3 - numDigits(paramDeltaTonnes)),
+  },
+) + " tCO2eq";
+stringAEmitted = "+" + paramAEmitted.toLocaleString(
+  "en-GB",
+  {
+    minimumSignificantDigits: Math.max(2, numDigits(paramAEmitted)),
+    maximumSignificantDigits: Math.max(2, numDigits(paramAEmitted)),
+  },
+) + " KLIMA";
+stringDeltaTonnes = "+" + paramDeltaTonnes.toLocaleString(
+  "en-GB",
+  {
+    minimumSignificantDigits: Math.max(3, numDigits(paramDeltaTonnes)),
+    maximumSignificantDigits: Math.max(3, numDigits(paramDeltaTonnes)),
+  },
+) + " tCO2eq";
+stringAPrice = "$" + paramAPrice.toLocaleString(
+  "en-GB",
+  {
+    minimumSignificantDigits: Math.max(2, 2 + numDigits(paramAPrice)),
+    maximumSignificantDigits: Math.max(2, 2 + numDigits(paramAPrice)),
+  },
+);
+stringBarCiPrice = "$" + paramBarCiPrice.toLocaleString(
+  "en-GB",
+  {
+    minimumSignificantDigits: Math.max(2, 2 + numDigits(paramBarCiPrice)),
+    maximumSignificantDigits: Math.max(2, 2 + numDigits(paramBarCiPrice)),
+  },
+);
+```
+:::::
+
+::::: {.panel-fill}
+
+|                | Supply of **A** Tokens | Portfolio Carbon       |
+|----------------|-----------------------:|-----------------------:|
+| **Total**      | ${stringASupply}       | ${stringPresentTonnes} |
+| **Variation**  | ${stringAEmitted}      | ${stringDeltaTonnes}   |
+| **Unit Price** | ${stringAPrice}        | ${stringBarCiPrice}    |
+
+: {tbl-colwidths="[20,40,40]"}
+
+:::::
+
+#### Carbon Sold by the AAM When it Burns KLIMA Tokens {#sec-carbon-sold-by-the-aam-when-it-burns-klima-tokens}
+
+In this section, the reader controls how many **A** tokens are burnt by the AAM.
+The number of liquid tonnes of Carbon class $i$ sold by the AAM in exchange is
+calculated in real time. The price of Carbon is calculated by dividing the
+number of **A** tokens burnt by the AAM by the number of liquid tonnes of Carbon
+class $i$ sold by the AAM.
+
+::::: {.panel-sidebar}
+```{ojs}
+defaultLiquidTonnes = 1e7;
+defaultABurnt = 1e2;
+defaultGnull = 0.5;
+defaultA = 0.5;
+defaultS = 0.5;
+```
+
+```{ojs}
+Inputs.button(
+  [["Reset", () => {
+    setInput(viewof inputAValue_, defaultAValue);
+    setInput(viewof inputASupply_, defaultASupply);
+    setInput(viewof inputLiquidTonnes, defaultLiquidTonnes);
+    setInput(viewof inputABurnt, defaultABurnt);
+    setInput(viewof inputAi, defaultAi);
+    setInput(viewof inputGi, defaultGi);
+  }]],
+);
+```
+
+```{ojs}
+viewof inputAValue_ = Inputs.range([1e5, 1e9], {
+  label: tex`\text{Market cap. of \textbf{A}}`,
+  step: 1,
+  value: defaultAValue,
+  transform: Math.log,
+});
+viewof inputASupply_ = Inputs.range([1e6, 1e10], {
+  label: tex`\text{Supply of \textbf{A}}`,
+  step: 1,
+  value: defaultASupply,
+  transform: Math.log,
+});
+viewof inputLiquidTonnes = Inputs.range([1e-3, 1e9], {
+  label: tex`\text{Portfolio } C_{i0}`,
+  step: 1e-3,
+  value: defaultLiquidTonnes,
+  transform: Math.log,
+});
+viewof inputABurnt = Inputs.range([1e-1, 1e6], {
+  label: tex`\text{\textbf{A} tokens burnt}`,
+  step: 1e-1,
+  value: defaultABurnt,
+  transform: Math.log,
+});
+Inputs.bind(
+  Inputs.range([0, 1], {
+    label: tex`\text{Allocation } A_i`,
+    step: 1e-6,
+    value: defaultAi,
+    transform: piecewiseLogTransform(1e-6),
+    invert: piecewiseLogInvert(1e-6),
+  }),
+  viewof inputAi,
+);
+Inputs.bind(
+  Inputs.range([0, 1], {
+    label: tex`\text{Allocation } G_i`,
+    step: 1e-6,
+    value: defaultGi,
+  }),
+  viewof inputGi,
+);
+```
+
+```{ojs}
+paramABurnt = inputAi === 0 ? 0 : inputABurnt
+paramDeltaA_ = paramABurnt / inputASupply_;
+paramDeltaCi = inputAi === 0 ? -0 : computeDeltaCi(
+  inputAi,
+  inputGi,
+  paramDeltaA_,
+);
+paramDeltaCiTonnes = -paramDeltaCi * inputLiquidTonnes;
+paramAPrice_ = inputAValue_ / inputASupply_;
+paramCiPrice = inputAi === 0 ? 0 : inputAValue_ * paramDeltaA_ / paramDeltaCiTonnes;
+
+stringASupply_ = inputASupply_.toLocaleString(
+  "en-GB",
+  {
+    minimumFractionDigits: Math.max(0, 2 - numDigits(paramABurnt)),
+    maximumFractionDigits: Math.max(0, 2 - numDigits(paramABurnt)),
+  },
+) + " KLIMA";
+stringLiquidTonnes = inputLiquidTonnes.toLocaleString(
+  "en-GB",
+  {
+    minimumFractionDigits: Math.max(0, 2 - numDigits(paramDeltaCiTonnes)),
+    maximumFractionDigits: Math.max(0, 2 - numDigits(paramDeltaCiTonnes)),
+  },
+) + " tCO2eq";
+stringABurnt = "−" + paramABurnt.toLocaleString(
+  "en-GB",
+  {
+    minimumSignificantDigits: Math.max(2, numDigits(paramABurnt)),
+    maximumSignificantDigits: Math.max(2, numDigits(paramABurnt)),
+  },
+) + " KLIMA";
+stringDeltaCiTonnes = "−" + paramDeltaCiTonnes.toLocaleString(
+  "en-GB",
+  {
+    minimumSignificantDigits: Math.max(2, numDigits(paramDeltaCiTonnes)),
+    maximumSignificantDigits: Math.max(2, numDigits(paramDeltaCiTonnes)),
+  },
+) + " tCO2eq";
+stringAPrice_ = "$" + paramAPrice_.toLocaleString(
+  "en-GB",
+  {
+    minimumSignificantDigits: Math.max(2, 2 + numDigits(paramAPrice_)),
+    maximumSignificantDigits: Math.max(2, 2 + numDigits(paramAPrice_)),
+  },
+);
+stringCiPrice = "$" + paramCiPrice.toLocaleString(
+  "en-GB",
+  {
+    minimumSignificantDigits: Math.max(2, 2 + numDigits(paramCiPrice)),
+    maximumSignificantDigits: Math.max(2, 2 + numDigits(paramCiPrice)),
+  },
+);
+```
+:::::
+
+::::: {.panel-fill}
+
+|                | Supply of **A** Tokens | Portfolio Carbon       |
+|----------------| ----------------------:| ----------------------:|
+| **Total**      | ${stringASupply_}      | ${stringLiquidTonnes}  |
+| **Variation**  | ${stringABurnt}        | ${stringDeltaCiTonnes} |
+| **Unit Price** | ${stringAPrice_}       | ${stringCiPrice}       |
+
+: {tbl-colwidths="[20,40,40]"}
+
+:::::
+
+:::
 
 ## Klima&nbsp;2.0 Token Distribution {#sec-klima-2.0-token-distribution}
 
