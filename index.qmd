@@ -715,9 +715,30 @@ $$
 R = \sum_{t=1}^{40} \Delta S_t
 $$ {#eq-inflation}
 
-::: {#fig-time-locked-market-state fig-cap="Example of a Time-Locked Market state."}
+::: {.panel-sidebar}
 
 ::::: {.content-visible when-format="html"}
+```{ojs}
+viewof inputS = Inputs.range([1e-4, 1], {
+  label: tex`S`,
+  step: 1e-4,
+  value: 0.55,
+});
+viewof inputD = Inputs.range([0.25, 10], {
+  label: tex`D`,
+  step: 0.01,
+  value: 4.69,
+});
+```
+:::::
+
+:::
+
+::: {.panel-fill}
+
+::::: {#fig-time-locked-market-state fig-cap="Example of a Time-Locked Market state."}
+
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 function constAreaLinear(range, area, inputSlope, slopeFactor = 0.007) {
   if (range.length === 1) {
@@ -954,19 +975,6 @@ Plot.plot({
 ```
 
 ```{ojs}
-viewof inputS = Inputs.range([1e-4, 1], {
-  label: tex`S`,
-  step: 1e-4,
-  value: 0.55,
-});
-viewof inputD = Inputs.range([0.25, 10], {
-  label: tex`D`,
-  step: 0.01,
-  value: 4.69,
-});
-```
-
-```{ojs}
 //| fig-cap: Discount rate.
 Plot.plot({
   color: {
@@ -1005,9 +1013,9 @@ Plot.plot({
   ],
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![Yield (Total Stake = 55.00%, Inflation = 1.75%).](figures/time-locked-market-state-yield.svg){
   #fig-time-locked-market-state-yield
   fig-alt="Yield (Total Stake = 55.00%, Inflation = 1.75%)."
@@ -1017,6 +1025,8 @@ Plot.plot({
   #fig-time-locked-market-state-discount-rate
   fig-alt="Discount rate."
 }
+:::::::
+
 :::::
 
 :::
@@ -1240,7 +1250,9 @@ $$
 \bar C_i = C_{i0} + \sum_{t=1}^{40} B_t \, C_{it}
 $$ {#eq-present-value-carbon}
 
-::: {.content-visible when-format="html"}
+::: {.panel-sidebar}
+
+::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputCi0 = Inputs.range([0, 1], {
   label: tex`C_{i0}`,
@@ -1251,11 +1263,15 @@ viewof inputLiqShape = Inputs.range([-1, 1], {
   step: 1e-3,
 });
 ```
+:::::
+
 :::
 
-::: {#fig-carbon-held-in-the-aam fig-cap="Carbon held in the portfolio." fig-alt="Carbon held in the portfolio."}
+::: {.panel-fill}
 
-::::: {.content-visible when-format="html"}
+::::: {#fig-carbon-held-in-the-aam fig-cap="Carbon held in the portfolio." fig-alt="Carbon held in the portfolio."}
+
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 vecCi = constAreaLinear(vecE, 1 - inputCi0, inputLiqShape, 0.01);
 
@@ -1332,10 +1348,12 @@ Plot.plot({
   ],
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![](figures/carbon-held-in-the-aam.svg)
+:::::::
+
 :::::
 
 :::
@@ -1350,7 +1368,9 @@ $$ {#eq-present-value-carbon-change}
 Once standardised by the discount curve, trades can be aggregated in the same
 class for the defined trade or auction period.
 
-::: {.content-visible when-format="html"}
+::: {.panel-sidebar}
+
+::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputDeltaCi = Inputs.range([0, 1], {
   label: tex`\Delta C_i`,
@@ -1363,11 +1383,15 @@ viewof inputEt = Inputs.range([0, 10], {
   value: 6,
 });
 ```
+:::::
+
 :::
 
-::: {#fig-carbon-bought-by-the-aam fig-cap="Carbon bought by the Portfolio Manager." fig-alt="Carbon bought by the Portfolio Manager."}
+::: {.panel-fill}
 
-::::: {.content-visible when-format="html"}
+::::: {#fig-carbon-bought-by-the-aam fig-cap="Carbon bought by the Portfolio Manager." fig-alt="Carbon bought by the Portfolio Manager."}
+
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 function computeDeltaCi0(deltaCi, t) {
   return t === 0 ? deltaCi : 0;
@@ -1466,10 +1490,12 @@ Plot.plot({
   ],
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![](figures/carbon-bought-by-the-aam.svg)
+:::::::
+
 :::::
 
 :::
@@ -1497,9 +1523,25 @@ token quantities.
 initial portfolio pricing of the **A** token. The data has been normalised in
 @fig-a-price-curves-normalised to $\Delta \bar C_i \, A_i$.
 
-::: {#fig-a-price-curves fig-cap="**A** price curves ($\Delta A$)." fig-alt="A price curves."}
+::: {.panel-sidebar}
 
 ::::: {.content-visible when-format="html"}
+```{ojs}
+viewof inputDeltaBarCi = Inputs.range([0.01, 1], {
+  label: tex`\Delta \bar C_i`,
+  step: 0.01,
+  value: 1,
+});
+```
+:::::
+
+:::
+
+::: {.panel-fill}
+
+::::: {#fig-a-price-curves fig-cap="**A** price curves ($\Delta A$)." fig-alt="A price curves."}
+
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 function computeDeltaA(Ai, Gi, deltaCi) {
   return Math.expm1((Ai - (Ai**2 * (1 - Gi)**2 / 2)) * Math.log1p(deltaCi));
@@ -1588,27 +1630,17 @@ Plot.plot({
   ],
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![](figures/a-price-curves.svg)
+:::::::
+
 :::::
 
-:::
+::::: {#fig-a-price-curves-normalised fig-cap="Normalised **A** price curves." fig-alt="Normalised A price curves."}
 
-::: {.content-visible when-format="html"}
-```{ojs}
-viewof inputDeltaBarCi = Inputs.range([0.01, 1], {
-  label: tex`\Delta \bar C_i`,
-  step: 0.01,
-  value: 1,
-});
-```
-:::
-
-::: {#fig-a-price-curves-normalised fig-cap="Normalised **A** price curves." fig-alt="Normalised A price curves."}
-
-::::: {.content-visible when-format="html"}
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 Plot.plot({
   color: {
@@ -1648,10 +1680,12 @@ Plot.plot({
   ],
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![](figures/a-price-curves-normalised.svg)
+:::::::
+
 :::::
 
 :::
@@ -1676,9 +1710,26 @@ $$
   \left( A_\emptyset - \frac{A_\emptyset^2 (1 - G_\emptyset)^2}{2} \right)^2
 $$ {#eq-a-change-zero-carbon}
 
-::: {#fig-a-price-curves-zero-carbon fig-cap="**A** price curves ($\Delta A$) in the zero carbon scenario." fig-alt="A price curves in the zero carbon scenario."}
+::: {.panel-sidebar}
 
 ::::: {.content-visible when-format="html"}
+```{ojs}
+viewof inputDeltaBarCnull = Inputs.range([1e-1, 1e5], {
+  label: tex`\Delta \bar C_\emptyset`,
+  step: 1e-1,
+  value: 1e2,
+  transform: Math.log,
+});
+```
+:::::
+
+:::
+
+::: {.panel-fill}
+
+::::: {#fig-a-price-curves-zero-carbon fig-cap="**A** price curves ($\Delta A$) in the zero carbon scenario." fig-alt="A price curves in the zero carbon scenario."}
+
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 function computeZeroCarbonDeltaA(Ai, Gi, deltaCnull) {
   return (deltaCnull / (1 + deltaCnull)) * (Ai - (Ai**2 * (1 - Gi)**2 / 2))**2;
@@ -1781,28 +1832,17 @@ Plot.plot({
   ],
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![](figures/a-price-curves-zero-carbon.svg)
+:::::::
+
 :::::
 
-:::
+::::: {#fig-a-price-curves-zero-carbon-normalised fig-cap="Normalised **A** price curves in the zero carbon scenario." fig-alt="Normalised A price curves in the zero carbon scenario."}
 
-::: {.content-visible when-format="html"}
-```{ojs}
-viewof inputDeltaBarCnull = Inputs.range([1e-1, 1e5], {
-  label: tex`\Delta \bar C_\emptyset`,
-  step: 1e-1,
-  value: 1e2,
-  transform: Math.log,
-});
-```
-:::
-
-::: {#fig-a-price-curves-zero-carbon-normalised fig-cap="Normalised **A** price curves in the zero carbon scenario." fig-alt="Normalised A price curves in the zero carbon scenario."}
-
-::::: {.content-visible when-format="html"}
+::::::: {.content-visible when-format="html"}
 
 ```{ojs}
 Plot.plot({
@@ -1845,10 +1885,12 @@ Plot.plot({
   ],
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![](figures/a-price-curves-zero-carbon-normalised.svg)
+:::::::
+
 :::::
 
 :::
@@ -1876,7 +1918,9 @@ $$
 \Delta C_i = \exp(\mathsf{RHS}) - 1
 $$ {#eq-carbon-change}
 
-::: {.content-visible when-format="html"}
+::: {.panel-sidebar}
+
+::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputDeltaA = Inputs.range([0.001, 0.999], {
   label: tex`\Delta A`,
@@ -1884,11 +1928,15 @@ viewof inputDeltaA = Inputs.range([0.001, 0.999], {
   value: 0.1,
 });
 ```
+:::::
+
 :::
 
-::: {#fig-proportion-of-carbon-retired fig-cap="Proportion of carbon retired." fig-alt="Proportion of carbon retired."}
+::: {.panel-fill}
 
-::::: {.content-visible when-format="html"}
+::::: {#fig-proportion-of-carbon-retired fig-cap="Proportion of carbon retired." fig-alt="Proportion of carbon retired."}
+
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 function computeDeltaCi(Ai, Gi, deltaA) {
   return Math.expm1(-Math.log1p(deltaA) / (Ai + (Ai**2 * (1 - Gi)**2 / 2)));
@@ -1962,10 +2010,12 @@ Plot.plot({
   ],
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![](figures/proportion-of-carbon-retired.svg)
+:::::::
+
 :::::
 
 :::
@@ -1988,7 +2038,9 @@ post-trade are distributed to all **G** token holders.
 @fig-carbon-spread below shows the spread captured on a 'round trip' by the
 system where $\varepsilon$ is the proportion retained:
 
-::: {.content-visible when-format="html"}
+::: {.panel-sidebar}
+
+::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputDeltaCinitial = Inputs.range([0.001, 1], {
   label: tex`\Delta C`,
@@ -1996,11 +2048,15 @@ viewof inputDeltaCinitial = Inputs.range([0.001, 1], {
   value: 0.1,
 });
 ```
+:::::
+
 :::
 
-::: {#fig-carbon-spread fig-cap="Carbon ‘spread’." fig-alt="Carbon spread."}
+::: {.panel-fill}
 
-::::: {.content-visible when-format="html"}
+::::: {#fig-carbon-spread fig-cap="Carbon ‘spread’." fig-alt="Carbon spread."}
+
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 function computeSpread(Ai, Gi, deltaCinitial) {
   const deltaA = computeDeltaA(Ai, Gi, deltaCinitial);
@@ -2088,10 +2144,12 @@ Plot.plot({
   ],
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![](figures/carbon-spread.svg)
+:::::::
+
 :::::
 
 :::
@@ -2099,9 +2157,28 @@ Plot.plot({
 @fig-carbon-spread-components shows the component 'spread' contributions on a
 carbon sale and purchase round trip of a carbon offset certificate.
 
-::: {#fig-carbon-spread-components fig-cap="Carbon ‘spread’ components."}
+::: {.panel-sidebar}
 
 ::::: {.content-visible when-format="html"}
+```{ojs}
+Inputs.bind(
+  Inputs.range([0.001, 1], {
+    label: tex`\Delta C`,
+    step: 0.001,
+    value: 0.1,
+  }),
+  viewof inputDeltaCinitial
+);
+```
+:::::
+
+:::
+
+::: {.panel-fill}
+
+::::: {#fig-carbon-spread-components fig-cap="Carbon ‘spread’ components."}
+
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 //|fig-cap: Carbon ‘spread’ component ΔA.
 Plot.plot({
@@ -2191,9 +2268,9 @@ Plot.plot({
   ],
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![Carbon ‘spread’ component $\Delta A$.](figures/carbon-spread-component-delta-a.svg){
   #fig-carbon-spread-component-delta-a
   fig-alt="Carbon Spread Component Delta A."
@@ -2203,6 +2280,8 @@ Plot.plot({
   #fig-carbon-spread-component-delta-c
   fig-alt="Carbon Spread Component Delta C."
 }
+:::::::
+
 :::::
 
 :::
@@ -2991,7 +3070,15 @@ $$ {#eq-incentives-issuance-curve}
 
 ::: {.content-visible when-format="html"}
 $P_0$ set at ${stringInputP0} and $T$ at ${stringInputT} months:
+:::
 
+::: {.content-visible unless-format="html"}
+$P_0$ set at 7% and $T$ at 24 months:
+:::
+
+::: {.panel-sidebar}
+
+::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputP0 = Inputs.range([0.01, 0.5], {
   label: tex`P_0`,
@@ -3010,15 +3097,15 @@ stringInputP0 = inputP0.toLocaleString(
 );
 stringInputT = inputT.toLocaleString("en-GB", { maximumFractionDigits: 0 });
 ```
+:::::
+
 :::
 
-::: {.content-visible unless-format="html"}
-$P_0$ set at 7% and $T$ at 24 months:
-:::
+::: {.panel-fill}
 
-::: {#fig-incentive-issuance fig-cap="Incentive Issuance" fig-alt="Incentive Issuance."}
+::::: {#fig-incentive-issuance fig-cap="Incentive Issuance" fig-alt="Incentive Issuance."}
 
-::::: {.content-visible when-format="html"}
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 function computeP(t, P0, T) {
   const x0 = Math.log(P0 / (1 - P0));
@@ -3463,17 +3550,17 @@ Plot.plot({
   ]
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![](figures/incentive-issuance.svg)
+:::::::
+
 :::::
 
-:::
+::::: {#fig-k2-token-supply-circulating fig-cap="**K2** token circulating supply over time." fig-alt="K2 token circulating supply over time."}
 
-::: {#fig-k2-token-supply-circulating fig-cap="**K2** token circulating supply over time." fig-alt="K2 token circulating supply over time."}
-
-::::: {.content-visible when-format="html"}
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 Plot.plot({
   color: { legend: true, range: d3.schemeCategory10, domain: cohortsDomain },
@@ -3497,17 +3584,17 @@ Plot.plot({
   ]
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![](figures/k2-token-supply-circulating.svg)
+:::::::
+
 :::::
 
-:::
+::::: {#fig-k2-token-supply-total fig-cap="**K2** token total supply over time."}
 
-::: {#fig-k2-token-supply-total fig-cap="**K2** token total supply over time."}
-
-::::: {.content-visible when-format="html"}
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 //| fig-cap: Total supply (stacked).
 Plot.plot({
@@ -3559,9 +3646,9 @@ Plot.plot({
   ]
 })
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![Total supply (stacked).](figures/k2-token-supply-total-stacked.svg){
   #fig-k2-token-supply-total-stacked
   fig-alt="Total Supply (Stacked)."
@@ -3571,13 +3658,13 @@ Plot.plot({
   #fig-k2-token-supply-total-unstacked
   fig-alt="Total Supply (Unstacked)."
 }
+:::::::
+
 :::::
 
-:::
+::::: {#fig-k2-risk-metrics fig-cap="**K2** token supply risk metrics."}
 
-::: {#fig-k2-risk-metrics fig-cap="**K2** token supply risk metrics."}
-
-::::: {.content-visible when-format="html"}
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 //| fig-cap: Total supply differential (stacked).
 Plot.plot({
@@ -3641,9 +3728,9 @@ Plot.plot({
   ]
 });
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![Total supply differential (stacked).](figures/k2-risk-metrics-differential.svg){
   #fig-k2-risk-metrics-differential
   fig-alt="Total supply differential (stacked)."
@@ -3653,6 +3740,8 @@ Plot.plot({
   #fig-k2-risk-metrics-yield
   fig-alt="Utility incentive yield."
 }
+:::::::
+
 :::::
 
 :::
@@ -3915,9 +4004,33 @@ The residual post-treasury allocation is shared four ways within 2 buckets:
         I_{AQ} = \frac{\lambda_Q}{1 - \lambda_{GG}} \, \frac{G^2}{G^2 + L^2}
         $$ {#eq-allocation-pool-aq}
 
-::: {#fig-incentives-non-treasury fig-cap="Share of non-treasury incentives $I_S$, $I_G$, $I_{AG}$ and $I_{AQ}$."}
+::: {.panel-sidebar}
 
 ::::: {.content-visible when-format="html"}
+```{ojs}
+viewof inputS_ = Inputs.range([0, 1], {
+  label: tex`S`,
+  step: 0.01,
+  value: 0.5,
+});
+
+viewof inputWeightAG = Inputs.range([0, 1], {
+  label: tex`\text{Liquidity Pool}`,
+  step: 0.01,
+  value: 0.5,
+});
+
+paramWeightAQ = 1 - inputWeightAG;
+```
+:::::
+
+:::
+
+::: {.panel-fill}
+
+::::: {#fig-incentives-non-treasury fig-cap="Share of non-treasury incentives $I_S$, $I_G$, $I_{AG}$ and $I_{AQ}$."}
+
+::::::: {.content-visible when-format="html"}
 ```{ojs}
 function computeTreasury(G, L) {
   return Math.max(0, 1 - computeUpsilon(G, L) * computeEta(G, L));
@@ -3975,14 +4088,6 @@ allocationSQData = {
   }
   return allocationSQData;
 };
-```
-
-```{ojs}
-viewof inputS_ = Inputs.range([1, 0], {
-  label: tex`S`,
-  step: 0.01,
-  value: 0.5,
-});
 ```
 
 ```{ojs}
@@ -4064,16 +4169,6 @@ allocationPoolData = {
 ```
 
 ```{ojs}
-viewof inputWeightAG = Inputs.range([1, 0], {
-  label: tex`\text{Coefficient}`,
-  step: 0.01,
-  value: 0.5,
-});
-
-paramWeightAQ = 1 - inputWeightAG;
-```
-
-```{ojs}
 //| fig-cap: Liquidity pools allocations.
 plotAllocationPool = {
   const plotAllocationPool = Plot.plot({
@@ -4125,9 +4220,9 @@ plotAllocationPool = {
   return plotAllocationPool;
 };
 ```
-:::::
+:::::::
 
-::::: {.content-visible unless-format="html"}
+::::::: {.content-visible unless-format="html"}
 ![Time-locked **A** and user-locked **G** allocations.](figures/allocation-token-locks.svg){
   #fig-allocation-token-locks
   fig-alt="Time-locked A and user-locked G allocations."
@@ -4137,6 +4232,8 @@ plotAllocationPool = {
   #fig-allocation-liquidity-pools
   fig-alt="Liquidity pools allocations."
 }
+:::::::
+
 :::::
 
 :::
