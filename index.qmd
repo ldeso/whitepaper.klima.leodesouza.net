@@ -720,12 +720,12 @@ $$ {#eq-inflation}
 ::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputS = Inputs.range([1e-4, 1], {
-  label: tex`S`,
+  label: tex`\text{Time-Locked } S`,
   step: 1e-4,
   value: 0.55,
 });
 viewof inputD = Inputs.range([0.25, 10], {
-  label: tex`D`,
+  label: tex`\text{Parameter } D`,
   step: 0.01,
   value: 4.69,
 });
@@ -1255,11 +1255,11 @@ $$ {#eq-present-value-carbon}
 ::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputCi0 = Inputs.range([0, 1], {
-  label: tex`C_{i0}`,
+  label: tex`\text{Portfolio } C_{i0}`,
   step: 1e-3,
 });
 viewof inputLiqShape = Inputs.range([-1, 1], {
-  label: tex`\text{Shape}`,
+  label: tex`\text{Schedule shape}`,
   step: 1e-3,
 });
 ```
@@ -1373,12 +1373,12 @@ class for the defined trade or auction period.
 ::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputDeltaCi = Inputs.range([0, 1], {
-  label: tex`\Delta C_i`,
+  label: tex`\text{Purchased } \Delta C_i`,
   step: 1e-3,
   value: 1,
 });
 viewof inputEt = Inputs.range([0, 10], {
-  label: tex`E_t`,
+  label: tex`\text{Expiry } E_t \text{ (years)}`,
   step: 1,
   value: 6,
 });
@@ -1528,7 +1528,7 @@ initial portfolio pricing of the **A** token. The data has been normalised in
 ::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputDeltaBarCi = Inputs.range([0.01, 1], {
-  label: tex`\Delta \bar C_i`,
+  label: tex`\text{Purchased } \Delta \bar C_i`,
   step: 0.01,
   value: 1,
 });
@@ -1715,7 +1715,7 @@ $$ {#eq-a-change-zero-carbon}
 ::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputDeltaBarCnull = Inputs.range([1e-1, 1e5], {
-  label: tex`\Delta \bar C_\emptyset`,
+  label: tex`\text{Purchased } \Delta \bar C_\emptyset`,
   step: 1e-1,
   value: 1e2,
   transform: Math.log,
@@ -1923,7 +1923,7 @@ $$ {#eq-carbon-change}
 ::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputDeltaA = Inputs.range([0.001, 0.999], {
-  label: tex`\Delta A`,
+  label: tex`\text{Burnt } \Delta A`,
   step: 0.001,
   value: 0.1,
 });
@@ -2043,7 +2043,7 @@ system where $\varepsilon$ is the proportion retained:
 ::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputDeltaCinitial = Inputs.range([0.001, 1], {
-  label: tex`\Delta C`,
+  label: tex`\text{Initial }\Delta C`,
   step: 0.001,
   value: 0.1,
 });
@@ -2163,7 +2163,7 @@ carbon sale and purchase round trip of a carbon offset certificate.
 ```{ojs}
 Inputs.bind(
   Inputs.range([0.001, 1], {
-    label: tex`\Delta C`,
+    label: tex`\text{Initial }\Delta C`,
     step: 0.001,
     value: 0.1,
   }),
@@ -3401,12 +3401,12 @@ $P_0$ set at 7% and $T$ at 24 months:
 ::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputP0 = Inputs.range([0.01, 0.5], {
-  label: tex`P_0`,
+  label: tex`\text{Initial issuance } P_0`,
   step: 0.01,
   value: 0.07,
 });
 viewof inputT = Inputs.range([2, 60], {
-  label: tex`T`,
+  label: tex`T \text{ (months)}`,
   step: 1,
   value: 24,
 });
@@ -4329,13 +4329,13 @@ The residual post-treasury allocation is shared four ways within 2 buckets:
 ::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputS_ = Inputs.range([0, 1], {
-  label: tex`S`,
+  label: tex`\text{Time-Locked } S`,
   step: 0.01,
   value: 0.5,
 });
 
 viewof inputWeightAG = Inputs.range([0, 1], {
-  label: tex`\text{Liquidity Pool}`,
+  label: tex`\text{LP split}`,
   step: 0.01,
   value: 0.5,
 });
