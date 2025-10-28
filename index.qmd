@@ -5,7 +5,7 @@ date-format: D MMM YYYY [(Version 1.45)]
 author:
   name: |
     The Dark Sole Enterprise Ltd <ds@darksole.vip>\
-    with contributions from the Klima Foundation and Carbonmark
+    with contributions from the Klima and Carbonmark teams
 abstract: |
   An **Autonomous Asset Manager** incorporating asset pricing, liquidity and
   time-locked markets powered by a dual token structure designed for efficient
@@ -38,7 +38,7 @@ This document represents original work by dark_sole <ds@darksole.vip>. While
 contributions from others are gratefully acknowledged, all intellectual property
 rights remain with the author. The models, algorithms, processes, products,
 methodologies, and concepts described herein are licenced exclusively for
-commercial use by the Klima Foundation. No other party may implement, copy,
+commercial use by the Klima Protocol. No other party may implement, copy,
 modify, or derive works from these materials without explicit written permission
 from the author.
 
