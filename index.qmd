@@ -229,8 +229,7 @@ Three economic pillars support the Klima&nbsp;2.0 Automated Asset Manager:
     - The time-locking pattern creates a **kVCM** Base Accrual curve, which is
     distributed to time-locked **kVCM** holders. This is utilised to derive
     discount rates for forward-delivery pricing in the Portfolio Manager and for
-    weightings for time-locked **kVCM** holders in governance, as well as for
-    their liquid carbon distribution.
+    weightings for time-locked **kVCM** holders in governance.
 
 3. **Liquidity Market**:
 
@@ -270,12 +269,6 @@ varying quantities depending on system balances.
 
 3. Both **kVCM** and **K2** stakers.
 
-#### Real Carbon Yield {#sec-real-carbon-yield}
-
-Assuming the portfolio holds liquid (spot) carbon credits, the Portfolio Manager
-emits a continuous Liquid Carbon Yield to time-locked **kVCM** holders with the
-proportion a function of the system state.
-
 ### Portfolio Manager {#sec-portfolio-manager}
 
 At the core of the platform, the Portfolio Manager accumulates, trades and
@@ -296,8 +289,7 @@ token holder actions&nbsp;(and inaction).
 
 The Portfolio Manager **purchases** carbon credits and **sells** offset
 certificates by pre-defined classification called **carbon class**. It does
-[not]{.underline} sell carbon credits as those are issued through the Liquid
-Carbon Yield function.
+[not]{.underline} sell carbon credits.
 
 Token holders collectively set the risk parameters for the pricing of **each
 class** by defining:
@@ -312,8 +304,6 @@ Additional **global** parameters are similarly determined:
 
 - **kVCM** synthetic yield curve creating incentives for portfolio selection,
 liquidity provision and risk management contributions.
-
-- Proportion of Liquid Carbon Yield released for time-locked **kVCM** holders.
 
 There are no oracles or external inputs required for Klima&nbsp;2.0 as it is
 fully autonomous and responds to its own native state of token balances.
@@ -336,8 +326,7 @@ accumulation, and contracts upon issuance of carbon offset certificates.
     - Sets the forward discount rate for carbon portfolio acquisition from the
     collective time locking pattern over time.
 
-    - Generates a **synthetic yield** of **kVCM** based on the forward curve and
-    a **Liquid Carbon Yield** based on the active selection ratio.
+    - Generates a **synthetic yield** of **kVCM** based on the forward curve.
 
     - Participates in governance for whitelisting carbon assets.
 
@@ -472,8 +461,7 @@ issuance of **kVCM** tokens upon launch of Klima&nbsp;2.0.
     exposure to a basket of carbon assets.
 
     _**Time-Locked Market**: Provides a daily time-based yield for those
-    time-locking **kVCM** tokens, comprised of both a synthetic **kVCM** Base
-    Accrual and real portfolio Liquid Carbon Yield component._
+    time-locking **kVCM** tokens called Base Accrual._
 
 4. **Liquidity Providers**
 
@@ -501,8 +489,7 @@ issuance of **kVCM** tokens upon launch of Klima&nbsp;2.0.
 - **Adverse selection**:
   
     The Automated Asset Manager does not permit the direct purchase of carbon
-    credits from its portfolio&nbsp;(only carbon offset certificates), but
-    rather yields liquid carbon on a portfolio basis over time. 
+    credits from its portfolio&nbsp;(only carbon offset certificates). 
   
 - **Liquid carbon**:
   
@@ -526,28 +513,6 @@ issuance of **kVCM** tokens upon launch of Klima&nbsp;2.0.
     truly economically aligned and as such fundamental values of **kVCM** and
     **K2** are highly correlated.
 
-- **Hybrid asset model**
-
-    The rate of Liquid Carbon Yield for **kVCM** generated from the underlying
-    portfolio is derived from the system state of the **kVCM** token balances.
-
-    - This enables investors collectively to model capital [and]{.underline}
-    yield proportions, allowing the price of the capital token to discover its
-    **equilibrium** value with respect to the combination of **current** and
-    **projected** underlying portfolio value.
-
-    - This flexibility enables a 'pull to par' effect as growth expectations
-    lower, whilst not limiting price appreciation potential in high growth
-    projection markets.
-
-    - The hybrid model incorporates both **asset stabilisation** plus
-    **equity-like** returns.
-
-    Critically this approach enables the **kVCM** token to act as a true
-    [medium of exchange]{.underline} for the carbon trading activity of the
-    users, propagating the feedback loops to both the **kVCM** and **K2**
-    tokens.
-
 ## Core Economic Pillars {#sec-core-economic-pillars}
 
 From this Section, we refer to **kVCM** and **K2** tokens as **A** and **G**
@@ -564,10 +529,6 @@ classes for portfolio weighting.
     - The collective temporal staking pattern produces a **Synthetic Yield**
     curve in **A** tokens to reward time-locked token holders, as well as price
     the forward curve for the AAM.
-
-    - A **Liquid Carbon Yield** is issued continuously from the portfolio to
-    time-locked **A** holders depending on the participation in portfolio
-    weightings.
 
     - Only **A** tokens participate in the Time-Locked Market.
 
@@ -628,11 +589,6 @@ carbon.
 - **Synthetic yield**: Time-locked **A** token holders receive a floating yield
 of new **A** tokens following the shape of this discount curve called **Base
 Accrual**. Base Accrual is calculated daily and accumulates to the principal. 
-
-- **Liquid Carbon Yield**: Liquid Carbon emitted to time-locked **A** token
-holders on a daily basis assuming the portfolio holds liquid carbon assets. The
-emission rate responds to time-locked **A** token holders allocating their token
-for portfolio pricing, and up to ~22% per quarter is released.
 
 - **Liquidity**: There is no early unlocking; all principal and accumulated
 yield is released only at time lock expiration.
@@ -1154,24 +1110,6 @@ Voting power is allocated by time and applied to the respective balance of
     $$
     W_t = \frac{w_t}{\sum_{j=1}^{40} \left( \frac 1 2 v_j + w_j \right)}
     $$ {#eq-voting-weights-lps}
-
-#### Liquid Carbon Yield {#sec-liquid-carbon-yield}
-
-Defining:
-
-- $A$: Total time-locked **A** tokens allocated for pricing of carbon classes,
-expressed as a proportion of the outstanding supply of **A** tokens.
-
-With $\mu$ as the daily emission factor applied to the portfolio holding
-spot-delivery carbon:
-
-$$
-\mu = \frac{A \, (1 - A)}{90}
-$$ {#eq-liquid-carbon-yield}
-
-Liquid Carbon Yield is allocated to time-locked **A** tokens holders
-using the&nbsp;(normalised) _initial voting weight_ $v_t$ determined in
-@eq-voting-weights-time-locks-initial.
 
 ### Portfolio Manager {#sec-portfolio-manager-detailed}
 
@@ -2026,8 +1964,7 @@ and decreasing on $G_i$.
 ##### Unweighted Carbon Class {#sec-unweighted-carbon-class}
 
 An offset certificate for a carbon class with a zero **A** allocation cannot be
-extracted from the portfolio by swapping in **A** tokens. However, it is still
-part of the Liquid Carbon Yield detailed in @sec-liquid-carbon-yield.
+extracted from the portfolio by swapping in **A** tokens.
 
 ##### Liquidation: $\Delta A = 1$ {#sec-liquidation-delta-a-1}
 
