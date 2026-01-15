@@ -7,9 +7,11 @@ author:
     The Dark Sole Enterprise Ltd <ds@darksole.vip>\
     with contributions from the Klima and Carbonmark teams
 abstract: |
-  An **Autonomous Asset Manager** incorporating asset pricing, liquidity and
-  time-locked markets powered by a dual token structure designed for efficient
-  and rational decentralised liquidity within the carbon credit asset class.
+  This document describes a proposed technical and economic model developed by 01X as part of exploratory research conducted in connection with the Klima ecosystem. It reflects conceptual design work informed by prior learnings from KlimaDAO and related on-chain carbon market initiatives.\
+  The model presented herein is illustrative only and is intended to explore one possible approach to scaling carbon market infrastructure using blockchain-based systems. It does not represent a commitment to implement any specific architecture, mechanism, parameter, or economic outcome.\
+  The Klima Protocol is expected to deploy a production system for on-chain carbon market infrastructure in or around February 2026. At that time, a separate implementation whitepaper will be released describing the deployed system, and the corresponding smart contract code will be made publicly available as open-source software.\
+  This document should not be relied upon as a description of the final protocol, its operation, or its economics. It does not constitute an offer, solicitation, investment advice, or a representation regarding the legal, regulatory, or economic characteristics of any future deployment.
+abstract-title: Notice to Readers
 execute:
   echo: false
 format:
@@ -18,6 +20,7 @@ format:
   pdf:
     include-in-header:
       - file: figures/preamble.tex
+      - text: \AtBeginDocument{\RenewDocumentCommand\abstractname{}{Notice to Readers}}
 ---
 
 ![](brand/klimaprotocol.svg){

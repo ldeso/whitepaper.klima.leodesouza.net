@@ -31,7 +31,7 @@ format:
   pdf:
     pdf-engine: pdflatex
     papersize: a4
-    classoption: [DIV=15]
+    classoption: [DIV=15,abstract]
     include-in-header:
       - text: |
           % Limit figure width to 0.9 line width
