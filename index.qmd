@@ -83,7 +83,7 @@ The protocol consists of three interdependent functional layers:
 - a carbon inventory layer that holds credits solely for the purpose of
 facilitating retirement;
 
-- a coordination layer that aggregates participant signals to inform pricing and
+- a governance layer that aggregates participant signals to inform pricing and
 intake parameters; and
 
 - a liquidity layer that supports entry and exit from the system through
