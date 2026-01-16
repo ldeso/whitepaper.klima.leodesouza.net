@@ -1,0 +1,113 @@
+% \documentclass[dvisvgm,tikz]{standalone}
+
+% \usepackage[sfdefault]{inter}
+% \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, decorations.pathmorphing}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %Colors
+% % Warm gray to turquoise
+% \definecolor{warm_gray}{RGB}{128, 120, 115}
+% \definecolor{sage_gray}{RGB}{110, 125, 120}
+% \definecolor{pewter}{RGB}{91, 112, 114}
+% \definecolor{slate_blue}{RGB}{72, 107, 115}
+% \definecolor{steel_teal}{RGB}{53, 118, 125}
+% \definecolor{teal}{RGB}{27, 136, 140}
+% \definecolor{deep_aqua}{RGB}{15, 152, 155}
+% \definecolor{peacock_blue}{RGB}{0, 167, 171}
+% \definecolor{blue_green}{RGB}{0, 181, 185}
+% \definecolor{turquoise}{RGB}{0, 195, 200}
+
+% \definecolor{mygray}{gray}{0.9}
+
+% % Match our established color scheme
+% \definecolor{atoken}{RGB}{255, 152, 0}        % Orange for A token
+% \definecolor{gtoken}{RGB}{76, 175, 80}        % Green for G token
+% \definecolor{mainblue}{RGB}{74, 144, 226}     % Blue for A classes
+% \definecolor{maingreen}{RGB}{102, 187, 106}   % Light green for G classes
+% \definecolor{timegray}{RGB}{158, 158, 158}    % Gray for time component
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \def \G {\textbf{G}}
+% \def \A {\textbf{A}}
+% \def \Q {\textbf{Q}}
+% \def \C {\textbf{C}}
+% \def \CC {\textbf{C*}}
+% \def \KA {\textbf{kVCM}}
+% \def \KG {\textbf{K2}}
+
+% \def \AG {$\overline{\textbf{AG}}$}
+% \def \AQ {$\overline{\textbf{AQ}}$}
+
+% \begin{document}
+\begin{tikzpicture}[
+    token/.style={
+        rectangle,
+        draw=#1,
+        fill=#1!20,
+        thick,
+        minimum width=4cm,
+        minimum height=0.8cm,
+        text=#1,
+        align=center,
+        rounded corners=3pt,
+        font=\footnotesize
+    },
+    component/.style={
+        rectangle,
+        draw=timegray,
+        fill=timegray!20,
+        thick,
+        minimum width=4cm,
+        minimum height=0.8cm,
+        text=timegray,
+        align=center,
+        rounded corners=3pt,
+         font=\footnotesize
+    },
+    liquidity/.style={
+        rectangle,
+        draw=#1,
+        fill=#1,
+        thick,
+        minimum width=4cm,
+        minimum height=0.8cm,
+        text=white,
+        align=center,
+        rounded corners=1pt,
+         font=\footnotesize
+    },
+    plus/.style={
+        circle,
+        draw=timegray,
+        fill=white,
+        minimum size=0.5cm,
+        inner sep=0pt
+    },
+    arrow/.style={
+        -{Stealth[length=8pt]},
+        thick,
+        #1
+    }
+]
+
+% Position the tokens
+\node[token=teal] (atoken) at (0,4) {\KA{}};
+\node[token=peacock_blue] (gtoken) at (0,0) {\KG{}};
+
+% Plus circle for combining factors\node[plus] (plus) at (4,2.5) {};
+
+% Position the components
+\node[component] (time) at (8,3) {Time-lock};
+\node[component] (price) at (8,2) {User-lock};
+
+% Position the liquidity box
+\node[liquidity = peacock_blue] (liquidity) at (0,2) {Liquidity Stake};
+
+% Draw the arrows
+\draw[arrow=teal] (atoken) -- (liquidity);
+\draw[dashed,warm_gray] (atoken) -| (time);
+\draw[arrow=peacock_blue] (gtoken) -- (liquidity);
+\draw[dashed,timegray] (gtoken.east) -| ($(price.south)+(0,-0.5)$) -- (price.south);
+
+\end{tikzpicture}
+% \end{document}
