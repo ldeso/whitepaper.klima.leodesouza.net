@@ -141,33 +141,21 @@ execution layer for carbon markets, enabling suppliers, buyers, and integrators
 to interact under predefined conditions without reliance on discretionary
 intermediaries.
 
-### Dual Utility Tokens {#sec-dual-utility-tokens}
+### Protocol Tokens {#sec-protocol-tokens}
 
-In addition to the **kVCM** token, Klima&nbsp;2.0 introduces a second **Risk
-Governance** token **K2**. This token is responsible for modelling risk across
-the ecosystem by responding to the **kVCM** token's core selections and adding
-essential derivative parameters that manage adverse selection and pricing
-capacity.
+Klima&nbsp;2.0 operates using two protocol-native tokens, **kVCM** and **K2**,
+which together enable rules-based coordination of pricing, capacity, and
+participation within the system. These tokens do not confer ownership rights,
+redemption rights, or claims on protocol-handled carbon, and do not represent
+investment interests.
 
-::: {#fig-token-replacement fig-cap="Token replacement." fig-alt="Token replacement."}
+**kVCM** functions as the internal unit of account and pricing reference for
+protocol-facilitated carbon retirement, while **K2** provides signalling inputs
+related to system capacity. Both tokens are used exclusively to parameterise
+protocol behaviour through deterministic smart-contract logic.
 
-::::: {.content-visible when-format="pdf"}
-![](figures/token-replacement.tex)
-:::::
-
-::::: {.content-visible unless-format="pdf"}
-![](figures/token-replacement.svg)
-:::::
-
-:::
-
-**kVCM** tokens have the beneficial ownership of the portfolio and set core
-allocation choices, whereas **K2** acts as the _risk-seeking_ gauge for the
-portfolio construction.
-
-**K2** is formally compensated with **kVCM** tokens hence the two tokens'
-interests are fully aligned, and together perform dynamic portfolio optimisation
-as a result of collective owner utility function.
+**kVCM** tokens set core allocation choices, whereas **K2** acts as the
+calibration mechanism for inventory development.
 
 ### High-Level Architecture {#sec-high-level-architecture}
 
