@@ -81,75 +81,45 @@ ownership, portfolio management, or profit extraction.
 
 ## Klima 2.0
 
-KlimaDAO launched in 2021 on the Polygon blockchain as a fork of
-OlympusDAO. The original system centred on the KLIMA token backed by a
-treasury of carbon credits. At its peak, the KLIMA token exceeded a
-one-billion-USD market cap and brought over 20 million tonnes of carbon
-credits on-chain through incentives and governance.
+KlimaDAO launched in 2021 on the Polygon blockchain as an early
+experiment in applying tokenisation and onchain liquidity to voluntary
+carbon markets. The initial design centred on the KLIMA token and a
+treasury-based mechanism intended to bootstrap liquidity and
+participation in a nascent onchain carbon ecosystem.
 
-Supporters agree that voluntary carbon markets benefit greatly from
-tokenisation and on-chain liquidity. This brings transparency, price
-discovery, accessibility, interoperability, programmability, and faster
-settlement for brokers and buyers. These benefits are proven by dozens
-of production-grade platforms and services built by Klima and partners
-after launch, including:
+That first iteration played a meaningful role in demonstrating that
+carbon credits could be represented, transferred, and retired using
+blockchain infrastructure. It also catalysed the development of a
+broader ecosystem of tools and services, including integrations with
+multiple carbon registries, marketplaces and point-of-sale interfaces,
+APIs for third-party applications, and direct onchain issuance by
+project developers.
 
-- Integrations with major carbon registries.
-- Marketplaces, storefronts, and point-of-sale tools.
-- REST APIs for seamless integration into third-party apps.
-- Direct blockchain issuance by major project developers.
+Over time, it became clear that the original architecture was not well
+suited to serving large-scale, enterprise carbon buyers or to supporting
+continuous, rules-based market operation without manual intervention. In
+particular, treasury-centric designs introduced complexity, opacity, and
+governance challenges that limited scalability and operational clarity.
 
-All of these products are powered on KlimaDAO’s tokenised carbon and
-liquidity, with measurable adoption. This makes the KLIMA token a
-leading case study for the adoption of tokenised Real World Assets.
+Klima 2.0 is a ground-up redesign informed by these lessons. Rather than
+relying on treasury management or discretionary allocation, the new
+protocol is structured as neutral, non-extractive market infrastructure
+focused exclusively on facilitating carbon retirement through
+transparent pricing, programmatic settlement, and open participation.
 
-Still, after years of iteration it became clear that Klima 1.0 and the
-KLIMA token would not be able to scale or serve the largest enterprise
-buyers effectively.
+The Klima 2.0 protocol replaces treasury-backed mechanisms with a
+rules-based coordination model that uses protocol-native tokens to
+parameterise pricing bounds, intake capacity, and participation
+incentives. Carbon credits handled by the protocol are acquired solely
+to fulfil retirement demand and are not held, traded, or managed for
+financial gain.
 
-Hence we present **Klima 2.0** as an **Autonomous Asset Manager** (AAM)
-with the new **Risk-Balanced Asset** token **kVCM** that:
-
-- Selects and purchases carbon credits on a spot and forward basis for
-  its own portfolio.
-
-- Retires its carbon credits by issuing carbon offset certificates to
-  buyers.
-
-- Continuously yields carbon credits from its portfolio.
-
-- Enables investors to:
-
-  - Hold a true *passive* exposure to carbon markets, spreads and
-    dislocations via the new **kVCM** token.
-
-  - *Actively* reflect their risk appetite collectively to optimise
-    portfolio selection and capacity.
-
-  - Determine the proportion of yield distribution vs capital retention,
-    allowing cyclical expansions and contractions and de-facto price
-    modelling of the **kVCM** token.
-
-<div id="fig-design">
-
-![](figures/design.svg)
-
-Figure 1: Klima 2.0 high-level design.
-
-</div>
-
-Klima 2.0 provides a fundamental capital, liquidity and execution layer
-for wholesale carbon trading, capturing spreads and structural pricing
-across the asset class. It employs rational adaptive financial models to
-reflect token holders’ collective risk-reward preferences, produced
-solely through <u>native</u> smart contract balances from staking and
-liquidity functions allowing price discovery and harmonious functions to
-govern the stability and risk of the Risk-Balanced Asset token **kVCM**.
-
-The model grants clean *look-through* economic ownership of tokenised
-carbon assets to **kVCM** token holders, as well as self-governance for
-risk and reward allowing maximum flexibility in this hybrid capital
-instrument for growth <u>and</u> distribution.
+This shift reflects a deliberate move away from capital-centric designs
+toward infrastructure that prioritises auditability, predictability, and
+long-term operational resilience. Klima 2.0 is intended to function as a
+shared execution layer for carbon markets, enabling suppliers, buyers,
+and integrators to interact under predefined conditions without reliance
+on discretionary intermediaries.
 
 ### Dual Utility Tokens
 
@@ -163,7 +133,7 @@ adverse selection and pricing capacity.
 
 ![](figures/token-replacement.svg)
 
-Figure 2: Token replacement.
+Figure 1: Token replacement.
 
 </div>
 
@@ -181,7 +151,7 @@ portfolio optimisation as a result of collective owner utility function.
 
 ![](figures/architecture.svg)
 
-Figure 3: Klima 2.0 architecture.
+Figure 2: Klima 2.0 architecture.
 
 </div>
 
@@ -259,7 +229,7 @@ from collective token holder actions (and inaction).
 
 ![](figures/portfolio-manager.svg)
 
-Figure 4: Klima 2.0 Portfolio Manager.
+Figure 3: Klima 2.0 Portfolio Manager.
 
 </div>
 
@@ -328,7 +298,7 @@ Noting that the tokens can delegate utility as required.
 
 ![](figures/aam-token-utility.svg)
 
-Figure 5: Automated Asset Manager token utility.
+Figure 4: Automated Asset Manager token utility.
 
 </div>
 
@@ -359,7 +329,7 @@ independent:
 
 ![](figures/kvcm-staking.svg)
 
-Figure 6: **kVCM** utility functions.
+Figure 5: **kVCM** utility functions.
 
 </div>
 
@@ -702,7 +672,7 @@ data-ref-parent="fig-time-locked-market-state" />
 
 </div>
 
-Figure 7: Example of a Time-Locked Market state.
+Figure 6: Example of a Time-Locked Market state.
 
 </div>
 
@@ -710,7 +680,7 @@ Figure 7: Example of a Time-Locked Market state.
 
 For visualising the sensitivity of overall **A** inflation rates with
 respect to staking and duration,
-<a href="#fig-inflation-rate" class="quarto-xref">Figure 8</a> assumes a
+<a href="#fig-inflation-rate" class="quarto-xref">Figure 7</a> assumes a
 single maturity over the staking range to provide an approximation of
 inflation $\Delta S \approx Z \, S$.
 
@@ -718,7 +688,7 @@ inflation $\Delta S \approx Z \, S$.
 
 ![](figures/inflation-rate.svg)
 
-Figure 8: **A** inflation rate from time-locked token yields $\Delta S$.
+Figure 7: **A** inflation rate from time-locked token yields $\Delta S$.
 
 </div>
 
@@ -779,7 +749,7 @@ trading of carbon.
 
 ![](figures/portfolio-manager-detailed.svg)
 
-Figure 9: Klima 2.0 Portfolio Manager.
+Figure 8: Klima 2.0 Portfolio Manager.
 
 </div>
 
@@ -803,7 +773,7 @@ between the two-token systems.
 
 ![](figures/token-staking-class-structure.svg)
 
-Figure 10: Token staking class structure.
+Figure 9: Token staking class structure.
 
 </div>
 
@@ -847,7 +817,7 @@ liquidity schedule and sum the discounted holdings:
 
 ![](figures/carbon-held-in-the-aam.svg)
 
-Figure 11: Carbon held in the portfolio.
+Figure 10: Carbon held in the portfolio.
 
 </div>
 
@@ -873,7 +843,7 @@ same class for the defined trade or auction period.
 
 ![](figures/carbon-bought-by-the-aam.svg)
 
-Figure 12: Carbon bought by the Portfolio Manager.
+Figure 11: Carbon bought by the Portfolio Manager.
 
 </div>
 
@@ -900,11 +870,11 @@ class="quarto-xref">Equation 17</a> as $\mathsf{RHS}$:
 Finally, $\Delta A$ is applied to the outstanding supply of **A** to
 solve for token quantities.
 
-<a href="#fig-a-price-curves" class="quarto-xref">Figure 13</a>
+<a href="#fig-a-price-curves" class="quarto-xref">Figure 12</a>
 illustrates the **G** token’s capacity to maintain the initial portfolio
 pricing of the **A** token. The data has been normalised in
 <a href="#fig-a-price-curves-normalised"
-class="quarto-xref">Figure 14</a> to $\Delta \bar C_i \, A_i$.
+class="quarto-xref">Figure 13</a> to $\Delta \bar C_i \, A_i$.
 
 <div class="panel-sidebar">
 
@@ -916,7 +886,7 @@ class="quarto-xref">Figure 14</a> to $\Delta \bar C_i \, A_i$.
 
 ![](figures/a-price-curves.svg)
 
-Figure 13: **A** price curves ($\Delta A$).
+Figure 12: **A** price curves ($\Delta A$).
 
 </div>
 
@@ -924,7 +894,7 @@ Figure 13: **A** price curves ($\Delta A$).
 
 ![](figures/a-price-curves-normalised.svg)
 
-Figure 14: Normalised **A** price curves.
+Figure 13: Normalised **A** price curves.
 
 </div>
 
@@ -961,7 +931,7 @@ $G_\emptyset$:
 
 ![](figures/a-price-curves-zero-carbon.svg)
 
-Figure 15: **A** price curves ($\Delta A$) in the zero carbon scenario.
+Figure 14: **A** price curves ($\Delta A$) in the zero carbon scenario.
 
 </div>
 
@@ -969,7 +939,7 @@ Figure 15: **A** price curves ($\Delta A$) in the zero carbon scenario.
 
 ![](figures/a-price-curves-zero-carbon-normalised.svg)
 
-Figure 16: Normalised **A** price curves in the zero carbon scenario.
+Figure 15: Normalised **A** price curves in the zero carbon scenario.
 
 </div>
 
@@ -1010,14 +980,14 @@ class="quarto-xref">Equation 20</a> as $\mathsf{RHS}$:
 
 ![](figures/proportion-of-carbon-retired.svg)
 
-Figure 17: Proportion of carbon retired.
+Figure 16: Proportion of carbon retired.
 
 </div>
 
 </div>
 
 <a href="#fig-proportion-of-carbon-retired"
-class="quarto-xref">Figure 17</a> shows the cost of carbon increasing
+class="quarto-xref">Figure 16</a> shows the cost of carbon increasing
 with $A_i$ and decreasing on $G_i$.
 
 ##### Unweighted Carbon Class
@@ -1032,7 +1002,7 @@ mechanism for carbon offset certificates, the balances of all carbon
 held in the portfolio post-trade are distributed to all **G** token
 holders.
 
-<a href="#fig-carbon-spread" class="quarto-xref">Figure 18</a> below
+<a href="#fig-carbon-spread" class="quarto-xref">Figure 17</a> below
 shows the spread captured on a ‘round trip’ by the system where
 $\varepsilon$ is the proportion retained:
 
@@ -1046,14 +1016,14 @@ $\varepsilon$ is the proportion retained:
 
 ![](figures/carbon-spread.svg)
 
-Figure 18: Carbon ‘spread’.
+Figure 17: Carbon ‘spread’.
 
 </div>
 
 </div>
 
 <a href="#fig-carbon-spread-components"
-class="quarto-xref">Figure 19</a> shows the component ‘spread’
+class="quarto-xref">Figure 18</a> shows the component ‘spread’
 contributions on a carbon sale and purchase round trip of a carbon
 offset certificate.
 
@@ -1085,7 +1055,7 @@ data-ref-parent="fig-carbon-spread-components" />
 
 </div>
 
-Figure 19: Carbon ‘spread’ components.
+Figure 18: Carbon ‘spread’ components.
 
 </div>
 
@@ -1099,7 +1069,7 @@ Both **A** and **G** tokens can be used for providing liquidity.
 
 ![](figures/token-liquidity.svg)
 
-Figure 20: Token liquidity and pricing structure.
+Figure 19: Token liquidity and pricing structure.
 
 </div>
 
@@ -1148,14 +1118,14 @@ The portfolio $\beta$ determines a yield factor for the liquidity pools
 of **A** to compensate for the implied risk levels.
 
 For intuition, the map in
-<a href="#fig-range-of-beta-i" class="quarto-xref">Figure 21</a> shows
+<a href="#fig-range-of-beta-i" class="quarto-xref">Figure 20</a> shows
 the various outputs of the function per carbon class.
 
 <div id="fig-range-of-beta-i">
 
 ![](figures/range-of-beta-i.svg)
 
-Figure 21: Range of $\beta_i$.
+Figure 20: Range of $\beta_i$.
 
 </div>
 
@@ -1184,12 +1154,12 @@ Table 2: Effect on $\beta$ from outsized **G** allocation.
 
 ![](figures/example-of-g-stake-on-beta.svg)
 
-Figure 22: Example of **G** allocation on $\beta$.
+Figure 21: Example of **G** allocation on $\beta$.
 
 </div>
 
 <a href="#fig-example-of-g-stake-on-beta"
-class="quarto-xref">Figure 22</a> shows $\beta$’s sensitivity to **G**
+class="quarto-xref">Figure 21</a> shows $\beta$’s sensitivity to **G**
 allocation as a function of **A** allocation; that is to say that a
 large $G_i$ stake on a small $A_i$ stake has limited
 effects (notwithstanding other consequential factors).
@@ -1203,7 +1173,7 @@ Risk Premium for the liquidity pools accordingly.
 
 ![](figures/a-token-flow-structure.svg)
 
-Figure 23: **A** token flow structure.
+Figure 22: **A** token flow structure.
 
 </div>
 
@@ -1235,7 +1205,7 @@ The allocation to user-locked **G** tokens, $\lambda_{GG}$:
 
 ![](figures/g-stake-allocation.svg)
 
-Figure 24: **G** stake allocation (assuming $G_G = 1 - G_i$).
+Figure 23: **G** stake allocation (assuming $G_G = 1 - G_i$).
 
 </div>
 
@@ -1259,7 +1229,7 @@ For completeness:
 
 ![](figures/liquidity-pool-split.svg)
 
-Figure 25: Liquidity pool split $\lambda_G, \lambda_Q$.
+Figure 24: Liquidity pool split $\lambda_G, \lambda_Q$.
 
 </div>
 
@@ -1345,7 +1315,7 @@ Table 4: **K2** token.
 
 ![](figures/k2-token-allocations.svg)
 
-Figure 26: **K2** token allocations.
+Figure 25: **K2** token allocations.
 
 </div>
 
@@ -1386,7 +1356,7 @@ $P_0$ set at 7% and $T$ at 24 months:
 
 ![](figures/incentive-issuance.svg)
 
-Figure 27: Incentive Issuance
+Figure 26: Incentive Issuance
 
 </div>
 
@@ -1394,7 +1364,7 @@ Figure 27: Incentive Issuance
 
 ![](figures/k2-token-supply-circulating.svg)
 
-Figure 28: **K2** token circulating supply over time.
+Figure 27: **K2** token circulating supply over time.
 
 </div>
 
@@ -1420,7 +1390,7 @@ data-ref-parent="fig-k2-token-supply-total" />
 
 </div>
 
-Figure 29: **K2** token total supply over time.
+Figure 28: **K2** token total supply over time.
 
 </div>
 
@@ -1446,7 +1416,7 @@ data-ref-parent="fig-k2-risk-metrics" />
 
 </div>
 
-Figure 30: **K2** token supply risk metrics.
+Figure 29: **K2** token supply risk metrics.
 
 </div>
 
@@ -1458,7 +1428,7 @@ Figure 30: **K2** token supply risk metrics.
 
 ![](figures/k2-incentive-distribution.svg)
 
-Figure 31: **K2** token incentive distribution structure.
+Figure 30: **K2** token incentive distribution structure.
 
 </div>
 
@@ -1484,7 +1454,7 @@ Where $\upsilon = 0$ if $G + L = 0$, otherwise:
 
 ![](figures/relative-utilisation.svg)
 
-Figure 32: Upsilon $\upsilon$ range of values.
+Figure 31: Upsilon $\upsilon$ range of values.
 
 </div>
 
@@ -1499,7 +1469,7 @@ if $G + L = 0$, otherwise:
 
 ![](figures/absolute-utilisation.svg)
 
-Figure 33: Eta $\eta$ range of values.
+Figure 32: Eta $\eta$ range of values.
 
 </div>
 
@@ -1583,7 +1553,7 @@ data-ref-parent="fig-incentives-non-treasury" />
 
 </div>
 
-Figure 34: Share of non-treasury incentives $I_S$, $I_G$, $I_{AG}$ and
+Figure 33: Share of non-treasury incentives $I_S$, $I_G$, $I_{AG}$ and
 $I_{AQ}$.
 
 </div>
@@ -1594,7 +1564,7 @@ $I_{AQ}$.
 
 ![](figures/incentives-treasury.svg)
 
-Figure 35: Treasury incentives $I_T$.
+Figure 34: Treasury incentives $I_T$.
 
 </div>
 
