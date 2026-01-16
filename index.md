@@ -174,7 +174,7 @@ together support continuous, non-discretionary operation:
 
 These layers operate together as a self-contained system that responds
 only to its own observable state, without reliance on external oracles
-or centralised intervention.
+or manual intervention.
 
 ### Economics and Incentives
 
