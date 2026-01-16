@@ -189,7 +189,7 @@ together support continuous, non-discretionary operation:
     general governance alongside time-locked **kVCM** holders.
 
 These layers operate together as a self-contained system that responds only to
-its own observable state, without reliance on external oracles or manual
+its own observable state, without reliance on external oracles or centralised
 intervention.
 
 ### Economics and Incentives {#sec-economics-and-incentives}
