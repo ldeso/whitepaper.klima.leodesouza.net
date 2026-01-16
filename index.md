@@ -140,50 +140,41 @@ calibration mechanism for inventory development.
 
 ### High-Level Architecture
 
-<div id="fig-architecture">
+Klima 2.0 is composed of three interdependent functional layers that
+together support continuous, non-discretionary operation:
 
-![](figures/architecture.svg)
+1.  **Carbon Inventory Layer**:
 
-Figure 1: Klima 2.0 architecture.
+    - Accumulates carbon credits by minting **kVCM**.
+    - Sells carbon certificates by burning **kVCM**.
+    - Prices carbon based on the system’s code.
 
-</div>
+    Carbon credits handled by the protocol cannot be withdrawn,
+    transferred, or resold.
 
-Three economic pillars support the Klima 2.0 Automated Asset Manager:
+2.  **Governance Layer**:
 
-1.  **Portfolio Manager**:
+    - **kVCM** holders may **time-lock** their **kVCM** for a fixed time
+      period and become eligible to select carbon assets for the
+      inventory.
+    - This action creates a **kVCM** Base Accrual curve, which is
+      distributed to the time-locked holders. This is utilised to derive
+      discount rates and governance weightings.
 
-    - Accumulates carbon credits for the portfolio by minting **kVCM**.
-    - Sells carbon offset certificates from the portfolio by burning
-      **kVCM**.
-    - Prices **liquid carbon** (‘spot’ or ‘ex-post credits’) and
-      **forward-delivery carbon** (‘ex-ante credits’) using the system’s
-      generated discount rates.
-
-2.  **Time-Locked Market**:
-
-    - **kVCM** holders **time-lock** their **kVCM** irreversibly for a
-      fixed time period.
-    - Time-locked **kVCM** holders are able to *select* carbon assets
-      for the portfolio.
-    - The time-locking pattern creates a **kVCM** Base Accrual curve,
-      which is distributed to time-locked **kVCM** holders. This is
-      utilised to derive discount rates for forward-delivery pricing in
-      the Portfolio Manager and for weightings for time-locked **kVCM**
-      holders in governance.
-
-3.  **Liquidity Market**:
+3.  **Liquidity Layer**:
 
     - **kVCM** and **K2** holders are able to pair their tokens
       together, or in the case of **kVCM** with USDC, in order to
       generate liquidity fees.
-    - Staking the resulting liquidity provider tokens generates a share
-      of the **kVCM** risk premium.
+    - Staking the resulting liquidity provider tokens may generate a
+      share of protocol incentives.
     - Liquidity locked in the **kVCM**/**K2** liquidity pool
       participates in general governance alongside time-locked **kVCM**
       holders.
 
-Noting that throughout the paper, *locking* and *staking* mean that
-asset transfers are disabled for a specified period.
+These layers operate together as a self-contained system that responds
+only to its own observable state, without reliance on external oracles
+or centralised intervention.
 
 ### Economics and Incentives
 
@@ -222,7 +213,7 @@ from collective token holder actions (and inaction).
 
 ![](figures/portfolio-manager.svg)
 
-Figure 2: Klima 2.0 Portfolio Manager.
+Figure 1: Klima 2.0 Portfolio Manager.
 
 </div>
 
@@ -291,7 +282,7 @@ Noting that the tokens can delegate utility as required.
 
 ![](figures/aam-token-utility.svg)
 
-Figure 3: Automated Asset Manager token utility.
+Figure 2: Automated Asset Manager token utility.
 
 </div>
 
@@ -322,7 +313,7 @@ independent:
 
 ![](figures/kvcm-staking.svg)
 
-Figure 4: **kVCM** utility functions.
+Figure 3: **kVCM** utility functions.
 
 </div>
 
@@ -665,7 +656,7 @@ data-ref-parent="fig-time-locked-market-state" />
 
 </div>
 
-Figure 5: Example of a Time-Locked Market state.
+Figure 4: Example of a Time-Locked Market state.
 
 </div>
 
@@ -673,7 +664,7 @@ Figure 5: Example of a Time-Locked Market state.
 
 For visualising the sensitivity of overall **A** inflation rates with
 respect to staking and duration,
-<a href="#fig-inflation-rate" class="quarto-xref">Figure 6</a> assumes a
+<a href="#fig-inflation-rate" class="quarto-xref">Figure 5</a> assumes a
 single maturity over the staking range to provide an approximation of
 inflation $\Delta S \approx Z \, S$.
 
@@ -681,7 +672,7 @@ inflation $\Delta S \approx Z \, S$.
 
 ![](figures/inflation-rate.svg)
 
-Figure 6: **A** inflation rate from time-locked token yields $\Delta S$.
+Figure 5: **A** inflation rate from time-locked token yields $\Delta S$.
 
 </div>
 
@@ -742,7 +733,7 @@ trading of carbon.
 
 ![](figures/portfolio-manager-detailed.svg)
 
-Figure 7: Klima 2.0 Portfolio Manager.
+Figure 6: Klima 2.0 Portfolio Manager.
 
 </div>
 
@@ -766,7 +757,7 @@ between the two-token systems.
 
 ![](figures/token-staking-class-structure.svg)
 
-Figure 8: Token staking class structure.
+Figure 7: Token staking class structure.
 
 </div>
 
@@ -810,7 +801,7 @@ liquidity schedule and sum the discounted holdings:
 
 ![](figures/carbon-held-in-the-aam.svg)
 
-Figure 9: Carbon held in the portfolio.
+Figure 8: Carbon held in the portfolio.
 
 </div>
 
@@ -836,7 +827,7 @@ same class for the defined trade or auction period.
 
 ![](figures/carbon-bought-by-the-aam.svg)
 
-Figure 10: Carbon bought by the Portfolio Manager.
+Figure 9: Carbon bought by the Portfolio Manager.
 
 </div>
 
@@ -863,11 +854,11 @@ class="quarto-xref">Equation 17</a> as $\mathsf{RHS}$:
 Finally, $\Delta A$ is applied to the outstanding supply of **A** to
 solve for token quantities.
 
-<a href="#fig-a-price-curves" class="quarto-xref">Figure 11</a>
+<a href="#fig-a-price-curves" class="quarto-xref">Figure 10</a>
 illustrates the **G** token’s capacity to maintain the initial portfolio
 pricing of the **A** token. The data has been normalised in
 <a href="#fig-a-price-curves-normalised"
-class="quarto-xref">Figure 12</a> to $\Delta \bar C_i \, A_i$.
+class="quarto-xref">Figure 11</a> to $\Delta \bar C_i \, A_i$.
 
 <div class="panel-sidebar">
 
@@ -879,7 +870,7 @@ class="quarto-xref">Figure 12</a> to $\Delta \bar C_i \, A_i$.
 
 ![](figures/a-price-curves.svg)
 
-Figure 11: **A** price curves ($\Delta A$).
+Figure 10: **A** price curves ($\Delta A$).
 
 </div>
 
@@ -887,7 +878,7 @@ Figure 11: **A** price curves ($\Delta A$).
 
 ![](figures/a-price-curves-normalised.svg)
 
-Figure 12: Normalised **A** price curves.
+Figure 11: Normalised **A** price curves.
 
 </div>
 
@@ -924,7 +915,7 @@ $G_\emptyset$:
 
 ![](figures/a-price-curves-zero-carbon.svg)
 
-Figure 13: **A** price curves ($\Delta A$) in the zero carbon scenario.
+Figure 12: **A** price curves ($\Delta A$) in the zero carbon scenario.
 
 </div>
 
@@ -932,7 +923,7 @@ Figure 13: **A** price curves ($\Delta A$) in the zero carbon scenario.
 
 ![](figures/a-price-curves-zero-carbon-normalised.svg)
 
-Figure 14: Normalised **A** price curves in the zero carbon scenario.
+Figure 13: Normalised **A** price curves in the zero carbon scenario.
 
 </div>
 
@@ -973,14 +964,14 @@ class="quarto-xref">Equation 20</a> as $\mathsf{RHS}$:
 
 ![](figures/proportion-of-carbon-retired.svg)
 
-Figure 15: Proportion of carbon retired.
+Figure 14: Proportion of carbon retired.
 
 </div>
 
 </div>
 
 <a href="#fig-proportion-of-carbon-retired"
-class="quarto-xref">Figure 15</a> shows the cost of carbon increasing
+class="quarto-xref">Figure 14</a> shows the cost of carbon increasing
 with $A_i$ and decreasing on $G_i$.
 
 ##### Unweighted Carbon Class
@@ -995,7 +986,7 @@ mechanism for carbon offset certificates, the balances of all carbon
 held in the portfolio post-trade are distributed to all **G** token
 holders.
 
-<a href="#fig-carbon-spread" class="quarto-xref">Figure 16</a> below
+<a href="#fig-carbon-spread" class="quarto-xref">Figure 15</a> below
 shows the spread captured on a ‘round trip’ by the system where
 $\varepsilon$ is the proportion retained:
 
@@ -1009,14 +1000,14 @@ $\varepsilon$ is the proportion retained:
 
 ![](figures/carbon-spread.svg)
 
-Figure 16: Carbon ‘spread’.
+Figure 15: Carbon ‘spread’.
 
 </div>
 
 </div>
 
 <a href="#fig-carbon-spread-components"
-class="quarto-xref">Figure 17</a> shows the component ‘spread’
+class="quarto-xref">Figure 16</a> shows the component ‘spread’
 contributions on a carbon sale and purchase round trip of a carbon
 offset certificate.
 
@@ -1048,7 +1039,7 @@ data-ref-parent="fig-carbon-spread-components" />
 
 </div>
 
-Figure 17: Carbon ‘spread’ components.
+Figure 16: Carbon ‘spread’ components.
 
 </div>
 
@@ -1062,7 +1053,7 @@ Both **A** and **G** tokens can be used for providing liquidity.
 
 ![](figures/token-liquidity.svg)
 
-Figure 18: Token liquidity and pricing structure.
+Figure 17: Token liquidity and pricing structure.
 
 </div>
 
@@ -1111,14 +1102,14 @@ The portfolio $\beta$ determines a yield factor for the liquidity pools
 of **A** to compensate for the implied risk levels.
 
 For intuition, the map in
-<a href="#fig-range-of-beta-i" class="quarto-xref">Figure 19</a> shows
+<a href="#fig-range-of-beta-i" class="quarto-xref">Figure 18</a> shows
 the various outputs of the function per carbon class.
 
 <div id="fig-range-of-beta-i">
 
 ![](figures/range-of-beta-i.svg)
 
-Figure 19: Range of $\beta_i$.
+Figure 18: Range of $\beta_i$.
 
 </div>
 
@@ -1147,12 +1138,12 @@ Table 2: Effect on $\beta$ from outsized **G** allocation.
 
 ![](figures/example-of-g-stake-on-beta.svg)
 
-Figure 20: Example of **G** allocation on $\beta$.
+Figure 19: Example of **G** allocation on $\beta$.
 
 </div>
 
 <a href="#fig-example-of-g-stake-on-beta"
-class="quarto-xref">Figure 20</a> shows $\beta$’s sensitivity to **G**
+class="quarto-xref">Figure 19</a> shows $\beta$’s sensitivity to **G**
 allocation as a function of **A** allocation; that is to say that a
 large $G_i$ stake on a small $A_i$ stake has limited
 effects (notwithstanding other consequential factors).
@@ -1166,7 +1157,7 @@ Risk Premium for the liquidity pools accordingly.
 
 ![](figures/a-token-flow-structure.svg)
 
-Figure 21: **A** token flow structure.
+Figure 20: **A** token flow structure.
 
 </div>
 
@@ -1198,7 +1189,7 @@ The allocation to user-locked **G** tokens, $\lambda_{GG}$:
 
 ![](figures/g-stake-allocation.svg)
 
-Figure 22: **G** stake allocation (assuming $G_G = 1 - G_i$).
+Figure 21: **G** stake allocation (assuming $G_G = 1 - G_i$).
 
 </div>
 
@@ -1222,7 +1213,7 @@ For completeness:
 
 ![](figures/liquidity-pool-split.svg)
 
-Figure 23: Liquidity pool split $\lambda_G, \lambda_Q$.
+Figure 22: Liquidity pool split $\lambda_G, \lambda_Q$.
 
 </div>
 
@@ -1308,7 +1299,7 @@ Table 4: **K2** token.
 
 ![](figures/k2-token-allocations.svg)
 
-Figure 24: **K2** token allocations.
+Figure 23: **K2** token allocations.
 
 </div>
 
@@ -1349,7 +1340,7 @@ $P_0$ set at 7% and $T$ at 24 months:
 
 ![](figures/incentive-issuance.svg)
 
-Figure 25: Incentive Issuance
+Figure 24: Incentive Issuance
 
 </div>
 
@@ -1357,7 +1348,7 @@ Figure 25: Incentive Issuance
 
 ![](figures/k2-token-supply-circulating.svg)
 
-Figure 26: **K2** token circulating supply over time.
+Figure 25: **K2** token circulating supply over time.
 
 </div>
 
@@ -1383,7 +1374,7 @@ data-ref-parent="fig-k2-token-supply-total" />
 
 </div>
 
-Figure 27: **K2** token total supply over time.
+Figure 26: **K2** token total supply over time.
 
 </div>
 
@@ -1409,7 +1400,7 @@ data-ref-parent="fig-k2-risk-metrics" />
 
 </div>
 
-Figure 28: **K2** token supply risk metrics.
+Figure 27: **K2** token supply risk metrics.
 
 </div>
 
@@ -1421,7 +1412,7 @@ Figure 28: **K2** token supply risk metrics.
 
 ![](figures/k2-incentive-distribution.svg)
 
-Figure 29: **K2** token incentive distribution structure.
+Figure 28: **K2** token incentive distribution structure.
 
 </div>
 
@@ -1447,7 +1438,7 @@ Where $\upsilon = 0$ if $G + L = 0$, otherwise:
 
 ![](figures/relative-utilisation.svg)
 
-Figure 30: Upsilon $\upsilon$ range of values.
+Figure 29: Upsilon $\upsilon$ range of values.
 
 </div>
 
@@ -1462,7 +1453,7 @@ if $G + L = 0$, otherwise:
 
 ![](figures/absolute-utilisation.svg)
 
-Figure 31: Eta $\eta$ range of values.
+Figure 30: Eta $\eta$ range of values.
 
 </div>
 
@@ -1546,7 +1537,7 @@ data-ref-parent="fig-incentives-non-treasury" />
 
 </div>
 
-Figure 32: Share of non-treasury incentives $I_S$, $I_G$, $I_{AG}$ and
+Figure 31: Share of non-treasury incentives $I_S$, $I_G$, $I_{AG}$ and
 $I_{AQ}$.
 
 </div>
@@ -1557,7 +1548,7 @@ $I_{AQ}$.
 
 ![](figures/incentives-treasury.svg)
 
-Figure 33: Treasury incentives $I_T$.
+Figure 32: Treasury incentives $I_T$.
 
 </div>
 
