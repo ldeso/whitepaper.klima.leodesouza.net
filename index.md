@@ -22,55 +22,62 @@ author.
 
 ## Prologue
 
-**Klima 2.0 is an autonomous capital system for the carbon asset
-class.** It is neither a conventional token nor a traditional protocol,
-but rather a continuously adaptive financial structure governed entirely
-by endogenous signals and risk-weighted economic inputs.
+Klima 2.0 is an autonomous, rules-based coordination protocol designed
+to support the retirement of carbon credits through transparent pricing,
+continuous execution, and onchain settlement.
 
-The system is based on a dual token architecture: **kVCM**, representing
-capital and asset exposure, and **K2**, reflecting systemic risk
-preferences. Together, these tokens structure the internal market
-dynamics without the need for oracles or discretionary oversight. This
-architecture enables the system to:
+It is not a financial product, investment vehicle, or asset management
+system, but a piece of market infrastructure that enables carbon supply
+and retirement demand to interact under predefined conditions.
 
-- Systematically select and price tokenised carbon credits,
+The protocol operates through a dual-token architecture that facilitates
+coordination without discretionary control: **kVCM** functions as the
+internal unit of account and pricing reference for protocol-facilitated
+carbon retirement, while **K2** provides signalling inputs related to
+system capacity. Together, these tokens inform protocol parameters
+through deterministic smart-contract logic. This architecture enables
+the protocol to:
 
-- Construct and maintain a forward-yield curve derived from on-chain
-  capital commitments,
+- price and intake eligible, tokenised carbon credits according to
+  transparent, onchain rules;
 
-- Govern portfolio allocation, liquidity provisioning, and incentive
-  distribution through deterministic smart contract logic.
+- make acquired credits available exclusively for irreversible
+  retirement;
 
-All token holder actions – locking, allocation and staking – serve as
-inputs to a reflexive coordination mechanism. **kVCM** governs the
-allocation of capital to carbon assets, while **K2** parametrises the
-system’s risk assumptions and pricing capacity. This interaction defines
-a synthetic balance sheet where capital value, risk spread, and yield
-formation emerge from collective participation.
+- coordinate liquidity provision and participation incentives required
+  for continuous operation.
 
-The platform consists of three interdependent components: the
-**Portfolio Manager**, which acquires and retires carbon assets; the
-**Time-Locked Market**, which generates a time-structured synthetic
-yield curve; and the **Liquidity Market**, which facilitates price
-discovery and capital flow across **kVCM**, **K2**, and external
-currencies. These mechanisms are interlocked by design, enabling the
-system to continuously seek equilibrium.
+Participant actions such as locking tokens, signalling preferences, or
+providing liquidity serve as non-custodial inputs into a coordination
+mechanism that adjusts protocol parameters within predefined bounds.
+These inputs do not confer ownership rights, redemption rights, or
+claims on protocol-held carbon, nor do they constitute discretionary
+management of assets.
 
-**Klima 2.0 abstracts complex market operations into a formal economic
-structure** that integrates asset management, governance, and liquidity
-within a single protocol. **kVCM** offers structured exposure to carbon
-markets through tokenised yield and asset ownership, while **K2**
-modulates this exposure in response to endogenous risk metrics.
+The protocol consists of three interdependent functional layers:
 
-In this model, staking constitutes an economic vote; liquidity provision
-informs portfolio capacity; and yield is an emergent function of
-structural configuration. The system is designed to operate without
-exogenous intervention, maintaining equilibrium through adaptive
-incentive distribution and real asset correlation.
+- a carbon inventory layer that holds credits solely for the purpose of
+  facilitating retirement;
 
-**Klima 2.0 is a closed-form capital system with embedded governance and
-economic reflexivity, capable of continuously modelling and adjusting
-its internal state through its own token dynamics.**
+- a governance layer that aggregates participant signals to inform
+  pricing and intake parameters; and
+
+- a liquidity layer that supports entry and exit from the system through
+  external markets.
+
+These layers are designed to operate together as a self-contained
+system, adjusting to observable supply and retirement demand without
+reliance on external oracles, manual intervention, or fee-extractive
+intermediaries.
+
+Klima 2.0 abstracts complex carbon market interactions into a
+transparent and auditable execution framework, enabling participants to
+interact with carbon retirement infrastructure directly,
+programmatically, and on equal terms.
+
+Any economic effects arising from protocol activity result from
+predefined rules and market interaction, rather than from asset
+ownership, portfolio management, or profit extraction.
 
 ## Klima 2.0
 
