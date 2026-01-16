@@ -159,50 +159,38 @@ calibration mechanism for inventory development.
 
 ### High-Level Architecture {#sec-high-level-architecture}
 
-::: {#fig-architecture fig-cap="Klima&nbsp;2.0 architecture." fig-alt="Klima 2.0 architecture."}
+Klima&nbsp;2.0 is composed of three interdependent functional layers that
+together support continuous, non-discretionary operation:
 
-::::: {.content-visible when-format="pdf"}
-![](figures/architecture.tex)
-:::::
+1. **Carbon Inventory Layer**:
 
-::::: {.content-visible unless-format="pdf"}
-![](figures/architecture.svg)
-:::::
+    - Accumulates carbon credits by minting **kVCM**.
+    - Sells carbon certificates by burning **kVCM**.
+    - Prices carbon based on the system's code.
 
-:::
+    Carbon credits handled by the protocol cannot be withdrawn, transferred, or
+    resold.
 
-Three economic pillars support the Klima&nbsp;2.0 Automated Asset Manager:
+2. **Governance Layer**:
 
-1. **Portfolio Manager**:
+    - **kVCM** holders may **time-lock** their **kVCM** for a fixed time period
+    and become eligible to select carbon assets for the inventory.
+    - This action creates a **kVCM** Base Accrual curve, which is distributed to
+    the time-locked holders. This is utilised to derive discount rates and
+    governance weightings.
 
-    - Accumulates carbon credits for the portfolio by minting **kVCM**.
-    - Sells carbon offset certificates from the portfolio by burning **kVCM**.
-    - Prices **liquid carbon**&nbsp;('spot' or 'ex-post credits') and
-    **forward-delivery carbon**&nbsp;('ex-ante credits') using the system's
-    generated discount rates. 
-
-2. **Time-Locked Market**:
-
-    - **kVCM** holders **time-lock** their **kVCM** irreversibly for a fixed
-    time period.
-    - Time-locked **kVCM** holders are able to _select_ carbon assets for the
-    portfolio.
-    - The time-locking pattern creates a **kVCM** Base Accrual curve, which is
-    distributed to time-locked **kVCM** holders. This is utilised to derive
-    discount rates for forward-delivery pricing in the Portfolio Manager and for
-    weightings for time-locked **kVCM** holders in governance.
-
-3. **Liquidity Market**:
+3. **Liquidity Layer**:
 
     - **kVCM** and **K2** holders are able to pair their tokens together, or in
     the case of **kVCM** with USDC, in order to generate liquidity fees.
-    - Staking the resulting liquidity provider tokens generates a share of the
-    **kVCM** risk premium.
+    - Staking the resulting liquidity provider tokens may generate a share of
+    protocol incentives.
     - Liquidity locked in the **kVCM**/**K2** liquidity pool participates in
     general governance alongside time-locked **kVCM** holders.
 
-Noting that throughout the paper, _locking_ and _staking_ mean that asset
-transfers are disabled for a specified period.
+These layers operate together as a self-contained system that responds only to
+its own observable state, without reliance on external oracles or manual
+intervention.
 
 ### Economics and Incentives {#sec-economics-and-incentives}
 
