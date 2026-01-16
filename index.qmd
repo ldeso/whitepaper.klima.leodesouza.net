@@ -103,77 +103,43 @@ or profit extraction.
 
 ## Klima&nbsp;2.0 {#sec-klima-2.0}
 
-KlimaDAO launched in 2021 on the Polygon blockchain as a fork of OlympusDAO.
-The original system centred on the KLIMA token backed by a treasury of carbon
-credits. At its peak, the KLIMA token exceeded a one-billion-USD market cap and
-brought over 20 million tonnes of carbon credits on-chain through incentives and
-governance.
+KlimaDAO launched in 2021 on the Polygon blockchain as an early experiment in
+applying tokenisation and onchain liquidity to voluntary carbon markets. The
+initial design centred on the KLIMA token and a treasury-based mechanism
+intended to bootstrap liquidity and participation in a nascent onchain carbon
+ecosystem.
 
-Supporters agree that voluntary carbon markets benefit greatly from tokenisation
-and on-chain liquidity. This brings transparency, price discovery,
-accessibility, interoperability, programmability, and faster settlement for
-brokers and buyers. These benefits are proven by dozens of production-grade
-platforms and services built by Klima and partners after launch, including:
+That first iteration played a meaningful role in demonstrating that carbon
+credits could be represented, transferred, and retired using blockchain
+infrastructure. It also catalysed the development of a broader ecosystem of
+tools and services, including integrations with multiple carbon registries,
+marketplaces and point-of-sale interfaces, APIs for third-party applications,
+and direct onchain issuance by project developers.
 
-- Integrations with major carbon registries.
-- Marketplaces, storefronts, and point-of-sale tools.
-- REST APIs for seamless integration into third-party apps.
-- Direct blockchain issuance by major project developers.
+Over time, it became clear that the original architecture was not well suited to
+serving large-scale, enterprise carbon buyers or to supporting continuous,
+rules-based market operation without manual intervention. In particular,
+treasury-centric designs introduced complexity, opacity, and governance
+challenges that limited scalability and operational clarity.
 
-All of these products are powered on KlimaDAO's tokenised carbon and liquidity,
-with measurable adoption. This makes the KLIMA token a leading case study for
-the adoption of tokenised Real World Assets.
+Klima&nbsp;2.0 is a ground-up redesign informed by these lessons. Rather than
+relying on treasury management or discretionary allocation, the new protocol is
+structured as neutral, non-extractive market infrastructure focused exclusively
+on facilitating carbon retirement through transparent pricing, programmatic
+settlement, and open participation.
 
-Still, after years of iteration it became clear that&nbsp;Klima 1.0 and the
-KLIMA token would not be able to scale or serve the largest enterprise buyers
-effectively.
+The Klima&nbsp;2.0 protocol replaces treasury-backed mechanisms with a
+rules-based coordination model that uses protocol-native tokens to parameterise
+pricing bounds, intake capacity, and participation incentives. Carbon credits
+handled by the protocol are acquired solely to fulfil retirement demand and are
+not held, traded, or managed for financial gain.
 
-Hence we present **Klima&nbsp;2.0** as an **Autonomous Asset
-Manager**&nbsp;(AAM) with the new **Risk-Balanced Asset** token **kVCM** that:
-
-- Selects and purchases carbon credits on a spot and forward basis for its own
-portfolio.
-
-- Retires its carbon credits by issuing carbon offset certificates to buyers.
-
-- Continuously yields carbon credits from its portfolio.
-
-- Enables investors to:
-
-    - Hold a true _passive_ exposure to carbon markets, spreads and dislocations
-    via the new **kVCM** token.
-
-    - _Actively_ reflect their risk appetite collectively to optimise portfolio
-    selection and capacity.
-
-    - Determine the proportion of yield distribution vs capital retention,
-    allowing cyclical expansions and contractions and de-facto price modelling
-    of the **kVCM** token.
-
-::: {#fig-design fig-cap="Klima&nbsp;2.0 high-level design." fig-alt="Klima 2.0 high-level design."}
-
-::::: {.content-visible when-format="pdf"}
-![](figures/design.tex)
-:::::
-
-::::: {.content-visible unless-format="pdf"}
-![](figures/design.svg)
-:::::
-
-:::
-
-Klima&nbsp;2.0 provides a fundamental capital, liquidity and execution layer for
-wholesale carbon trading, capturing spreads and structural pricing across the
-asset class. It employs rational adaptive financial models to reflect token
-holders' collective risk-reward preferences, produced solely through
-[native]{.underline} smart contract balances from staking and liquidity
-functions allowing price discovery and harmonious functions to govern the
-stability and risk of the Risk-Balanced Asset token **kVCM**.
-
-The model grants clean _look-through_ economic ownership of tokenised carbon
-assets to **kVCM** token holders, as well as self-governance for risk and reward
-allowing maximum flexibility in this hybrid capital instrument for growth
-[and]{.underline} distribution.
+This shift reflects a deliberate move away from capital-centric designs toward
+infrastructure that prioritises auditability, predictability, and long-term
+operational resilience. Klima&nbsp;2.0 is intended to function as a shared
+execution layer for carbon markets, enabling suppliers, buyers, and integrators
+to interact under predefined conditions without reliance on discretionary
+intermediaries.
 
 ### Dual Utility Tokens {#sec-dual-utility-tokens}
 
