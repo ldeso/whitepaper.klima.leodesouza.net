@@ -193,7 +193,7 @@ This document should not be relied upon as a description of the final protocol, 
   <ul class="collapse">
   <li><a href="#sec-protocol-tokens" id="toc-sec-protocol-tokens" class="nav-link" data-scroll-target="#sec-protocol-tokens"><span class="header-section-number">2.1</span> Protocol Tokens</a></li>
   <li><a href="#sec-high-level-architecture" id="toc-sec-high-level-architecture" class="nav-link" data-scroll-target="#sec-high-level-architecture"><span class="header-section-number">2.2</span> High-Level Architecture</a></li>
-  <li><a href="#sec-economics-and-incentives" id="toc-sec-economics-and-incentives" class="nav-link" data-scroll-target="#sec-economics-and-incentives"><span class="header-section-number">2.3</span> Economics and Incentives</a></li>
+  <li><a href="#sec-incentives-and-participation" id="toc-sec-incentives-and-participation" class="nav-link" data-scroll-target="#sec-incentives-and-participation"><span class="header-section-number">2.3</span> Incentives and Participation</a></li>
   <li><a href="#sec-portfolio-manager" id="toc-sec-portfolio-manager" class="nav-link" data-scroll-target="#sec-portfolio-manager"><span class="header-section-number">2.4</span> Portfolio Manager</a></li>
   <li><a href="#sec-tokens" id="toc-sec-tokens" class="nav-link" data-scroll-target="#sec-tokens"><span class="header-section-number">2.5</span> Tokens</a></li>
   <li><a href="#sec-initialisation-of-the-kvcm-token" id="toc-sec-initialisation-of-the-kvcm-token" class="nav-link" data-scroll-target="#sec-initialisation-of-the-kvcm-token"><span class="header-section-number">2.6</span> Initialisation of the kVCM Token</a></li>
@@ -239,7 +239,7 @@ with contributions from the Klima and Carbonmark teams</p> <p></p>
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">16 Jan 2026 (Version 1.48)</p>
+      <p class="date">17 Jan 2026 (Version 1.48)</p>
     </div>
   </div>
   
@@ -326,27 +326,27 @@ with contributions from the Klima and Carbonmark teams</p> <p></p>
 <li>Liquidity locked in the <strong>kVCM</strong>/<strong>K2</strong> liquidity pool participates in general governance alongside time-locked <strong>kVCM</strong> holders.</li>
 </ul></li>
 </ol>
-<p>These layers operate together as a self-contained system that responds only to its own observable state, without reliance on external oracles or manual intervention.</p>
+<p>These layers operate together as a self-contained system that responds only to its own observable state, without reliance on external oracles or centralised intervention.</p>
 </section>
-<section id="sec-economics-and-incentives" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="sec-economics-and-incentives"><span class="header-section-number">2.3</span> Economics and Incentives</h3>
-<section id="sec-kvcm-synthetic-yield" class="level4" data-number="2.3.1">
-<h4 data-number="2.3.1" class="anchored" data-anchor-id="sec-kvcm-synthetic-yield"><span class="header-section-number">2.3.1</span> kVCM Synthetic Yield</h4>
-<p><strong>kVCM</strong> emits a continuous yield rewarding:</p>
+<section id="sec-incentives-and-participation" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="sec-incentives-and-participation"><span class="header-section-number">2.3</span> Incentives and Participation</h3>
+<p>The protocol issues incentives to participants who provide defined services necessary for system operation.</p>
+<section id="sec-kvcm-incentives" class="level4" data-number="2.3.1">
+<h4 data-number="2.3.1" class="anchored" data-anchor-id="sec-kvcm-incentives"><span class="header-section-number">2.3.1</span> kVCM Incentives</h4>
+<p><strong>kVCM</strong> incentives are continuously emitted to:</p>
 <ol type="1">
-<li><p>Time-locked <strong>kVCM</strong> holders (‘<strong>kVCM</strong> Base Accrual’).</p></li>
-<li><p>User-locked <strong>K2</strong> holders (‘<strong>kVCM</strong> Risk Premium’).</p></li>
-<li><p>Both <strong>kVCM</strong> and <strong>K2</strong> stakers, i.e.&nbsp;liquidity providers who staked their liquidity provider tokens (‘<strong>kVCM</strong> Risk Premium’).</p></li>
+<li><p>Time-locked <strong>kVCM</strong> (‘<strong>kVCM</strong> Base Accrual’).</p></li>
+<li><p>User-locked <strong>K2</strong>.</p></li>
+<li><p>Both <strong>kVCM</strong> and <strong>K2</strong> liquidity providers.</p></li>
 </ol>
-<p>The proportions and quantities are dynamic depending on the system state.</p>
 </section>
 <section id="sec-k2-incentives" class="level4" data-number="2.3.2">
 <h4 data-number="2.3.2" class="anchored" data-anchor-id="sec-k2-incentives"><span class="header-section-number">2.3.2</span> K2 Incentives</h4>
-<p>The expansion of the <strong>K2</strong> token supply is allocated to stakeholders below in varying quantities depending on system balances.</p>
+<p>The supply of K2 is allocated to stakeholders at various rates, depending on overall system balances:</p>
 <ol type="1">
-<li><p>Time-locked <strong>kVCM</strong> holders.</p></li>
-<li><p>User-locked <strong>K2</strong> holders.</p></li>
-<li><p>Both <strong>kVCM</strong> and <strong>K2</strong> stakers.</p></li>
+<li><p>Time-locked <strong>kVCM</strong>.</p></li>
+<li><p>User-locked <strong>K2</strong>.</p></li>
+<li><p>Both <strong>kVCM</strong> and <strong>K2</strong> liquidity providers.</p></li>
 </ol>
 </section>
 </section>

@@ -2,7 +2,7 @@
 The Dark Sole Enterprise Ltd <ds@darksole.vip>  
 with contributions from the Klima and Carbonmark teams
 
-16 Jan 2026 (Version 1.48)
+17 Jan 2026 (Version 1.48)
 
 <img src="brand/klimaprotocol.svg" style="width:50.0%"
 alt="Klima Protocol Logo." data-fig-align="center" />
@@ -174,34 +174,33 @@ together support continuous, non-discretionary operation:
 
 These layers operate together as a self-contained system that responds
 only to its own observable state, without reliance on external oracles
-or manual intervention.
+or centralised intervention.
 
-### Economics and Incentives
+### Incentives and Participation
 
-#### kVCM Synthetic Yield
+The protocol issues incentives to participants who provide defined
+services necessary for system operation.
 
-**kVCM** emits a continuous yield rewarding:
+#### kVCM Incentives
 
-1.  Time-locked **kVCM** holders (‘**kVCM** Base Accrual’).
+**kVCM** incentives are continuously emitted to:
 
-2.  User-locked **K2** holders (‘**kVCM** Risk Premium’).
+1.  Time-locked **kVCM** (‘**kVCM** Base Accrual’).
 
-3.  Both **kVCM** and **K2** stakers, i.e. liquidity providers who
-    staked their liquidity provider tokens (‘**kVCM** Risk Premium’).
+2.  User-locked **K2**.
 
-The proportions and quantities are dynamic depending on the system
-state.
+3.  Both **kVCM** and **K2** liquidity providers.
 
 #### K2 Incentives
 
-The expansion of the **K2** token supply is allocated to stakeholders
-below in varying quantities depending on system balances.
+The supply of K2 is allocated to stakeholders at various rates,
+depending on overall system balances:
 
-1.  Time-locked **kVCM** holders.
+1.  Time-locked **kVCM**.
 
-2.  User-locked **K2** holders.
+2.  User-locked **K2**.
 
-3.  Both **kVCM** and **K2** stakers.
+3.  Both **kVCM** and **K2** liquidity providers.
 
 ### Portfolio Manager
 
