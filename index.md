@@ -2,7 +2,7 @@
 The Dark Sole Enterprise Ltd <ds@darksole.vip>  
 with contributions from the Klima and Carbonmark teams
 
-17 Jan 2026 (Version 1.48)
+19 Jan 2026 (Version 1.48)
 
 <img src="brand/klimaprotocol.svg" style="width:50.0%"
 alt="Klima Protocol Logo." data-fig-align="center" />
@@ -202,40 +202,40 @@ depending on overall system balances:
 
 3.  Both **kVCM** and **K2** liquidity providers.
 
-### Portfolio Manager
+### Carbon Inventory
 
-At the core of the platform, the Portfolio Manager accumulates, trades
-and distributes its carbon portfolio driven by parameters determined
-from collective token holder actions (and inaction).
+The protocol’s carbon inventory layer accumulates and distributes
+carbon. It is driven by parameters determined by its rules-based smart
+contracts, and token holder actions.
 
-<div id="fig-portfolio-manager">
+<div id="fig-carbon-inventory">
 
-![](figures/portfolio-manager.svg)
+![](figures/carbon-inventory.svg)
 
-Figure 1: Klima 2.0 Portfolio Manager.
+Figure 1: Klima 2.0 Carbon Inventory.
 
 </div>
 
-The Portfolio Manager **purchases** carbon credits and **sells** offset
-certificates by pre-defined classification called **carbon class**. It
-does <u>not</u> sell carbon credits.
+Carbon credits are acquired from suppliers, and consumed by offset
+buyers. Carbon credits are grouped by pre-defined classifications called
+**carbon classes**. The protocol does <u>not</u> sell carbon credits.
 
-Token holders collectively set the risk parameters for the pricing of
-**each class** by defining:
+Aggregate token holder allocations collectively set the parameters for
+the pricing of **each class** by defining:
 
-- Portfolio weighting.
+- Inventory weighting.
 
-- Capacity curve and spreads.
+- Capacity.
 
-Additional **global** parameters are similarly determined:
-
-- Forward-delivery discount rates.
-
-- **kVCM** synthetic yield curve creating incentives for portfolio
-  selection, liquidity provision and risk management contributions.
+Additional **global** parameters are also determined by the aggregate
+allocations, including the **kVCM** incentive curve.
 
 There are no oracles or external inputs required for Klima 2.0 as it is
 fully autonomous and responds to its own native state of token balances.
+
+The protocol does not facilitate the trading of unretired carbon credits
+and does not engage in discretionary allocation, resale, or optimisation
+of carbon inventory.
 
 ### Tokens
 
