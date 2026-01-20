@@ -290,7 +290,7 @@ time.
 - When **user-locked**:
 
   - It *may* vote for carbon classes to reduce the difference between
-    carbon supply and retirement prices.
+    execution terms on carbon intake and retirements.
 
   - It receives **kVCM** and **K2** incentives.
 
