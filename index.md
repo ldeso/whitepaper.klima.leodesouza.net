@@ -2,7 +2,7 @@
 The Dark Sole Enterprise Ltd <ds@darksole.vip>  
 with contributions from the Klima and Carbonmark teams
 
-19 Jan 2026 (Version 1.48)
+20 Jan 2026 (Version 1.48)
 
 <img src="brand/klimaprotocol.svg" style="width:50.0%"
 alt="Klima Protocol Logo." data-fig-align="center" />
@@ -239,69 +239,65 @@ of carbon inventory.
 
 ### Tokens
 
-#### Risk-Balanced Asset Token: kVCM
+Locking or staking the protocol’s tokens allows participants to signal
+pricing preferences and capacity parameters within the protocol.
+However, holding or locking the tokens does not represent risk
+ownership, profit participation, or exposure to carbon price movements.
+Participants may receive protocol incentives for performing defined
+coordination functions, distributed according to transparent,
+rules-based mechanisms.
 
-**kVCM** represents core ownership of the portfolio assets, and is
-designed to flex between asset and growth value drivers depending on
-token-holder activity.
+Together, **kVCM** and **K2** enable the protocol to operate as neutral,
+non-extractive infrastructure, coordinating participation and execution
+without discretionary management.
 
-**kVCM** has <u>no maximum supply</u> but inflates upon carbon credit
-accumulation, and contracts upon issuance of carbon offset certificates.
+#### kVCM
 
-- When **time-locked** for fixed maturities:
+**kVCM** is the protocol’s primary utility token. Its supply is <u>not
+capped</u>: it grows when new carbon is supplied to the protocol, and
+contracts when it is retired.
 
-  - *Optionally* selects carbon classes for portfolio weighting and
-    pricing (‘active’).
+- When **time-locked**:
 
-  - Sets the forward discount rate for carbon portfolio acquisition from
-    the collective time locking pattern over time.
+  - It *may* vote for carbon classes for inventory weighting.
 
-  - Generates a **synthetic yield** of **kVCM** based on the forward
-    curve.
+  - It receives **kVCM** base accrual and **K2** incentives.
 
-  - Participates in governance for whitelisting carbon assets.
+  - In aggregate, it determines the rate of incentive issuance.
 
 - **Transactional** usage:
 
-  - **Mint**: New **kVCM** is issued by the Portfolio Manager to
-    purchase new carbon credits for the portfolio.
+  - **Mint**: when suppliers deliver carbon to the protocol.
 
-  - **Burn**: **kVCM** are retired by the Portfolio Manager to issue
-    carbon offset certificates.
+  - **Burn**: when credits are retired from the protocol.
 
-- **Staked** liquidity:
+- When **staked** in liquidity pools it is also eligible for incentives,
+  based on the position’s relative share.
 
-  - Generates a **kVCM** Risk Premium, which is a time-based relative
-    share of the **kVCM** synthetic yield reflecting the risks taken to
-    support the price of platform capital.
+<div id="fig-token-utility">
 
-Noting that the tokens can delegate utility as required.
+![](figures/token-utility.svg)
 
-<div id="fig-aam-token-utility">
-
-![](figures/aam-token-utility.svg)
-
-Figure 2: Automated Asset Manager token utility.
+Figure 2: Token utility.
 
 </div>
 
-#### Risk Governance Token: K2
+#### K2
 
-**K2** is a <u>fixed-supply</u> token issued programmatically over time
-with a dynamic allocation for **K2** **Incentives**.
+**K2** is a <u>fixed-supply</u> token distributed programmatically over
+time.
 
 - When **user-locked**:
 
-  - Shapes the pricing curve and spread of **kVCM**.
-  - Determines the **kVCM** Risk Premium for staked liquidity providers.
-  - Generates a share of the **kVCM** Risk Premium.
-  - Receives **K2** Incentives.
+  - It *may* vote for carbon classes to reduce the difference between
+    carbon supply and retirement prices.
 
-- **Staked** Liquidity:
+  - It receives **kVCM** and **K2** incentives.
 
-  - Generates a share of the **kVCM** Risk Premium.
-  - Participates in governance.
-  - Receives **K2** Incentives.
+  - In aggregate, it influences the rates of incentive issuance.
+
+- When **staked** in the kVCM/K2 liquidity pool it is also eligible for
+  incentives, based on the position’s relative share.
 
 #### Utility Functions
 

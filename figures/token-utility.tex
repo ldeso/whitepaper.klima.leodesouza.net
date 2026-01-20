@@ -73,16 +73,16 @@
 \node[text=darkgray, align=left] at (2.971,6.0346) {\textcolor{warm_gray}{$\bullet$} USDC \Q{}};
 
 % Position the three markets
-\node[market=teal] (aam) at (0,4) {Portfolio \\ Manager};
+\node[market=teal] (aam) at (0,4) {Carbon\\Inventory};
 
-\node[market=steel_teal] (bond) at (-3.5,0) {Time-locked\\Market};
+\node[market=steel_teal] (bond) at (-3.5,0) {Time-locks};
 \node[market=peacock_blue] (liquidity) at (3.5,0) {Liquidity\\Market};
 
-\draw[connect=teal] (aam.west) -| node[pos=0.7, left, text=teal, font=\small\itshape] {Forward Curve}  (bond.north);
+\draw[connect=teal] (aam.west) -| node[pos=0.7, left, text=teal, font=\small\itshape] {Base Accrual}  (bond.north);
 
 \draw[connect=teal] (aam.east) -| node[pos=0.7, right, text=teal, font=\small\itshape] {Supply \& Demand}  (liquidity.north);
 
-\draw[connect=teal] (bond.east) -- node[pos=0.5, below, text=teal, font=\small\itshape] {Risky Cost of Capital}  (liquidity.west);
+\draw[connect=teal] (bond.east) -- node[pos=0.5, below, text=teal, font=\small\itshape] {Incentives Rate}  (liquidity.west);
 
 
 % Add tokens to AAM
