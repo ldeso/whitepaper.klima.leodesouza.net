@@ -362,26 +362,28 @@ Both tokens facilitate the carbon market to function efficiently, with the
 **kVCM** token responsible for setting execution ratios, and the **K2**
 token modulating capacity.
 
-### Initialisation of the kVCM Token {#sec-initialisation-of-the-kvcm-token}
+### Token Initialisation {#sec-token-initialisation}
 
-The Klima Protocol has approximately **20 million tonnes** of carbon credits in
-its treasury as assets, a part of which will be used to create the initial
-issuance of **kVCM** tokens upon launch of Klima&nbsp;2.0.
+There is an initial issuance of tokens at the genesis of Klima&nbsp;2.0. All
+future emissions are distributed autonomously via incentives. 
 
-+-------------+-------------+----------------------------------------------------------------------------+
-| Token       | Amount      | Notes                                                                      |
-+:============+:============+:===========================================================================+
-| **kVCM** \  | 20 million  | - Supply expands and contracts perpetually.                                |
-| **A** Token |             | - 87.5% of initial supply available to existing KLIMA holders.             |
-|             |             | - Initially created approximately on a 1:1 basis with carbon tonnes held.  |
-|             |             | - Issues on carbon received, and burns on barbon retired.                  |
-+-------------+-------------+----------------------------------------------------------------------------+
-| **K2** \    | 100 million | - Fixed supply.                                                            |
-| **G** Token |             | - 40% put into programmatic issuance as **K2** Incentives yield over time. |
-|             |             | - 40% for existing KLIMA holders.                                          |
-+-------------+-------------+----------------------------------------------------------------------------+
++-------------+-------------+-------------------------------------------------------------------------------------------------------+
+| Token       | Supply      | Notes                                                                                                 |
++:============+:============+:======================================================================================================+
+| **kVCM**    | 20 million  | - Supply expands and contracts programmatically in response to carbon intake and retirement activity. |
+|             |             | - A portion of the initial supply is allocated to existing KLIMA holders.                             |
++-------------+-------------+-------------------------------------------------------------------------------------------------------+
+| **K2**      | 100 million | - Fixed supply.                                                                                       |
+|             |             | - Distributed programatically over time, with a portion allocated to existing KLIMA holders.          |
++-------------+-------------+-------------------------------------------------------------------------------------------------------+
 
 : Token Summary {#tbl-token-summary .column-body-outset tbl-colwidths="[10,15,75]"}
+
+**kVCM** is issued when carbon credits are supplied to the protocol for the
+purpose of facilitating future retirement, and permanently removed from
+circulation when carbon is retired. This mint-and-burn process serves as an
+internal accounting mechanism and does not represent asset ownership or claims
+on protocol-held carbon.
 
 ### End Users {#sec-end-users}
 
