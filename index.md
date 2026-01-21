@@ -2,7 +2,7 @@
 The Dark Sole Enterprise Ltd <ds@darksole.vip>  
 with contributions from the Klima and Carbonmark teams
 
-20 Jan 2026 (Version 1.48)
+21 Jan 2026 (Version 1.48)
 
 <img src="brand/klimaprotocol.svg" style="width:50.0%"
 alt="Klima Protocol Logo." data-fig-align="center" />
@@ -304,37 +304,38 @@ time.
 The **kVCM** token has <u>two</u> utility functions which are not
 independent:
 
-<div id="fig-kvcm-staking">
+<div id="fig-kvcm-utility">
 
-![](figures/kvcm-staking.svg)
+![](figures/kvcm-utility.svg)
 
 Figure 3: **kVCM** utility functions.
 
 </div>
 
 1.  **Time lock**: The **kVCM** token is locked for a specific period of
-    time representing a liquidity preference for the holder in return
-    for yield (‘**kVCM** base accrual’). This cannot be amended.
+    time which determines a kVCM ‘base accrual’ rate. This cannot be
+    amended.
 
 2.  **Price allocation**: Collective selection of carbon classes by
-    **kVCM** allocations determines the **instantaneous** price ratio
-    for **kVCM** token issuance. This selection can be amended and
-    withdrawn at any time to allow price modulation for the platform of
-    its carbon assets.
+    **kVCM** allocations determines the **real-time** execution ratio
+    for carbon intake and retirements, in kVCM terms. This selection can
+    be amended and withdrawn at any time to allow modulation of protocol
+    parameters.
 
 The **K2** token also has <u>two</u> utility functions:
 
 1.  **User lock**: The **K2** token remains locked for at least 24
     hours.
 
-2.  **Risk allocation**: collective selection of carbon classes by
-    **K2** allocations determines the rate of issuance or price curve of
-    **kVCM** for the specified carbon class, as well as the retirement
-    burning rate.
+2.  **Capacity allocation**: Collective selection of carbon classes by
+    **K2** allocations determines the rate of issuance or retirement of
+    **kVCM** for the specified carbon class. More capacity allocations
+    on a given carbon class reduce the impact that new transactions have
+    on the execution ratio created by price allocations.
 
-Both tokens facilitate the carbon market to function efficiently with
-the **kVCM** token responsible for portfolio selection and pricing, and
-the **K2** token modulating capacity and risk.
+Both tokens facilitate the carbon market to function efficiently, with
+the **kVCM** token responsible for setting execution ratios, and the
+**K2** token modulating capacity.
 
 ### Initialisation of the kVCM Token
 
