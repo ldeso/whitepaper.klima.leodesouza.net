@@ -385,48 +385,34 @@ circulation when carbon is retired. This mint-and-burn process serves as an
 internal accounting mechanism and does not represent asset ownership or claims
 on protocol-held carbon.
 
-### End Users {#sec-end-users}
+### Participants {#sec-participants}
 
-1. **Carbon Credit Sellers**
-  
-    Those wishing to monetise spot- or forward-delivery classes of carbon. 
+1. **Carbon Suppliers & Retirees**
 
-    _**Portfolio Manager**: Continuously acquires carbon credits using an
-    autonomous pricing strategy based on carbon class, delivery and token
-    balances, issuing new **kVCM** tokens as consideration to build the carbon
-    portfolio._
-  
-2. **Offset Buyers**
-  
-    Those wishing to obtain carbon offset certificates by retiring carbon
-    credits from the portfolio.
+    Participants may supply or retire eligible, tokenised carbon credits to the
+    protocol at quoted execution rates. Supplied credits are handled solely for
+    retirement and cannot be withdrawn, transferred, resold or otherwise
+    arbitraged.
 
-    _**Portfolio Manager**: Continuously sells carbon offset certificates, by
-    burning **kVCM** tokens and issuing carbon offset certificates by retiring
-    the quantity in the registry._
+    _**Carbon Inventory**: Real-time execution terms for suppliers are
+    continuously updated based on protocol token balances._
 
-3. **Investors**
+2. **Liquidity Providers**
 
-    Those who wish to own a liquid or yielding locked fixed-maturity financial
-    exposure to a basket of carbon assets.
+    Participants may provide liquidity in supported token pairs to facilitate
+    entry and exit from the system. Liquidity provision supports continuous
+    execution and is incentivised according to predefined protocol rules.
 
-    _**Time-Locked Market**: Provides a daily time-based yield for those
-    time-locking **kVCM** tokens called Base Accrual._
+    _**Staked Liquidity**: Provides continuous incentives for those contributing
+    liquidity to the system._
 
-4. **Liquidity Providers**
+3. **Governance Users**
 
-    Those who wish to generate liquidity fees on their portfolio of
-    Klima&nbsp;2.0 assets coupled together or with USDC.
+    Participants who wish to affect carbon price and capacity may do so by
+    allocating **kVCM** and **K2** tokens. 
 
-    _**Liquidity Market**: Staked liquidity providers are incentivised by the
-    **kVCM** Risk Premium calculated from system metrics to compensate them for
-    risk._
- 
- 5. **Active Portfolio Optimisation**
-
-    _**K2 and kVCM asset selection**: The incentives and allocations are
-    designed for those who wish to participate in overall risk management to
-    collectively resolve for the optimal portfolio risks._
+    _**Time locks & user locks**: Provide continuous incentives for those
+    contributing activities that coordinate the protocol._
 
 ### Automated Asset Manager Highlights {#sec-automated-asset-manager-highlights}
 
