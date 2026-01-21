@@ -337,11 +337,10 @@ Both tokens facilitate the carbon market to function efficiently, with
 the **kVCM** token responsible for setting execution ratios, and the
 **K2** token modulating capacity.
 
-### Initialisation of the kVCM Token
+### Token Initialisation
 
-The Klima Protocol has approximately **20 million tonnes** of carbon
-credits in its treasury as assets, a part of which will be used to
-create the initial issuance of **kVCM** tokens upon launch of Klima 2.0.
+There is an initial issuance of tokens at the genesis of Klima 2.0. All
+future emissions are distributed autonomously via incentives.
 
 <div id="tbl-token-summary">
 
@@ -354,32 +353,28 @@ create the initial issuance of **kVCM** tokens upon launch of Klima 2.0.
 <thead>
 <tr>
 <th style="text-align: left;">Token</th>
-<th style="text-align: left;">Amount</th>
+<th style="text-align: left;">Supply</th>
 <th style="text-align: left;">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>kVCM</strong><br />
-<strong>A</strong> Token</td>
+<td style="text-align: left;"><strong>kVCM</strong></td>
 <td style="text-align: left;">20 million</td>
 <td style="text-align: left;"><ul>
-<li>Supply expands and contracts perpetually.</li>
-<li>87.5% of initial supply available to existing KLIMA holders.</li>
-<li>Initially created approximately on a 1:1 basis with carbon tonnes
-held.</li>
-<li>Issues on carbon received, and burns on barbon retired.</li>
+<li>Supply expands and contracts programmatically in response to carbon
+intake and retirement activity.</li>
+<li>A portion of the initial supply is allocated to existing KLIMA
+holders.</li>
 </ul></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>K2</strong><br />
-<strong>G</strong> Token</td>
+<td style="text-align: left;"><strong>K2</strong></td>
 <td style="text-align: left;">100 million</td>
 <td style="text-align: left;"><ul>
 <li>Fixed supply.</li>
-<li>40% put into programmatic issuance as <strong>K2</strong> Incentives
-yield over time.</li>
-<li>40% for existing KLIMA holders.</li>
+<li>Distributed programatically over time, with a portion allocated to
+existing KLIMA holders.</li>
 </ul></td>
 </tr>
 </tbody>
@@ -388,6 +383,12 @@ yield over time.</li>
 Table 1: Token Summary
 
 </div>
+
+**kVCM** is issued when carbon credits are supplied to the protocol for
+the purpose of facilitating future retirement, and permanently removed
+from circulation when carbon is retired. This mint-and-burn process
+serves as an internal accounting mechanism and does not represent asset
+ownership or claims on protocol-held carbon.
 
 ### End Users
 
