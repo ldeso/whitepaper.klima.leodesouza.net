@@ -532,27 +532,26 @@ aspects of the model, in the interests of their own utility. This, in
 conjunction with the autonomous model, enables the protocol to fulfill
 its mandate of facilitating retirement demand into the carbon markets.
 
-### Time-Locked Market
+### Time-locking Mechanics
 
-Holders of **A** can time-lock their token until a maturity from the set
-of **standard maturities**. Time locks expire every 90 days on a rolling
-basis. There are always 40 maturities extending out to approximately 10
-years.
+Time-locking **A** tokens represents a non-custodial commitment to
+protocol participation for a fixed duration. Lock durations are
+standardised at 90 days increments and expire on a rolling schedule.
+There are always 40 durations, extending out to approximately 10 years.
 
-- **Forward curve**: Aggregate time-locking determines the shape of the
-  discount curve of the **A** token with regards to its purchasing rate
-  of forward-delivery carbon.
+- **Discount curve**: Aggregate time-locking determines the shape of the
+  discount curve of the **A** token with regards to execution prices.
 
-- **Synthetic yield**: Time-locked **A** token holders receive a
-  floating yield of new **A** tokens following the shape of this
-  discount curve called **Base Accrual**. Base Accrual is calculated
-  daily and accumulates to the principal.
+- **Incentives**: Time-locked **A** tokens may receive incentives, with
+  a rate determined by the base accrual. The base accrual is calculated
+  daily based on user positions, via the ‘time-weighted incentive
+  schedule’.
 
-- **Liquidity**: There is no early unlocking; all principal and
-  accumulated yield is released only at time lock expiration.
+- **Locks**: Time-locked tokens and any associated **A** incentives are
+  released only upon time-lock expiration. Early exit is not possible.
 
-**G** tokens are <u>not</u> involved in the Time-Locked Market. The
-forward curve is agnostic to carbon class although only time-locked
+**G** tokens are <u>not</u> involved in the time-locking mechanics. The
+discount curve is agnostic to carbon class although only time-locked
 **A** token holders can allocate their token to carbon classes for
 portfolio pricing.
 
@@ -1481,8 +1480,7 @@ buckets:
 1.  Time-locked **A** & user-locked **G** tokens
 
     Where $S$ is the proportion of time-locked **A** tokens (as defined
-    previously in
-    <a href="#sec-time-locked-market" class="quarto-xref">Section 3.1</a>):
+    previously in **?@sec-time-locked-market**):
 
     1.  Time-locked **A**, $I_S$:
 

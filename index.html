@@ -202,7 +202,7 @@ This document should not be relied upon as a description of the final protocol, 
   </ul></li>
   <li><a href="#sec-core-protocol-layers" id="toc-sec-core-protocol-layers" class="nav-link" data-scroll-target="#sec-core-protocol-layers"><span class="header-section-number">3</span> Core Protocol Layers</a>
   <ul class="collapse">
-  <li><a href="#sec-time-locked-market" id="toc-sec-time-locked-market" class="nav-link" data-scroll-target="#sec-time-locked-market"><span class="header-section-number">3.1</span> Time-Locked Market</a></li>
+  <li><a href="#sec-time-locking-mechanics" id="toc-sec-time-locking-mechanics" class="nav-link" data-scroll-target="#sec-time-locking-mechanics"><span class="header-section-number">3.1</span> Time-locking Mechanics</a></li>
   <li><a href="#sec-portfolio-manager-detailed" id="toc-sec-portfolio-manager-detailed" class="nav-link" data-scroll-target="#sec-portfolio-manager-detailed"><span class="header-section-number">3.2</span> Portfolio Manager</a></li>
   <li><a href="#sec-liquidity-markets" id="toc-sec-liquidity-markets" class="nav-link" data-scroll-target="#sec-liquidity-markets"><span class="header-section-number">3.3</span> Liquidity Markets</a></li>
   <li><a href="#sec-interactive-model" id="toc-sec-interactive-model" class="nav-link" data-scroll-target="#sec-interactive-model"><span class="header-section-number">3.4</span> Interactive Model</a></li>
@@ -547,15 +547,15 @@ Table&nbsp;1: Token Summary
 </ul></li>
 </ol>
 <p>The Klima system enables each participant to contribute to various aspects of the model, in the interests of their own utility. This, in conjunction with the autonomous model, enables the protocol to fulfill its mandate of facilitating retirement demand into the carbon markets.</p>
-<section id="sec-time-locked-market" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="sec-time-locked-market"><span class="header-section-number">3.1</span> Time-Locked Market</h3>
-<p>Holders of <strong>A</strong> can time-lock their token until a maturity from the set of <strong>standard maturities</strong>. Time locks expire every 90 days on a rolling basis. There are always 40 maturities extending out to approximately 10 years.</p>
+<section id="sec-time-locking-mechanics" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="sec-time-locking-mechanics"><span class="header-section-number">3.1</span> Time-locking Mechanics</h3>
+<p>Time-locking <strong>A</strong> tokens represents a non-custodial commitment to protocol participation for a fixed duration. Lock durations are standardised at 90 days increments and expire on a rolling schedule. There are always 40 durations, extending out to approximately 10 years.</p>
 <ul>
-<li><p><strong>Forward curve</strong>: Aggregate time-locking determines the shape of the discount curve of the <strong>A</strong> token with regards to its purchasing rate of forward-delivery carbon.</p></li>
-<li><p><strong>Synthetic yield</strong>: Time-locked <strong>A</strong> token holders receive a floating yield of new <strong>A</strong> tokens following the shape of this discount curve called <strong>Base Accrual</strong>. Base Accrual is calculated daily and accumulates to the principal.</p></li>
-<li><p><strong>Liquidity</strong>: There is no early unlocking; all principal and accumulated yield is released only at time lock expiration.</p></li>
+<li><p><strong>Discount curve</strong>: Aggregate time-locking determines the shape of the discount curve of the <strong>A</strong> token with regards to execution prices.</p></li>
+<li><p><strong>Incentives</strong>: Time-locked <strong>A</strong> tokens may receive incentives, with a rate determined by the base accrual. The base accrual is calculated daily based on user positions, via the ‘time-weighted incentive schedule’.</p></li>
+<li><p><strong>Locks</strong>: Time-locked tokens and any associated <strong>A</strong> incentives are released only upon time-lock expiration. Early exit is not possible.</p></li>
 </ul>
-<p><strong>G</strong> tokens are <u>not</u> involved in the Time-Locked Market. The forward curve is agnostic to carbon class although only time-locked <strong>A</strong> token holders can allocate their token to carbon classes for portfolio pricing.</p>
+<p><strong>G</strong> tokens are <u>not</u> involved in the time-locking mechanics. The discount curve is agnostic to carbon class although only time-locked <strong>A</strong> token holders can allocate their token to carbon classes for portfolio pricing.</p>
 <section id="sec-synthetic-yield-and-forward-delivery-curve" class="level4" data-number="3.1.1">
 <h4 data-number="3.1.1" class="anchored" data-anchor-id="sec-synthetic-yield-and-forward-delivery-curve"><span class="header-section-number">3.1.1</span> Synthetic Yield and Forward-Delivery Curve</h4>
 <p>Defining:</p>
@@ -5464,7 +5464,7 @@ I_T = 1 - \upsilon \, \eta
 <p>The residual post-treasury allocation is shared four ways within 2 buckets:</p>
 <ol type="1">
 <li><p>Time-locked <strong>A</strong> &amp; user-locked <strong>G</strong> tokens</p>
-<p>Where <span class="math inline">S</span> is the proportion of time-locked <strong>A</strong> tokens&nbsp;(as defined previously in <a href="#sec-time-locked-market" class="quarto-xref">Section&nbsp;3.1</a>):</p>
+<p>Where <span class="math inline">S</span> is the proportion of time-locked <strong>A</strong> tokens&nbsp;(as defined previously in <strong>?@sec-time-locked-market</strong>):</p>
 <ol type="1">
 <li><p>Time-locked <strong>A</strong>, <span class="math inline">I_S</span>:</p>
 <p><span id="eq-allocation-locked-a"><span class="math display">
