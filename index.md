@@ -2,7 +2,7 @@
 The Dark Sole Enterprise Ltd <ds@darksole.vip>  
 with contributions from the Klima and Carbonmark teams
 
-21 Jan 2026 (Version 1.48)
+22 Jan 2026 (Version 1.48)
 
 <img src="brand/klimaprotocol.svg" style="width:50.0%"
 alt="Klima Protocol Logo." data-fig-align="center" />
@@ -399,8 +399,8 @@ ownership or claims on protocol-held carbon.
     handled solely for retirement and cannot be withdrawn, transferred,
     resold or otherwise arbitraged.
 
-    ***Carbon Inventory**: Real-time execution terms for suppliers are
-    continuously updated based on protocol token balances.*
+    **Carbon inventory**: Real-time execution terms for suppliers are
+    continuously updated based on protocol token balances.
 
 2.  **Liquidity Providers**
 
@@ -409,51 +409,85 @@ ownership or claims on protocol-held carbon.
     supports continuous execution and is incentivised according to
     predefined protocol rules.
 
-    ***Staked Liquidity**: Provides continuous incentives for those
-    contributing liquidity to the system.*
+    **Staked liquidity**: Provides continuous incentives for those
+    contributing liquidity to the system.
 
 3.  **Governance Users**
 
     Participants who wish to affect carbon price and capacity may do so
     by allocating **kVCM** and **K2** tokens.
 
-    ***Time locks & user locks**: Provide continuous incentives for
-    those contributing activities that coordinate the protocol.*
+    **Time locks & user locks**: Provide continuous incentives for those
+    contributing activities that coordinate the protocol.
 
-### Automated Asset Manager Highlights
+### Protocol Design Principles
 
-- **Decentralised architecture**:
+1.  **Infrastructure, Not Extraction**:
 
-  The Automated Asset Manager is smart-contract based, fully autonomous
-  as to pricing and distribution of its assets with governance power
-  held by risk-based capital.
+    Klima 2.0 is designed as shared market infrastructure rather than an
+    extractive financial product. The protocol does not charge fees,
+    take spreads, or operate profit-taking mechanisms for any sponsor,
+    foundation, or investor. All protocol behaviour is rules-based and
+    applies uniformly to all participants, with no privileged economic
+    positions or revenue capture layers.
 
-- **Adverse selection**:
+    **Design intent**: Reduce opaque intermediation and hidden margins
+    common in carbon markets, not replace them with a new rent-seeking
+    intermediary.
 
-  The Automated Asset Manager does not permit the direct purchase of
-  carbon credits from its portfolio (only carbon offset certificates).
+2.  **Consumption-only Carbon Access**:
 
-- **Liquid carbon**:
+    Carbon credits handled by the protocol are not exposed for resale,
+    speculation, or secondary trading. Once accepted by the protocol,
+    credits may only be accessed for irreversible retirement through
+    protocol-defined processes.
 
-  Users with liquid carbon credits can always access carbon offset
-  certificates through the registry, hold the specific carbon credits or
-  sell back to the Automated Asset Manager if required. Secondary
-  markets and utility for liquid carbon credits may emerge over time.
+    **Design intent**: Align the system with carbon’s end use
+    (retirement), rather than treating credits as financial instruments.
 
-- **Implied spreads**:
+3.  **Coordination Through Signalling**:
 
-  The Automated Asset Manager purchases carbon at relative discounts
-  based on capacity pricing and forward discount rates folding natural
-  returns into the portfolio capital.
+    Protocol tokens do not represent ownership of carbon, claims on
+    protocol-held assets, or entitlement to surplus value. Instead,
+    tokens function as signalling and coordination inputs that influence
+    protocol parameters (such as execution conditions and capacity)
+    within predefined bounds.
 
-- **Dual token structure**:
+    **Design intent**: Enable decentralised coordination in a complex
+    and competitive environment.
 
-  Whilst the **kVCM** token reflects asset economics, the **K2** token
-  is essential for optimising pricing capacity and in return
-  **maximising risk-adjusted spreads** for the portfolio. Since its
-  earnings power is a function of the **kVCM** token value, its role as
-  this spread optimiser is truly economically aligned and as such
-  fundamental values of **kVCM** and **K2** are highly correlated.
+4.  **Autonomous, Rules-based Operation**
+
+    All protocol behaviour — including pricing logic, intake conditions,
+    retirement execution, and incentive distribution — is governed by
+    deterministic smart contracts. Once deployed, the system operates
+    autonomously and does not rely on discretionary decisions by any
+    individual, committee, or organisation.
+
+    **Design intent**: Build a trustless, auditable system, that is not
+    based on subjective, opaque intervention.
+
+5.  **Equal Access and Uniform Treatment**
+
+    All participants interact with the protocol on identical terms.
+    There are no side agreements, preferential execution paths,
+    differentiated rights, or bespoke economic arrangements. Protocol
+    rules apply uniformly to all users, including the protocol’s
+    creators and affiliated entities.
+
+    **Design intent**: Ensure credibility, neutrality, and resistance to
+    capture.
+
+6.  **Market-driven Outcomes, Not Managed returns**
+
+    Any economic effects associated with protocol participation arise
+    solely from predefined rules and participant interaction with the
+    system. The protocol does not manage assets on behalf of users,
+    target returns, or seek to optimise outcomes for any class of
+    participant.
+
+    **Design intent**: Enable transparent market coordination without
+    positioning the protocol as an asset manager or investment vehicle
 
 ## Core Economic Pillars
 
