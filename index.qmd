@@ -561,7 +561,7 @@ outstanding supply of **A**.
 proportion of the outstanding supply of **A**, where ${\sum S_t = S}$, and $t$
 is the index of standard durations $t \in \{1, 2, 3, \dots, 40\}$.
 
-- $E_t$: Time to expiry expressed in years.
+- $E_t$: Duration expressed in years.
 
 Calculating curve parameters $D$ and $C$:
 
@@ -852,7 +852,7 @@ Plot.plot({
   x: {
     ticks: d3.range(1, 11),
     domain: [0.25, 10.45],
-    label: "Time to Expiry (Years)",
+    label: "Duration E (Years)",
   },
   y: {
     domain: [
@@ -867,7 +867,7 @@ Plot.plot({
   clip: true,
   marks: [
     Plot.frame(),
-    Plot.axisY({ anchor: "left", label: "Stake A by Duration (%)" }),
+    Plot.axisY({ anchor: "left", label: "Stake A (%)" }),
     Plot.axisY({ anchor: "right", label: "Incentive Rates (%)" }),
     Plot.rectY(yieldData, {
       x1: d => d.time - 0.45,
@@ -900,7 +900,7 @@ Plot.plot({
   x: {
     ticks: d3.range(1, 11),
     domain: [0.25, 10.45],
-    label: "Time to Expiry (Years)"
+    label: "Duration E (Years)"
   },
   y: { domain: [0, 100], grid: true },
   clip: true,
@@ -990,7 +990,7 @@ inflationData = {
 ```{ojs}
 Plot.plot({
   color: { legend: true, scheme: "Spectral", type: "sequential", label: "ΔS" },
-  x: { ticks: d3.range(1, 10.1, 1), domain: [10.5, 0.5], label: "Expiry Time E" },
+  x: { ticks: d3.range(1, 10.1, 1), domain: [10.5, 0.5], label: "Duration E (Years)" },
   y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Staking S" },
   marks: [
     Plot.frame(),
