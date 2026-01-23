@@ -737,21 +737,15 @@ Figure 6: Klima 2.0 carbon inventory mechanics.
 
 </div>
 
-#### Purchase Carbon
+#### Carbon Supply
 
 *User swaps carbon credits for **A** tokens.*
 
-##### Existing Carbon in the Portfolio
-
-Carbon classes ${i \in \{1, 2, 3, \dots, n\}}$ are whitelisted through
-governance by time-locked **A** token and staked
-<span class="overline">**AG**</span> liquidity providers (see
-<a href="#sec-protocol-governance-signals"
-class="quarto-xref">Section 3.1.2</a>).
+##### Existing Carbon in the Inventory
 
 For carbon pricing, both **A** tokens and **G** tokens may be allocated
-to specific carbon classes $i$ and these are independent allocations
-between the two-token systems.
+to specific carbon classes ${i \in \{1, 2, 3, \dots, n\}}$ and these are
+independent allocations between the two tokens.
 
 <div id="fig-token-staking-class-structure">
 
@@ -761,15 +755,14 @@ Figure 7: Token staking class structure.
 
 </div>
 
-For a carbon class quantity to be sold to the Automated Asset Manager,
-it must have a strictly positive quantity of **A** tokens allocated to
-that carbon class, otherwise there is no price, and the carbon cannot be
-sold.
+For a carbon class quantity to be supplied to the protocol, it must have
+a strictly positive quantity of **A** tokens allocated to that carbon
+class, otherwise there is no price, and the carbon cannot be sold.
 
 Defining:
 
 - $C_i$: Total tonnes of carbon class $i$ currently held in the
-  portfolio.
+  inventory.
 
 - $A_i$: **A** tokens allocated to carbon class $i$ expressed as a
   proportion of the outstanding supply of **A** tokens, where
@@ -778,87 +771,32 @@ Defining:
 - $G_i$: **G** tokens allocated to carbon class $i$ expressed as a
   proportion of the outstanding supply of **G** Tokens.
 
-- $C_{it}$: The quantity of carbon class $i$ held in the Automated Asset
-  Manager deliverable per maturity $t$ where $C_{i0}$ reflects the
-  liquid quantity.
-
-In order to determine the present-value quantity of carbon, $\bar C_i$,
-we apply the discount curve from
-<a href="#eq-discount-rate" class="quarto-xref">Equation 7</a> to the
-liquidity schedule and sum the discounted holdings:
-
-<span id="eq-present-value-carbon">$$
-\bar C_i = C_{i0} + \sum_{t=1}^{40} B_t \, C_{it}
- \qquad(15)$$</span>
-
-<div class="panel-sidebar">
-
-</div>
-
-<div class="panel-fill">
-
-<div id="fig-carbon-held-in-the-aam">
-
-![](figures/carbon-held-in-the-aam.svg)
-
-Figure 8: Carbon held in the portfolio.
-
-</div>
-
-</div>
-
-Similarly, taking $\Delta C_{it}$ as the quantity of carbon $i$ to be
-sold with a specific maturity index $t$:
-
-<span id="eq-present-value-carbon-change">$$
-\Delta \bar C_i = \Delta C_{i0} + \sum_{t=1}^{40} B_t \, \Delta C_{it}
- \qquad(16)$$</span>
-
-Once standardised by the discount curve, trades can be aggregated in the
-same class for the defined trade or auction period.
-
-<div class="panel-sidebar">
-
-</div>
-
-<div class="panel-fill">
-
-<div id="fig-carbon-bought-by-the-aam">
-
-![](figures/carbon-bought-by-the-aam.svg)
-
-Figure 9: Carbon bought by the Portfolio Manager.
-
-</div>
-
-</div>
-
-Where $\Delta \bar C_i$ is expressed as the relative increment to its
+Where $\Delta C_i$ is expressed as the relative increment to its
 respective pool balance, the amount of **A** tokens issued to pay for
 carbon, $\Delta A$, expressed as a proportion of current supply, is
 determined as:
 
 <span id="eq-a-change-intermediary-step">$$
 \ln(1 + \Delta A) =
-  \left( A_i - \frac{A_i^2 \, (1 - G_i)^2}{2} \right) \ln(1 + \Delta \bar C_i)
- \qquad(17)$$</span>
+  \left( A_i - \frac{A_i^2 \, (1 - G_i)^2}{2} \right) \ln(1 + \Delta C_i)
+ \qquad(15)$$</span>
 
 Denoting the expression on the right hand side of
 <a href="#eq-a-change-intermediary-step"
-class="quarto-xref">Equation 17</a> as $\mathsf{RHS}$:
+class="quarto-xref">Equation 15</a> as $\mathsf{RHS}$:
 
 <span id="eq-a-change">$$
 \Delta A = \exp(\mathsf{RHS}) - 1
- \qquad(18)$$</span>
+ \qquad(16)$$</span>
 
 Finally, $\Delta A$ is applied to the outstanding supply of **A** to
 solve for token quantities.
 
-<a href="#fig-a-price-curves" class="quarto-xref">Figure 10</a>
+<a href="#fig-a-price-curves" class="quarto-xref">Figure 8</a>
 illustrates the **G** token’s capacity to maintain the initial portfolio
 pricing of the **A** token. The data has been normalised in
 <a href="#fig-a-price-curves-normalised"
-class="quarto-xref">Figure 11</a> to $\Delta \bar C_i \, A_i$.
+class="quarto-xref">Figure 9</a> to $\Delta C_i \, A_i$.
 
 <div class="panel-sidebar">
 
@@ -870,7 +808,7 @@ class="quarto-xref">Figure 11</a> to $\Delta \bar C_i \, A_i$.
 
 ![](figures/a-price-curves.svg)
 
-Figure 10: **A** price curves ($\Delta A$).
+Figure 8: **A** price curves ($\Delta A$).
 
 </div>
 
@@ -878,32 +816,31 @@ Figure 10: **A** price curves ($\Delta A$).
 
 ![](figures/a-price-curves-normalised.svg)
 
-Figure 11: Normalised **A** price curves.
+Figure 9: Normalised **A** price curves.
 
 </div>
 
 </div>
 
 Noting that the sensitivity to $G_i$ increases as $A_i$ increases and
-the effects become more pronounced as $\Delta \bar C_i$ increases.
+the effects become more pronounced as $\Delta C_i$ increases.
 
 ##### Zero Carbon Scenario
 
 There are circumstances when there is zero carbon held in the portfolio
 for a particular class, i.e. ${C_i = 0}$, which invalidates the
-calculation of $\Delta \bar C_i$ and a different approach is required.
+calculation of $\Delta C_i$ and a different approach is required.
 
-Taking $\Delta \bar C_\emptyset$ as the tonnes of carbon tokens
-(implying an existing balance of 1 tonne), adjusted for forward
-discounting, to be sold for any carbon class that has a strictly
-positive **A** allocation $A_\emptyset$, together with **G** allocation
-$G_\emptyset$:
+Taking $\Delta C_\emptyset$ as the tonnes of carbon tokens (implying an
+existing balance of 1 tonne), adjusted for forward discounting, to be
+sold for any carbon class that has a strictly positive **A** allocation
+$A_\emptyset$, together with **G** allocation $G_\emptyset$:
 
 <span id="eq-a-change-zero-carbon">$$
 \Delta A =
-  \frac{\Delta \bar C_\emptyset}{1 + \Delta \bar C_\emptyset} \,
+  \frac{\Delta C_\emptyset}{1 + \Delta C_\emptyset} \,
   \left( A_\emptyset - \frac{A_\emptyset^2 (1 - G_\emptyset)^2}{2} \right)^2
- \qquad(19)$$</span>
+ \qquad(17)$$</span>
 
 <div class="panel-sidebar">
 
@@ -915,7 +852,7 @@ $G_\emptyset$:
 
 ![](figures/a-price-curves-zero-carbon.svg)
 
-Figure 12: **A** price curves ($\Delta A$) in the zero carbon scenario.
+Figure 10: **A** price curves ($\Delta A$) in the zero carbon scenario.
 
 </div>
 
@@ -923,7 +860,7 @@ Figure 12: **A** price curves ($\Delta A$) in the zero carbon scenario.
 
 ![](figures/a-price-curves-zero-carbon-normalised.svg)
 
-Figure 13: Normalised **A** price curves in the zero carbon scenario.
+Figure 11: Normalised **A** price curves in the zero carbon scenario.
 
 </div>
 
@@ -944,15 +881,15 @@ $C_{i0}$:
 <span id="eq-carbon-change-intermediary-step">$$
 \ln(1 + \Delta C_i) =
   \frac{-\ln(1 + \Delta A)}{A_i + \frac 1 2 A_i^2 \, (1 - G_i)^2}
- \qquad(20)$$</span>
+ \qquad(18)$$</span>
 
 As before, denoting the expression on the right hand side of
 <a href="#eq-carbon-change-intermediary-step"
-class="quarto-xref">Equation 20</a> as $\mathsf{RHS}$:
+class="quarto-xref">Equation 18</a> as $\mathsf{RHS}$:
 
 <span id="eq-carbon-change">$$
 \Delta C_i = \exp(\mathsf{RHS}) - 1
- \qquad(21)$$</span>
+ \qquad(19)$$</span>
 
 <div class="panel-sidebar">
 
@@ -964,14 +901,14 @@ class="quarto-xref">Equation 20</a> as $\mathsf{RHS}$:
 
 ![](figures/proportion-of-carbon-retired.svg)
 
-Figure 14: Proportion of carbon retired.
+Figure 12: Proportion of carbon retired.
 
 </div>
 
 </div>
 
 <a href="#fig-proportion-of-carbon-retired"
-class="quarto-xref">Figure 14</a> shows the cost of carbon increasing
+class="quarto-xref">Figure 12</a> shows the cost of carbon increasing
 with $A_i$ and decreasing on $G_i$.
 
 ##### Unweighted Carbon Class
@@ -986,7 +923,7 @@ mechanism for carbon offset certificates, the balances of all carbon
 held in the portfolio post-trade are distributed to all **G** token
 holders.
 
-<a href="#fig-carbon-spread" class="quarto-xref">Figure 15</a> below
+<a href="#fig-carbon-spread" class="quarto-xref">Figure 13</a> below
 shows the spread captured on a ‘round trip’ by the system where
 $\varepsilon$ is the proportion retained:
 
@@ -1000,14 +937,14 @@ $\varepsilon$ is the proportion retained:
 
 ![](figures/carbon-spread.svg)
 
-Figure 15: Carbon ‘spread’.
+Figure 13: Carbon ‘spread’.
 
 </div>
 
 </div>
 
 <a href="#fig-carbon-spread-components"
-class="quarto-xref">Figure 16</a> shows the component ‘spread’
+class="quarto-xref">Figure 14</a> shows the component ‘spread’
 contributions on a carbon sale and purchase round trip of a carbon
 offset certificate.
 
@@ -1039,7 +976,7 @@ data-ref-parent="fig-carbon-spread-components" />
 
 </div>
 
-Figure 16: Carbon ‘spread’ components.
+Figure 14: Carbon ‘spread’ components.
 
 </div>
 
@@ -1053,7 +990,7 @@ Both **A** and **G** tokens can be used for providing liquidity.
 
 ![](figures/token-liquidity.svg)
 
-Figure 17: Token liquidity and pricing structure.
+Figure 15: Token liquidity and pricing structure.
 
 </div>
 
@@ -1096,20 +1033,20 @@ $\beta$ from the implied betas of each carbon class $i$.
 
 <span id="eq-beta">$$
 \beta = \sqrt{\sum_{i=1}^n A_i - A_i \, (1 - G_i)^2}
- \qquad(22)$$</span>
+ \qquad(20)$$</span>
 
 The portfolio $\beta$ determines a yield factor for the liquidity pools
 of **A** to compensate for the implied risk levels.
 
 For intuition, the map in
-<a href="#fig-range-of-beta-i" class="quarto-xref">Figure 18</a> shows
+<a href="#fig-range-of-beta-i" class="quarto-xref">Figure 16</a> shows
 the various outputs of the function per carbon class.
 
 <div id="fig-range-of-beta-i">
 
 ![](figures/range-of-beta-i.svg)
 
-Figure 18: Range of $\beta_i$.
+Figure 16: Range of $\beta_i$.
 
 </div>
 
@@ -1138,12 +1075,12 @@ Table 2: Effect on $\beta$ from outsized **G** allocation.
 
 ![](figures/example-of-g-stake-on-beta.svg)
 
-Figure 19: Example of **G** allocation on $\beta$.
+Figure 17: Example of **G** allocation on $\beta$.
 
 </div>
 
 <a href="#fig-example-of-g-stake-on-beta"
-class="quarto-xref">Figure 19</a> shows $\beta$’s sensitivity to **G**
+class="quarto-xref">Figure 17</a> shows $\beta$’s sensitivity to **G**
 allocation as a function of **A** allocation; that is to say that a
 large $G_i$ stake on a small $A_i$ stake has limited
 effects (notwithstanding other consequential factors).
@@ -1157,7 +1094,7 @@ Risk Premium for the liquidity pools accordingly.
 
 ![](figures/a-token-flow-structure.svg)
 
-Figure 20: **A** token flow structure.
+Figure 18: **A** token flow structure.
 
 </div>
 
@@ -1183,13 +1120,13 @@ The allocation to user-locked **G** tokens, $\lambda_{GG}$:
 
 <span id="eq-lambda-gg">$$
 \lambda_{GG} = \frac{1 - A_Q}{1 + \left( \frac{\sum_{i=1}^{n}{G_i}}{G_G} \right)^2}
- \qquad(23)$$</span>
+ \qquad(21)$$</span>
 
 <div id="fig-g-stake-allocation">
 
 ![](figures/g-stake-allocation.svg)
 
-Figure 21: **G** stake allocation (assuming $G_G = 1 - G_i$).
+Figure 19: **G** stake allocation (assuming $G_G = 1 - G_i$).
 
 </div>
 
@@ -1201,19 +1138,19 @@ pools:
 
 <span id="eq-lambda-g">$$
 \lambda_G = (1 - \lambda_{GG}) \frac{2 A_G}{2 A_G + A_Q \sqrt 2}
- \qquad(24)$$</span>
+ \qquad(22)$$</span>
 
 For completeness:
 
 <span id="eq-lambda-q">$$
 \lambda_Q = 1 - \lambda_{GG} - \lambda_G
- \qquad(25)$$</span>
+ \qquad(23)$$</span>
 
 <div id="fig-liquidity-pool-split">
 
 ![](figures/liquidity-pool-split.svg)
 
-Figure 22: Liquidity pool split $\lambda_G, \lambda_Q$.
+Figure 20: Liquidity pool split $\lambda_G, \lambda_Q$.
 
 </div>
 
@@ -1223,19 +1160,19 @@ For $\lambda_{GG}$, $\lambda_G$, $\lambda_Q$ we apply $\beta$:
 
 <span id="eq-capital-lambda">$$
 \Lambda_X = \lambda_X \, \beta, \quad \text{for } X \in \{GG, G, Q\}
- \qquad(26)$$</span>
+ \qquad(24)$$</span>
 
 Taking $b$ as a discount parameter:
 
 <span id="eq-discount-parameter">$$
 b = \frac{\sum_1^{40} Z_t \, S_t \, B_t}{\sum_1^{40} Z_t \, S_t }
- \qquad(27)$$</span>
+ \qquad(25)$$</span>
 
 The total Risk Premium tokens $R_\lambda$:
 
 <span id="eq-risk-premium">$$
 R_\lambda = b \, R \, (\Lambda_{GG} + \Lambda_G + \Lambda_Q)
- \qquad(28)$$</span>
+ \qquad(26)$$</span>
 
 The allocations of $R_\lambda$ are pro-rata to $\Lambda_{GG}$,
 $\Lambda_G$, $\Lambda_Q$, and thereafter:
@@ -1248,11 +1185,11 @@ $\Lambda_G$, $\Lambda_Q$, and thereafter:
 
     <span id="eq-risky-premium-weighting-ag-pool">$$
      G_t = \frac{Z_t \, L_{Gt} \, B_t}{\sum Z_t \, L_{Gt} \, B_t}
-      \qquad(29)$$</span>
+      \qquad(27)$$</span>
 
     <span id="eq-risky-premium-weighting-aq-pool">$$
      Q_t = \frac{Z_t \, L_{Qt} \, B_t}{\sum Z_t \, L_{Qt} \, B_t}
-      \qquad(30)$$</span>
+      \qquad(28)$$</span>
 
     Where $L_{Gt}$, $L_{Qt}$ are the proportion of all liquidity locked
     in each time bucket for <span class="overline">**AG**</span> and
@@ -1299,7 +1236,7 @@ Table 4: **K2** token.
 
 ![](figures/k2-token-allocations.svg)
 
-Figure 23: **K2** token allocations.
+Figure 21: **K2** token allocations.
 
 </div>
 
@@ -1314,19 +1251,19 @@ Setting $x_0$ from the initial supply parameter:
 
 <span id="eq-incentives-issuance-x-0">$$
 x_0 = \ln\left( \frac{P_0}{1 - P_0} \right)
- \qquad(31)$$</span>
+ \qquad(29)$$</span>
 
 With $x_t$ at time point $t \in (0, \infty)$:
 
 <span id="eq-incentives-issuance-x-t">$$
 x_t = x_0 \, \left( 1 - \frac t T \right)
- \qquad(32)$$</span>
+ \qquad(30)$$</span>
 
 Giving supply function $\operatorname{P}(t)$ as:
 
 <span id="eq-incentives-issuance-curve">$$
 \operatorname{P}(t) = \frac{\exp(x_t)}{\exp(x_t) + 1}
- \qquad(33)$$</span>
+ \qquad(31)$$</span>
 
 $P_0$ set at 7% and $T$ at 24 months:
 
@@ -1340,7 +1277,7 @@ $P_0$ set at 7% and $T$ at 24 months:
 
 ![](figures/incentive-issuance.svg)
 
-Figure 24: Incentive Issuance
+Figure 22: Incentive Issuance
 
 </div>
 
@@ -1348,7 +1285,7 @@ Figure 24: Incentive Issuance
 
 ![](figures/k2-token-supply-circulating.svg)
 
-Figure 25: **K2** token circulating supply over time.
+Figure 23: **K2** token circulating supply over time.
 
 </div>
 
@@ -1374,7 +1311,7 @@ data-ref-parent="fig-k2-token-supply-total" />
 
 </div>
 
-Figure 26: **K2** token total supply over time.
+Figure 24: **K2** token total supply over time.
 
 </div>
 
@@ -1400,7 +1337,7 @@ data-ref-parent="fig-k2-risk-metrics" />
 
 </div>
 
-Figure 27: **K2** token supply risk metrics.
+Figure 25: **K2** token supply risk metrics.
 
 </div>
 
@@ -1412,7 +1349,7 @@ Figure 27: **K2** token supply risk metrics.
 
 ![](figures/k2-incentive-distribution.svg)
 
-Figure 28: **K2** token incentive distribution structure.
+Figure 26: **K2** token incentive distribution structure.
 
 </div>
 
@@ -1432,13 +1369,13 @@ Where $\upsilon = 0$ if $G + L = 0$, otherwise:
 
 <span id="eq-relative-utilisation">$$
 \upsilon = \left( \frac{2 G L}{G^2 + L^2} \right)^2
- \qquad(34)$$</span>
+ \qquad(32)$$</span>
 
 <div id="fig-relative-utilisation">
 
 ![](figures/relative-utilisation.svg)
 
-Figure 29: Upsilon $\upsilon$ range of values.
+Figure 27: Upsilon $\upsilon$ range of values.
 
 </div>
 
@@ -1447,13 +1384,13 @@ if $G + L = 0$, otherwise:
 
 <span id="eq-absolute-utilisation">$$
 \eta = \frac{2 G L}{G (1 - G) + L ( 1 - L)}
- \qquad(35)$$</span>
+ \qquad(33)$$</span>
 
 <div id="fig-absolute-utilisation">
 
 ![](figures/absolute-utilisation.svg)
 
-Figure 30: Eta $\eta$ range of values.
+Figure 28: Eta $\eta$ range of values.
 
 </div>
 
@@ -1466,7 +1403,7 @@ $\upsilon$:
 
 <span id="eq-allocation-treasury">$$
 I_T = 1 - \upsilon \, \eta
- \qquad(36)$$</span>
+ \qquad(34)$$</span>
 
 #### Post Treasury
 
@@ -1483,13 +1420,13 @@ buckets:
 
         <span id="eq-allocation-locked-a">$$
          I_S = S \, \frac{L^2}{G^2 + L^2}
-          \qquad(37)$$</span>
+          \qquad(35)$$</span>
 
     2.  User-locked **G**, $I_G$:
 
         <span id="eq-allocation-locked-g">$$
          I_G = (1 - S) \, \frac{L^2}{G^2 + L^2}
-          \qquad(38)$$</span>
+          \qquad(36)$$</span>
 
 2.  Liquidity
 
@@ -1501,13 +1438,13 @@ buckets:
 
         <span id="eq-allocation-pool-ag">$$
          I_{AG} = \frac{\lambda_G}{1 - \lambda_{GG}} \, \frac{G^2}{G^2 + L^2}
-          \qquad(39)$$</span>
+          \qquad(37)$$</span>
 
     4.  <span class="overline">**AQ**</span> pool $I_{AQ}$:
 
         <span id="eq-allocation-pool-aq">$$
          I_{AQ} = \frac{\lambda_Q}{1 - \lambda_{GG}} \, \frac{G^2}{G^2 + L^2}
-          \qquad(40)$$</span>
+          \qquad(38)$$</span>
 
 <div class="panel-sidebar">
 
@@ -1537,7 +1474,7 @@ data-ref-parent="fig-incentives-non-treasury" />
 
 </div>
 
-Figure 31: Share of non-treasury incentives $I_S$, $I_G$, $I_{AG}$ and
+Figure 29: Share of non-treasury incentives $I_S$, $I_G$, $I_{AG}$ and
 $I_{AQ}$.
 
 </div>
@@ -1548,7 +1485,7 @@ $I_{AQ}$.
 
 ![](figures/incentives-treasury.svg)
 
-Figure 32: Treasury incentives $I_T$.
+Figure 30: Treasury incentives $I_T$.
 
 </div>
 
