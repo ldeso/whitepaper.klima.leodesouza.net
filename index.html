@@ -592,17 +592,17 @@ Z_t = (1 - S) \, \frac{\Gamma_t}{E_t}
 B_t = \exp(-Z_t \, E_t)
 \tag{7}</span></span></p>
 <p>The incentives due on time-locked <strong>A</strong> tokens are calculated daily and added to the locked principal, hence the daily accrual for each duration is calculated:</p>
-<p><span class="math display">
+<p><span id="eq-daily-time-weighted-incentives"><span class="math display">
 Y_t = \exp \left( \frac{Z_t}{365} \right) - 1
-</span> {#fig-daily-time-weighted-incentives}</p>
+\tag{8}</span></span></p>
 <p>Hence, any time-locked <strong>A</strong> stake <span class="math inline">S_t</span> will increase by a base accrual <span class="math inline">\Delta S_t</span>:</p>
 <p><span id="eq-base-accrual"><span class="math display">
 \Delta S_t = S_t \, Y_t
-\tag{8}</span></span></p>
+\tag{9}</span></span></p>
 <p>With the total <strong>A</strong> tokens created on a daily basis for time-locked inflation as</p>
 <p><span id="eq-inflation"><span class="math display">
 R = \sum_{t=1}^{40} \Delta S_t
-\tag{9}</span></span></p>
+\tag{10}</span></span></p>
 <div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
 <div class="panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <div class="cell">
@@ -1229,19 +1229,19 @@ Figure&nbsp;5: <strong>A</strong> inflation rate from base accrual <span class="
 <li><p>Initial voting weights for time-locked <strong>A</strong> tokens <span class="math inline">v_t</span>:</p>
 <p><span id="eq-voting-weights-time-locks-initial"><span class="math display">
 v_t = Z_t \, S_t
-  \tag{10}</span></span></p></li>
+  \tag{11}</span></span></p></li>
 <li><p>Initial voting weights for staked liquidity <span class="math inline">w_t</span>:</p>
 <p><span id="eq-voting-weights-lps-initial"><span class="math display">
 w_t = Z_t \, A_{Gt}
-  \tag{11}</span></span></p></li>
+  \tag{12}</span></span></p></li>
 <li><p>Final voting weights for time-locked <strong>A</strong> tokens <span class="math inline">V_t</span>:</p>
 <p><span id="eq-voting-weights-time-locks"><span class="math display">
 V_t = \frac{v_t}{\sum_{j=1}^{40} (v_j + 2 w_j)}
-  \tag{12}</span></span></p></li>
+  \tag{13}</span></span></p></li>
 <li><p>Final voting weights for staked liquidity <span class="math inline">W_t</span>:</p>
 <p><span id="eq-voting-weights-lps"><span class="math display">
 W_t = \frac{w_t}{\sum_{j=1}^{40} \left( \frac 1 2 v_j + w_j \right)}
-  \tag{13}</span></span></p></li>
+  \tag{14}</span></span></p></li>
 </ol>
 </section>
 </section>
@@ -1287,7 +1287,7 @@ Figure&nbsp;7: Token staking class structure.
 <p>In order to determine the present-value quantity of carbon, <span class="math inline">\bar C_i</span>, we apply the discount curve from <a href="#eq-discount-rate" class="quarto-xref">Equation&nbsp;7</a> to the liquidity schedule and sum the discounted holdings:</p>
 <p><span id="eq-present-value-carbon"><span class="math display">
 \bar C_i = C_{i0} + \sum_{t=1}^{40} B_t \, C_{it}
-\tag{14}</span></span></p>
+\tag{15}</span></span></p>
 <div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
 <div class="panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <div class="cell">
@@ -1455,7 +1455,7 @@ Figure&nbsp;8: Carbon held in the portfolio.
 <p>Similarly, taking <span class="math inline">\Delta C_{it}</span> as the quantity of carbon <span class="math inline">i</span> to be sold with a specific maturity index <span class="math inline">t</span>:</p>
 <p><span id="eq-present-value-carbon-change"><span class="math display">
 \Delta \bar C_i = \Delta C_{i0} + \sum_{t=1}^{40} B_t \, \Delta C_{it}
-\tag{15}</span></span></p>
+\tag{16}</span></span></p>
 <p>Once standardised by the discount curve, trades can be aggregated in the same class for the defined trade or auction period.</p>
 <div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
 <div class="panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
@@ -1676,11 +1676,11 @@ Figure&nbsp;9: Carbon bought by the Portfolio Manager.
 <p><span id="eq-a-change-intermediary-step"><span class="math display">
 \ln(1 + \Delta A) =
   \left( A_i - \frac{A_i^2 \, (1 - G_i)^2}{2} \right) \ln(1 + \Delta \bar C_i)
-\tag{16}</span></span></p>
-<p>Denoting the expression on the right hand side of <a href="#eq-a-change-intermediary-step" class="quarto-xref">Equation&nbsp;16</a> as <span class="math inline">\mathsf{RHS}</span>:</p>
+\tag{17}</span></span></p>
+<p>Denoting the expression on the right hand side of <a href="#eq-a-change-intermediary-step" class="quarto-xref">Equation&nbsp;17</a> as <span class="math inline">\mathsf{RHS}</span>:</p>
 <p><span id="eq-a-change"><span class="math display">
 \Delta A = \exp(\mathsf{RHS}) - 1
-\tag{17}</span></span></p>
+\tag{18}</span></span></p>
 <p>Finally, <span class="math inline">\Delta A</span> is applied to the outstanding supply of <strong>A</strong> to solve for token quantities.</p>
 <p><a href="#fig-a-price-curves" class="quarto-xref">Figure&nbsp;10</a> illustrates the <strong>G</strong> token’s capacity to maintain the initial portfolio pricing of the <strong>A</strong> token. The data has been normalised in <a href="#fig-a-price-curves-normalised" class="quarto-xref">Figure&nbsp;11</a> to <span class="math inline">\Delta \bar C_i \, A_i</span>.</p>
 <div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
@@ -1901,7 +1901,7 @@ Figure&nbsp;11: Normalised <strong>A</strong> price curves.
 \Delta A =
   \frac{\Delta \bar C_\emptyset}{1 + \Delta \bar C_\emptyset} \,
   \left( A_\emptyset - \frac{A_\emptyset^2 (1 - G_\emptyset)^2}{2} \right)^2
-\tag{18}</span></span></p>
+\tag{19}</span></span></p>
 <div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
 <div class="panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <div class="cell">
@@ -2140,11 +2140,11 @@ Figure&nbsp;13: Normalised <strong>A</strong> price curves in the zero carbon sc
 <p><span id="eq-carbon-change-intermediary-step"><span class="math display">
 \ln(1 + \Delta C_i) =
   \frac{-\ln(1 + \Delta A)}{A_i + \frac 1 2 A_i^2 \, (1 - G_i)^2}
-\tag{19}</span></span></p>
-<p>As before, denoting the expression on the right hand side of <a href="#eq-carbon-change-intermediary-step" class="quarto-xref">Equation&nbsp;19</a> as <span class="math inline">\mathsf{RHS}</span>:</p>
+\tag{20}</span></span></p>
+<p>As before, denoting the expression on the right hand side of <a href="#eq-carbon-change-intermediary-step" class="quarto-xref">Equation&nbsp;20</a> as <span class="math inline">\mathsf{RHS}</span>:</p>
 <p><span id="eq-carbon-change"><span class="math display">
 \Delta C_i = \exp(\mathsf{RHS}) - 1
-\tag{20}</span></span></p>
+\tag{21}</span></span></p>
 <div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
 <div class="panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <div class="cell">
@@ -2620,7 +2620,7 @@ Figure&nbsp;17: Token liquidity and pricing structure.
 <p>As we have seen, the <strong>G</strong> token has an impact on risk-pricing of <strong>A</strong>. As <strong>G</strong> staking increases, the relationship between the carbon class selected under <span class="math inline">G_i</span> and the portfolio token <strong>A</strong> strengthens. We can consider <span class="math inline">G_i</span> staking as an estimate of residual or idiosyncratic risk in the carbon class and this allows us to calculate a portfolio beta <span class="math inline">\beta</span> from the implied betas of each carbon class <span class="math inline">i</span>.</p>
 <p><span id="eq-beta"><span class="math display">
 \beta = \sqrt{\sum_{i=1}^n A_i - A_i \, (1 - G_i)^2}
-\tag{21}</span></span></p>
+\tag{22}</span></span></p>
 <p>The portfolio <span class="math inline">\beta</span> determines a yield factor for the liquidity pools of <strong>A</strong> to compensate for the implied risk levels.</p>
 <p>For intuition, the map in <a href="#fig-range-of-beta-i" class="quarto-xref">Figure&nbsp;18</a> shows the various outputs of the function per carbon class.</p>
 <div id="fig-range-of-beta-i" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Range of Beta i.">
@@ -3067,7 +3067,7 @@ Figure&nbsp;20: <strong>A</strong> token flow structure.
 <p>The allocation to user-locked <strong>G</strong> tokens, <span class="math inline">\lambda_{GG}</span>:</p>
 <p><span id="eq-lambda-gg"><span class="math display">
 \lambda_{GG} = \frac{1 - A_Q}{1 + \left( \frac{\sum_{i=1}^{n}{G_i}}{G_G} \right)^2}
-\tag{22}</span></span></p>
+\tag{23}</span></span></p>
 <div id="fig-g-stake-allocation" class="quarto-float quarto-figure quarto-figure-center anchored" alt="G stake allocation.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-g-stake-allocation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -3184,11 +3184,11 @@ Figure&nbsp;21: <strong>G</strong> stake allocation&nbsp;(assuming <span class="
 <p>The residual share, <span class="math inline">1 - \lambda_{GG}</span>, is split between the liquidity pools:</p>
 <p><span id="eq-lambda-g"><span class="math display">
 \lambda_G = (1 - \lambda_{GG}) \frac{2 A_G}{2 A_G + A_Q \sqrt 2}
-\tag{23}</span></span></p>
+\tag{24}</span></span></p>
 <p>For completeness:</p>
 <p><span id="eq-lambda-q"><span class="math display">
 \lambda_Q = 1 - \lambda_{GG} - \lambda_G
-\tag{24}</span></span></p>
+\tag{25}</span></span></p>
 <div id="fig-liquidity-pool-split" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Liquidity pool split.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-liquidity-pool-split-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -3324,25 +3324,25 @@ Figure&nbsp;22: Liquidity pool split <span class="math inline">\lambda_G, \lambd
 <p>For <span class="math inline">\lambda_{GG}</span>, <span class="math inline">\lambda_G</span>, <span class="math inline">\lambda_Q</span> we apply <span class="math inline">\beta</span>:</p>
 <p><span id="eq-capital-lambda"><span class="math display">
 \Lambda_X = \lambda_X \, \beta, \quad \text{for } X \in \{GG, G, Q\}
-\tag{25}</span></span></p>
+\tag{26}</span></span></p>
 <p>Taking <span class="math inline">b</span> as a discount parameter:</p>
 <p><span id="eq-discount-parameter"><span class="math display">
 b = \frac{\sum_1^{40} Z_t \, S_t \, B_t}{\sum_1^{40} Z_t \, S_t }
-\tag{26}</span></span></p>
+\tag{27}</span></span></p>
 <p>The total Risk Premium tokens <span class="math inline">R_\lambda</span>:</p>
 <p><span id="eq-risk-premium"><span class="math display">
 R_\lambda = b \, R \, (\Lambda_{GG} + \Lambda_G + \Lambda_Q)
-\tag{27}</span></span></p>
+\tag{28}</span></span></p>
 <p>The allocations of <span class="math inline">R_\lambda</span> are pro-rata to <span class="math inline">\Lambda_{GG}</span>, <span class="math inline">\Lambda_G</span>, <span class="math inline">\Lambda_Q</span>, and thereafter:</p>
 <ol type="1">
 <li><p>Locked <strong>G</strong>: <span class="math inline">\Lambda_{GG}</span> in proportion to <strong>G</strong>.</p></li>
 <li><p>Locked <span class="overline"><strong>AG</strong></span>, <span class="overline"><strong>AQ</strong></span> tokens are allocated a weighting <span class="math inline">G_t</span>, <span class="math inline">Q_t</span> depending on their time bucket <span class="math inline">t</span>:</p>
 <p><span id="eq-risky-premium-weighting-ag-pool"><span class="math display">
 G_t = \frac{Z_t \, L_{Gt} \, B_t}{\sum Z_t \, L_{Gt} \, B_t}
-  \tag{28}</span></span></p>
+  \tag{29}</span></span></p>
 <p><span id="eq-risky-premium-weighting-aq-pool"><span class="math display">
 Q_t = \frac{Z_t \, L_{Qt} \, B_t}{\sum Z_t \, L_{Qt} \, B_t}
-  \tag{29}</span></span></p>
+  \tag{30}</span></span></p>
 <p>Where <span class="math inline">L_{Gt}</span>, <span class="math inline">L_{Qt}</span> are the proportion of all liquidity locked in each time bucket for <span class="overline"><strong>AG</strong></span> and <span class="overline"><strong>AQ</strong></span> respectively.</p></li>
 </ol>
 <p>Thereafter each time bucket allocation is proportionate to staked liquidity provider token holdings.</p>
@@ -4279,15 +4279,15 @@ Figure&nbsp;23: <strong>K2</strong> token allocations.
 <p>Setting <span class="math inline">x_0</span> from the initial supply parameter:</p>
 <p><span id="eq-incentives-issuance-x-0"><span class="math display">
 x_0 = \ln\left( \frac{P_0}{1 - P_0} \right)
-\tag{30}</span></span></p>
+\tag{31}</span></span></p>
 <p>With <span class="math inline">x_t</span> at time point <span class="math inline">t \in (0, \infty)</span>:</p>
 <p><span id="eq-incentives-issuance-x-t"><span class="math display">
 x_t = x_0 \, \left( 1 - \frac t T \right)
-\tag{31}</span></span></p>
+\tag{32}</span></span></p>
 <p>Giving supply function <span class="math inline">\operatorname{P}(t)</span> as:</p>
 <p><span id="eq-incentives-issuance-curve"><span class="math display">
 \operatorname{P}(t) = \frac{\exp(x_t)}{\exp(x_t) + 1}
-\tag{32}</span></span></p>
+\tag{33}</span></span></p>
 <p><span class="math inline">P_0</span> set at <span><span id="ojs-element-id-15"></span></span> and <span class="math inline">T</span> at <span><span id="ojs-element-id-16"></span></span> months:</p>
 <div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
 <div class="panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
@@ -5272,7 +5272,7 @@ Figure&nbsp;28: <strong>K2</strong> token incentive distribution structure.
 <p>Where <span class="math inline">\upsilon = 0</span> if <span class="math inline">G + L = 0</span>, otherwise:</p>
 <p><span id="eq-relative-utilisation"><span class="math display">
 \upsilon = \left( \frac{2 G L}{G^2 + L^2} \right)^2
-\tag{33}</span></span></p>
+\tag{34}</span></span></p>
 <div id="fig-relative-utilisation" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Upsilon range of values.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-relative-utilisation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -5366,7 +5366,7 @@ Figure&nbsp;29: Upsilon <span class="math inline">\upsilon</span> range of value
 <p>The <strong>absolute utilisation</strong> parameter <span class="math inline">\eta</span> is defined as <span class="math inline">\eta = 0</span> if <span class="math inline">G + L = 0</span>, otherwise:</p>
 <p><span id="eq-absolute-utilisation"><span class="math display">
 \eta = \frac{2 G L}{G (1 - G) + L ( 1 - L)}
-\tag{34}</span></span></p>
+\tag{35}</span></span></p>
 <div id="fig-absolute-utilisation" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Eta range of values.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-absolute-utilisation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -5463,7 +5463,7 @@ Figure&nbsp;30: Eta <span class="math inline">\eta</span> range of values.
 <p>The allocation to the Treasury <span class="math inline">I_T</span> is the imbalance generated from <span class="math inline">\upsilon</span>:</p>
 <p><span id="eq-allocation-treasury"><span class="math display">
 I_T = 1 - \upsilon \, \eta
-\tag{35}</span></span></p>
+\tag{36}</span></span></p>
 </section>
 <section id="post-treasury" class="level4" data-number="4.3.2">
 <h4 data-number="4.3.2" class="anchored" data-anchor-id="post-treasury"><span class="header-section-number">4.3.2</span> Post Treasury</h4>
@@ -5475,11 +5475,11 @@ I_T = 1 - \upsilon \, \eta
 <li><p>Time-locked <strong>A</strong>, <span class="math inline">I_S</span>:</p>
 <p><span id="eq-allocation-locked-a"><span class="math display">
 I_S = S \, \frac{L^2}{G^2 + L^2}
-  \tag{36}</span></span></p></li>
+  \tag{37}</span></span></p></li>
 <li><p>User-locked <strong>G</strong>, <span class="math inline">I_G</span>:</p>
 <p><span id="eq-allocation-locked-g"><span class="math display">
 I_G = (1 - S) \, \frac{L^2}{G^2 + L^2}
-  \tag{37}</span></span></p></li>
+  \tag{38}</span></span></p></li>
 </ol></li>
 <li><p>Liquidity</p>
 <p>With <span class="math inline">\lambda_G</span>, <span class="math inline">\lambda_Q</span>, <span class="math inline">\lambda_{GG}</span> as defined in <a href="#sec-share-of-risk-premium" class="quarto-xref">Section&nbsp;3.3.4</a>:</p>
@@ -5487,11 +5487,11 @@ I_G = (1 - S) \, \frac{L^2}{G^2 + L^2}
 <li><p><span class="overline"><strong>AG</strong></span> pool <span class="math inline">I_{AG}</span>:</p>
 <p><span id="eq-allocation-pool-ag"><span class="math display">
 I_{AG} = \frac{\lambda_G}{1 - \lambda_{GG}} \, \frac{G^2}{G^2 + L^2}
-  \tag{38}</span></span></p></li>
+  \tag{39}</span></span></p></li>
 <li><p><span class="overline"><strong>AQ</strong></span> pool <span class="math inline">I_{AQ}</span>:</p>
 <p><span id="eq-allocation-pool-aq"><span class="math display">
 I_{AQ} = \frac{\lambda_Q}{1 - \lambda_{GG}} \, \frac{G^2}{G^2 + L^2}
-  \tag{39}</span></span></p></li>
+  \tag{40}</span></span></p></li>
 </ol></li>
 </ol>
 <div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
