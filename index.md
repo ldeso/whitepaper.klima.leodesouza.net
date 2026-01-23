@@ -722,18 +722,18 @@ of **A**:
      W_t = \frac{w_t}{\sum_{j=1}^{40} \left( \frac 1 2 v_j + w_j \right)}
       \qquad(14)$$</span>
 
-### Carbon Inventory Layer
+### Carbon Inventory Mechanics
 
 The carbon inventory layer ultimately swaps carbon through a set of
 smart contracts, driven by carbon supply, demand, and user-inputs. The
 combined allocations of **A** and **G** tokens creates a dynamic
 real-time execution price curve by carbon class.
 
-<div id="fig-carbon-inventory-layer">
+<div id="fig-carbon-inventory-mechanics">
 
-![](figures/carbon-inventory-layer.svg)
+![](figures/carbon-inventory-mechanics.svg)
 
-Figure 6: Klima 2.0 carbon inventory.
+Figure 6: Klima 2.0 carbon inventory mechanics.
 
 </div>
 
