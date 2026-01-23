@@ -567,7 +567,7 @@ Defining:
   ${\sum S_t = S}$, and $t$ is the index of standard durations
   $t \in \{1, 2, 3, \dots, 40\}$.
 
-- $E_t$: Time to expiry expressed in years.
+- $E_t$: Duration expressed in years.
 
 Calculating curve parameters $D$ and $C$:
 
