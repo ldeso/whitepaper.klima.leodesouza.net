@@ -1087,23 +1087,15 @@ price curve by carbon class.
 
 :::
 
-#### Purchase Carbon {#sec-purchase-carbon}
+#### Carbon Supply {#sec-carbon-supply}
 
 _User swaps carbon credits for **A** tokens._
 
-##### Existing Carbon in the Portfolio {#sec-existing-carbon-in-the-portfolio}
-
-Carbon classes ${i \in \{1, 2, 3, \dots, n\}}$ are whitelisted through
-governance by time-locked **A** token and staked [**AG**]{
-  .overline
-  .content-visible unless-format="pdf"
-}[$\overline{\textbf{AG}}$]{
-  .content-visible when-format="pdf"
-} liquidity providers&nbsp;(see @sec-protocol-governance-signals).
+##### Existing Carbon in the Inventory {#sec-existing-carbon-in-the-inventory}
 
 For carbon pricing, both **A** tokens and **G** tokens may be allocated to
-specific carbon classes $i$ and these are independent allocations between the
-two-token systems.
+specific carbon classes ${i \in \{1, 2, 3, \dots, n\}}$ and these are
+independent allocations between the two tokens.
 
 ::: {#fig-token-staking-class-structure fig-cap="Token staking class structure." fig-alt="Token staking class structure."}
 
@@ -1117,13 +1109,13 @@ two-token systems.
 
 :::
 
-For a carbon class quantity to be sold to the Automated Asset Manager, it must
-have a strictly positive quantity of **A** tokens allocated to that carbon
-class, otherwise there is no price, and the carbon cannot be sold.
+For a carbon class quantity to be supplied to the protocol, it must have a
+strictly positive quantity of **A** tokens allocated to that carbon class,
+otherwise there is no price, and the carbon cannot be sold.
 
 Defining:
 
-- $C_i$: Total tonnes of carbon class $i$ currently held in the portfolio.
+- $C_i$: Total tonnes of carbon class $i$ currently held in the inventory.
 
 - $A_i$: **A** tokens allocated to carbon class $i$ expressed as a proportion of
 the outstanding supply of **A** tokens, where ${\sum A_i = A}$.
@@ -1131,274 +1123,13 @@ the outstanding supply of **A** tokens, where ${\sum A_i = A}$.
 - $G_i$: **G** tokens allocated to carbon class $i$ expressed as a proportion of
 the outstanding supply of **G** Tokens.
 
-- $C_{it}$: The quantity of carbon class $i$ held in the Automated Asset Manager
-deliverable per maturity $t$ where $C_{i0}$ reflects the liquid quantity.
-
-In order to determine the present-value quantity of carbon, $\bar C_i$, we
-apply the discount curve from @eq-discount-rate to the liquidity schedule and
-sum the discounted holdings:
-
-$$
-\bar C_i = C_{i0} + \sum_{t=1}^{40} B_t \, C_{it}
-$$ {#eq-present-value-carbon}
-
-::: {.panel-sidebar}
-
-::::: {.content-visible when-format="html"}
-```{ojs}
-viewof inputCi0 = Inputs.range([0, 1], {
-  label: tex`\text{Portfolio } C_{i0}`,
-  step: 1e-3,
-});
-viewof inputLiqShape = Inputs.range([-1, 1], {
-  label: tex`\text{Schedule shape}`,
-  step: 1e-3,
-});
-```
-:::::
-
-:::
-
-::: {.panel-fill}
-
-::::: {#fig-carbon-held-in-the-aam fig-cap="Carbon held in the portfolio." fig-alt="Carbon held in the portfolio."}
-
-::::::: {.content-visible when-format="html"}
-```{ojs}
-vecCi = constAreaLinear(vecE, 1 - inputCi0, inputLiqShape, 0.01);
-
-paramBarCi = inputCi0 + dotProduct(vecB, vecCi);
-```
-
-```{ojs}
-carbonHeldData = {
-  const carbonHeldData = [];
-  carbonHeldData.push({
-    key: "Liquidity Schedule",
-    value: 100 * inputCi0,
-    time: 0,
-  });
-  for (let t = 3; t < vecE.length; t += 4) {
-    carbonHeldData.push({
-      key: "Liquidity Schedule",
-      value: 100 * d3.sum(vecCi.slice(t - 3, t + 1)),
-      time: vecE[t],
-    });
-    carbonHeldData.push({
-      key: "Discount Curve",
-      value: 100 * vecB[t],
-      time: vecE[t],
-    });
-  }
-  return carbonHeldData;
-};
-getLiqSchedule = d => d.key === "Liquidity Schedule" ? d.value : NaN;
-
-stringBarCi = `Present-Value Carbon C̄ᵢ = ${paramBarCi.toLocaleString(
-  "en-GB",
-  { style: "percent", maximumFractionDigits: 0 },
-)}`;
-
-heldCarbonParam = [{ key: stringBarCi, value: 100 * paramBarCi }];
-```
-
-```{ojs}
-Plot.plot({
-  color: {
-    legend: true,
-    range: [2, 5, 6].map(i => d3.schemeCategory10[i]),
-    domain: ["Liquidity Schedule", "Discount Curve", stringBarCi],
-  },
-  x: {
-    label: "Time to Expiry (Years)",
-    labelAnchor: "right",
-    labelArrow: true,
-  },
-  y: { domain: [0, 100], grid: true },
-  insetTop: 16,
-  insetLeft: 8,
-  insetRight: 8,
-  clip: true,
-  marks: [
-    Plot.frame(),
-    Plot.axisY({ anchor: "left", label: "Quantity of Carbon (%)" }),
-    Plot.axisY({ anchor: "right", label: "Discount (%)" }),
-    Plot.rectY(carbonHeldData, {
-      x1: d => d.time - 0.45,
-      x2: d => d.time + 0.45,
-      y: getLiqSchedule,
-      fill: "key",
-    }),
-    Plot.ruleY(heldCarbonParam, {
-      y: "value",
-      stroke: "key",
-      strokeWidth : 2,
-      strokeDasharray: 4,
-    }),
-    Plot.lineY(carbonHeldData, { x: "time", y: getDiscount, stroke: "key" }),
-    Plot.dotY(carbonHeldData, { x: "time", y: getDiscount, fill: "key" }),
-  ],
-});
-```
-:::::::
-
-::::::: {.content-visible unless-format="html"}
-![](figures/carbon-held-in-the-aam.svg)
-:::::::
-
-:::::
-
-:::
-
-Similarly, taking $\Delta C_{it}$ as the quantity of carbon $i$ to be sold with
-a specific maturity index $t$:
-
-$$
-\Delta \bar C_i = \Delta C_{i0} + \sum_{t=1}^{40} B_t \, \Delta C_{it}
-$$ {#eq-present-value-carbon-change}
-
-Once standardised by the discount curve, trades can be aggregated in the same
-class for the defined trade or auction period.
-
-::: {.panel-sidebar}
-
-::::: {.content-visible when-format="html"}
-```{ojs}
-viewof inputDeltaCi = Inputs.range([0, 1], {
-  label: tex`\text{Purchased } \Delta C_i`,
-  step: 1e-3,
-  value: 1,
-});
-viewof inputEt = Inputs.range([0, 10], {
-  label: tex`\text{Expiry } E_t \text{ (years)}`,
-  step: 1,
-  value: 6,
-});
-```
-:::::
-
-:::
-
-::: {.panel-fill}
-
-::::: {#fig-carbon-bought-by-the-aam fig-cap="Carbon bought by the Portfolio Manager." fig-alt="Carbon bought by the Portfolio Manager."}
-
-::::::: {.content-visible when-format="html"}
-```{ojs}
-function computeDeltaCi0(deltaCi, t) {
-  return t === 0 ? deltaCi : 0;
-}
-
-function computeVecDeltaCi(deltaCi, t) {
-  const vecDeltaCi = Array(40).fill(0);
-  if (t !== 0) {
-    vecDeltaCi[t - 1] = deltaCi;
-  }
-  return vecDeltaCi;
-}
-```
-
-```{ojs}
-paramMaturityIdx = 4 * inputEt;
-
-paramDeltaCi0 = computeDeltaCi0(inputDeltaCi, paramMaturityIdx);
-
-vecDeltaCi = computeVecDeltaCi(inputDeltaCi, paramMaturityIdx);
-
-paramDeltaBarCi = paramDeltaCi0 + dotProduct(vecB, vecDeltaCi);
-```
-
-```{ojs}
-carbonBuyData = {
-  const carbonBuyData = [];
-  carbonBuyData.push({
-    key: "Carbon Bought by AAM",
-    value: 100 * paramDeltaCi0,
-    time: 0,
-  });
-  for (let t = 3; t < vecE.length; t += 4) {
-    carbonBuyData.push({
-      key: "Carbon Bought by AAM",
-      value: 100 * d3.sum(vecDeltaCi.slice(t - 3, t + 1)),
-      time: vecE[t],
-    });
-    carbonBuyData.push({
-      key: "Discount Curve",
-      value: 100 * vecB[t],
-      time: vecE[t],
-    });
-  }
-  return carbonBuyData;
-};
-getCarbonBought = d => d.key === "Carbon Bought by AAM" ? d.value : NaN;
-
-stringDeltaBarCi = "Present-Value Carbon Bought by AAM ΔC̄ᵢ = " +
-        paramDeltaBarCi.toLocaleString(
-          "en-GB",
-          {
-            style: "percent",
-            minimumFractionDigits: 1,
-            maximumFractionDigits: 1,
-          },
-        );
-boughtCarbonParam = [{ key: stringDeltaBarCi, value: 100 * paramDeltaBarCi }];
-```
-
-```{ojs}
-Plot.plot({
-  color: {
-    legend: true,
-    range: [3, 5, 7].map(i => d3.schemeCategory10[i]),
-    domain: ["Carbon Bought by AAM", "Discount Curve", stringDeltaBarCi],
-  },
-  x: {
-    label: "Time to Expiry (Years)",
-    labelAnchor: "right",
-    labelArrow: true,
-  },
-  y: { domain: [0, 100], grid: true },
-  insetTop: 16,
-  insetLeft: 8,
-  insetRight: 8,
-  clip: true,
-  marks: [
-    Plot.frame(),
-    Plot.axisY({ anchor: "left", label: "Quantity of Carbon (%)" }),
-    Plot.axisY({ anchor: "right", label: "Discount (%)" }),
-    Plot.rectY(carbonBuyData, {
-      x1: d => d.time - 0.45,
-      x2: d => d.time + 0.45,
-      y: getCarbonBought,
-      fill: "key",
-    }),
-    Plot.ruleY(boughtCarbonParam, {
-      y: "value",
-      stroke: "key",
-      strokeWidth : 2,
-      strokeDasharray: 4,
-    }),
-    Plot.lineY(carbonBuyData, { x: "time", y: getDiscount, stroke: "key" }),
-    Plot.dotY(carbonBuyData, { x: "time", y: getDiscount, fill: "key" }),
-  ],
-});
-```
-:::::::
-
-::::::: {.content-visible unless-format="html"}
-![](figures/carbon-bought-by-the-aam.svg)
-:::::::
-
-:::::
-
-:::
-
-Where $\Delta \bar C_i$ is expressed as the relative increment to its respective
-pool balance, the amount of **A** tokens issued to pay for carbon, $\Delta A$,
+Where $\Delta C_i$ is expressed as the relative increment to its respective pool
+balance, the amount of **A** tokens issued to pay for carbon, $\Delta A$,
 expressed as a proportion of current supply, is determined as:
 
 $$
 \ln(1 + \Delta A) =
-  \left( A_i - \frac{A_i^2 \, (1 - G_i)^2}{2} \right) \ln(1 + \Delta \bar C_i)
+  \left( A_i - \frac{A_i^2 \, (1 - G_i)^2}{2} \right) \ln(1 + \Delta C_i)
 $$ {#eq-a-change-intermediary-step}
 
 Denoting the expression on the right hand side of @eq-a-change-intermediary-step
@@ -1413,14 +1144,14 @@ token quantities.
 
 @fig-a-price-curves illustrates the **G** token's capacity to maintain the
 initial portfolio pricing of the **A** token. The data has been normalised in
-@fig-a-price-curves-normalised to $\Delta \bar C_i \, A_i$.
+@fig-a-price-curves-normalised to $\Delta C_i \, A_i$.
 
 ::: {.panel-sidebar}
 
 ::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputDeltaBarCi = Inputs.range([0.01, 1], {
-  label: tex`\text{Purchased } \Delta \bar C_i`,
+  label: tex`\text{Purchased } \Delta C_i`,
   step: 0.01,
   value: 1,
 });
@@ -1583,22 +1314,22 @@ Plot.plot({
 :::
 
 Noting that the sensitivity to $G_i$ increases as $A_i$ increases and the
-effects become more pronounced as $\Delta \bar C_i$ increases.
+effects become more pronounced as $\Delta C_i$ increases.
 
 ##### Zero Carbon Scenario {#sec-zero-carbon-scenario}
 
 There are circumstances when there is zero carbon held in the portfolio for a
 particular class, i.e. ${C_i = 0}$, which invalidates the calculation of
-$\Delta \bar C_i$ and a different approach is required.
+$\Delta C_i$ and a different approach is required.
 
-Taking $\Delta \bar C_\emptyset$ as the tonnes of carbon tokens (implying an
+Taking $\Delta C_\emptyset$ as the tonnes of carbon tokens (implying an
 existing balance of 1 tonne), adjusted for forward discounting, to be sold for
 any carbon class that has a strictly positive **A** allocation $A_\emptyset$,
 together with **G** allocation $G_\emptyset$:
 
 $$
 \Delta A =
-  \frac{\Delta \bar C_\emptyset}{1 + \Delta \bar C_\emptyset} \,
+  \frac{\Delta C_\emptyset}{1 + \Delta C_\emptyset} \,
   \left( A_\emptyset - \frac{A_\emptyset^2 (1 - G_\emptyset)^2}{2} \right)^2
 $$ {#eq-a-change-zero-carbon}
 
@@ -1607,7 +1338,7 @@ $$ {#eq-a-change-zero-carbon}
 ::::: {.content-visible when-format="html"}
 ```{ojs}
 viewof inputDeltaBarCnull = Inputs.range([1e-1, 1e5], {
-  label: tex`\text{Purchased } \Delta \bar C_\emptyset`,
+  label: tex`\text{Purchased } \Delta C_\emptyset`,
   step: 1e-1,
   value: 1e2,
   transform: Math.log,
@@ -2918,7 +2649,7 @@ viewof inputASupply = Inputs.range([1e6, 1e10], {
   transform: Math.log,
 });
 viewof inputPresentTonnes = Inputs.range([0, 1e9], {
-  label: tex`\text{Portfolio } \bar C_i`,
+  label: tex`\text{Portfolio } C_i`,
   step: 1e-3,
   value: defaultPresentTonnes,
   transform: piecewiseLogTransform(1e-3),
