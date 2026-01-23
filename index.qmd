@@ -1068,21 +1068,21 @@ Voting power is allocated by time and applied to the respective balance of
     W_t = \frac{w_t}{\sum_{j=1}^{40} \left( \frac 1 2 v_j + w_j \right)}
     $$ {#eq-voting-weights-lps}
 
-### Carbon Inventory Layer {#sec-carbon-inventory-layer}
+### Carbon Inventory Mechanics {#sec-carbon-inventory-mechanics}
 
 The carbon inventory layer ultimately swaps carbon through a set of smart
 contracts, driven by carbon supply, demand, and user-inputs. The combined
 allocations of **A** and **G** tokens creates a dynamic real-time execution
 price curve by carbon class.
 
-::: {#fig-carbon-inventory-layer fig-cap="Klima&nbsp;2.0 carbon inventory." fig-alt="Klima 2.0 carbon inventory."}
+::: {#fig-carbon-inventory-mechanics fig-cap="Klima&nbsp;2.0 carbon inventory mechanics." fig-alt="Klima 2.0 carbon inventory mechanics."}
 
 ::::: {.content-visible when-format="pdf"}
-![](figures/carbon-inventory-layer.tex)
+![](figures/carbon-inventory-mechanics.tex)
 :::::
 
 ::::: {.content-visible unless-format="pdf"}
-![](figures/carbon-inventory-layer.svg)
+![](figures/carbon-inventory-mechanics.svg)
 :::::
 
 :::
