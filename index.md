@@ -500,7 +500,7 @@ continuous dynamic feedback loops and overall system balances (supply,
 demand, token holder positions). There is no centralised management
 entity with discretionary powers, or fees that can be turned on.
 
-1.  **Time-locking mechanism**: **A** token holders can time-lock their
+1.  **Time-locking mechanics**: **A** token holders can time-lock their
     tokens until a set date to define system parameters and to have the
     ability to select carbon classes for system weighting.
 
