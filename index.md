@@ -793,8 +793,8 @@ Finally, $\Delta A$ is applied to the outstanding supply of **A** to
 solve for token quantities.
 
 <a href="#fig-a-price-curves" class="quarto-xref">Figure 8</a>
-illustrates the **G** token’s capacity to maintain the initial portfolio
-pricing of the **A** token. The data has been normalised in
+illustrates the **G** token’s capacity to maintain the initial execution
+terms of the **A** token. The data has been normalised in
 <a href="#fig-a-price-curves-normalised"
 class="quarto-xref">Figure 9</a> to $\Delta C_i \, A_i$.
 
