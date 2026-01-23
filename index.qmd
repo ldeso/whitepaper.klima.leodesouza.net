@@ -491,19 +491,19 @@ dynamic feedback loops and overall system balances&nbsp;(supply, demand, token
 holder positions). There is no centralised management entity with discretionary
 powers, or fees that can be turned on.
 
-1. **Carbon inventory layer**: the protocol swaps **A** for carbon credits
+1. **Time-locking mechanism**: **A** token holders can time-lock their tokens
+until a set date to define system parameters and to have the ability to select
+carbon classes for system weighting.
+
+    - The collective locks influence the **A** rewards, as well as the real-time
+    execution price for carbon credit acquisitions or retirements.
+
+2. **Carbon inventory layer**: the protocol swaps **A** for carbon credits
 **C**&nbsp;(in) or carbon offset certificates **C\***&nbsp;(out).
 
     - Both allocations of time-locked **A** tokens and user-locked **G** tokens
     are used in the protocol: allocations of **A** determine the pricing of
     carbon, and allocations of **G** determine capacity.
-
-2. **Governance layer**: **A** token holders can time-lock their tokens until a
-set date to define system parameters and to have the ability to select carbon
-classes for system weighting.
-
-    - The collective locks influence the **A** rewards, as well as the real-time
-    execution price for carbon credit acquisitions or retirements.
 
 3. **Liquidity layer**: External liquidity pools enable conversion between
 **kVCM** and supported settlement assets. Liquidity provision supports system
@@ -1068,7 +1068,7 @@ Voting power is allocated by time and applied to the respective balance of
     W_t = \frac{w_t}{\sum_{j=1}^{40} \left( \frac 1 2 v_j + w_j \right)}
     $$ {#eq-voting-weights-lps}
 
-### Portfolio Manager {#sec-portfolio-manager-detailed}
+### Carbon Inventory {#sec-portfolio-manager-detailed}
 
 The Portfolio Manager's role of swapping **A** for carbon is managed through a
 set of smart contracts driven by allocation choices from the token system, the
