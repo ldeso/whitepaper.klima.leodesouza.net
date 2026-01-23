@@ -562,9 +562,9 @@ Defining:
 - $S$: Total time-locked **A** tokens expressed as a proportion of the
   outstanding supply of **A**.
 
-- $S_t$: Total **A** tokens time-locked in maturity bucket $t$,
-  expressed as a proportion of the outstanding supply of **A**, where
-  ${\sum S_t = S}$, and $t$ is the index of standard durations
+- $S_t$: Total **A** tokens time-locked in bucket $t$, expressed as a
+  proportion of the outstanding supply of **A**, where ${\sum S_t = S}$,
+  and $t$ is the index of standard durations
   $t \in \{1, 2, 3, \dots, 40\}$.
 
 - $E_t$: Duration expressed in years.
