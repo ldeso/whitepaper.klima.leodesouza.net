@@ -541,7 +541,7 @@ discount curve of the **A** token with regards to execution prices.
 
 - **Incentives**: Time-locked **A** tokens may receive incentives, with a rate
 determined by the base accrual. The base accrual is calculated daily based on
-user positions, via the 'time-weighted incentive schedule'.
+user positions, via the 'time-weighted incentive curve'.
 
 - **Locks**: Time-locked tokens and any associated **A** incentives are released
 only upon time-lock expiration. Early exit is not possible.
@@ -550,7 +550,7 @@ only upon time-lock expiration. Early exit is not possible.
 discount curve is agnostic to carbon class although only time-locked **A** token
 holders can allocate their token to carbon classes for portfolio pricing.
 
-#### Synthetic Yield and Forward-Delivery Curve {#sec-synthetic-yield-and-forward-delivery-curve}
+#### Time-weighted Incentive Curve {#sec-time-weighted-incentive-curve}
 
 Defining:
 
@@ -559,7 +559,7 @@ outstanding supply of **A**.
 
 - $S_t$: Total **A** tokens time-locked in maturity bucket $t$, expressed as a
 proportion of the outstanding supply of **A**, where ${\sum S_t = S}$, and $t$
-is the index of standard maturities $t \in \{1, 2, 3, \dots, 40\}$.
+is the index of standard durations $t \in \{1, 2, 3, \dots, 40\}$.
 
 - $E_t$: Time to expiry expressed in years.
 
@@ -573,45 +573,45 @@ $$
 C = \frac{1}{S} \sum_{t=1}^{40} S_t \, E_t^2
 $$ {#eq-curve-parameter-c}
 
-The shape of the synthetic yield curve is produced:
+The shape of the time-weighted incentive curve is produced:
 
 $$
 \gamma_t = \max \left( \frac{E_t}{D} - \frac{E_t^2}{2 \, C}, \, 0 \right)
-$$ {#eq-yield-curve-shape}
+$$ {#eq-time-weighted-incentive-curve-shape}
 
 Normalising $\gamma_t$ to $\hat \gamma_t$:
 
 $$
 \hat \gamma_t = \frac{\gamma_t}{\sum_{t=1}^{40} \gamma_t}
-$$ {#eq-yield-curve-shape-normalised}
+$$ {#eq-time-weighted-incentive-curve-normalised}
 
 With the cumulative sum of the normalised values expressed as $\Gamma_t$:
 
 $$
 \Gamma_t = \sum_{i=1}^t \hat \gamma_i \quad \text{for } t = 1, \dots, 40
-$$ {#eq-yield-curve-shape-normalized-sum}
+$$ {#eq-time-weighted-incentive-curve-normalized-sum}
 
-The zero-coupon yield curve $Z_t$ is solved:
+The time-weighted incentive curve $Z_t$ is solved:
 
 $$
 Z_t = (1 - S) \, \frac{\Gamma_t}{E_t}
-$$ {#eq-yield-curve}
+$$ {#eq-time-weighted-incentive-curve}
 
-Whereupon, the discount rate $B_t$ that forms the forward-delivery curve is
-derived:
+Whereupon, the discount rate $B_t$ that forms the discount curve is derived:
 
 $$
 B_t = \exp(-Z_t \, E_t)
 $$ {#eq-discount-rate}
 
-The yield due on time-locked **A** tokens is calculated daily and added to the
-staked principal, hence the daily yield for each time bucket is calculated:
+The incentives due on time-locked **A** tokens are calculated daily and added to
+the locked principal, hence the daily accrual for each duration is calculated:
 
 $$
 Y_t = \exp \left( \frac{Z_t}{365} \right) - 1
-$$ {#eq-daily-yield}
+$$ {#fig-daily-time-weighted-incentives}
 
-Hence, any time-locked **A** stake $S_t$ will increase by $\Delta S_t$:
+Hence, any time-locked **A** stake $S_t$ will increase by a base accrual
+$\Delta S_t$:
 
 $$
 \Delta S_t = S_t \, Y_t
@@ -645,7 +645,7 @@ viewof inputD = Inputs.range([0.25, 10], {
 
 ::: {.panel-fill}
 
-::::: {#fig-time-locked-market-state fig-cap="Example of a Time-Locked Market state."}
+::::: {#fig-time-locked-incentives-example fig-cap="Example of time-locked incentives."}
 
 ::::::: {.content-visible when-format="html"}
 ```{ojs}
@@ -784,12 +784,12 @@ yieldData = {
          time: vecE[t],
       });
       yieldData.push({
-         key: "Yield Term Structure",
+         key: "Time-weighted Incentive Curve",
          value: 100 * vecZ[t],
          time: vecE[t],
       });
       yieldData.push({
-         key: "Real Yield",
+         key: "Inflation-adjusted Incentives",
          value: 100 * (vecZ[t] - paramI),
          time: vecE[t],
       });
@@ -807,8 +807,8 @@ yieldData = {
    return yieldData;
 };
 getStake = d => d.key === "Stake A" ? d.value : NaN;
-getYieldTerm = d => d.key === "Yield Term Structure" ? d.value : NaN;
-getRealYield = d => d.key === "Real Yield" ? d.value : NaN;
+getYieldTerm = d => d.key === "Time-weighted Incentive Curve" ? d.value : NaN;
+getRealYield = d => d.key === "Inflation-adjusted Incentives" ? d.value : NaN;
 getDiscount = d => d.key === "Discount Curve" ? d.value : NaN;
 getCumStake = d => d.key === "Cumulative Stake A" ? d.value : NaN;
 
@@ -836,12 +836,18 @@ yieldParams = [
 ```
 
 ```{ojs}
-//| fig-cap: Yield (${stringS}, ${stringI}).
+//| fig-cap: Time-weighted incentives (${stringS}, ${stringI}).
 Plot.plot({
   color: {
     legend: true,
     range: d3.schemeCategory10,
-    domain: ["Stake A", "Yield Term Structure", "Real Yield", stringD, stringC],
+    domain: [
+      "Stake A",
+      "Time-weighted Incentive Curve",
+      "Inflation-adjusted Incentives",
+      stringD,
+      stringC,
+    ],
   },
   x: {
     ticks: d3.range(1, 11),
@@ -861,8 +867,8 @@ Plot.plot({
   clip: true,
   marks: [
     Plot.frame(),
-    Plot.axisY({ anchor: "left", label: "Stake A by Maturity (%)" }),
-    Plot.axisY({ anchor: "right", label: "Yield Rates (%)" }),
+    Plot.axisY({ anchor: "left", label: "Stake A by Duration (%)" }),
+    Plot.axisY({ anchor: "right", label: "Incentive Rates (%)" }),
     Plot.rectY(yieldData, {
       x1: d => d.time - 0.45,
       x2: d => d.time + 0.45,
@@ -884,7 +890,7 @@ Plot.plot({
 ```
 
 ```{ojs}
-//| fig-cap: Discount rate.
+//| fig-cap: Discount rates.
 Plot.plot({
   color: {
     legend: true,
@@ -925,14 +931,14 @@ Plot.plot({
 :::::::
 
 ::::::: {.content-visible unless-format="html"}
-![Yield (Total Stake = 55.00%, Inflation = 1.75%).](figures/time-locked-market-state-yield.svg){
-  #fig-time-locked-market-state-yield
-  fig-alt="Yield (Total Stake = 55.00%, Inflation = 1.75%)."
+![Time-weighted incentives (Total Stake = 55.00%, Inflation = 1.75%).](figures/time-locked-incentives-example-curve.svg){
+  #fig-time-locked-incentives-example-curve
+  fig-alt="Time-weighted incentives (Total Stake = 55.00%, Inflation = 1.75%)."
 }
 
-![Discount rate.](figures/time-locked-market-state-discount-rate.svg){
-  #fig-time-locked-market-state-discount-rate
-  fig-alt="Discount rate."
+![Discount rates.](figures/time-locked-incentives-example-discount-rates.svg){
+  #fig-time-locked-incentives-example-discount-rates
+  fig-alt="Discount rates."
 }
 :::::::
 
@@ -941,11 +947,11 @@ Plot.plot({
 :::
 
 For visualising the sensitivity of overall **A** inflation rates with respect to
-staking and duration, @fig-inflation-rate assumes a single maturity over the
+staking and duration, @fig-inflation-rate assumes a single duration over the
 staking range to provide an approximation of inflation
 $\Delta S \approx Z \, S$.
 
-::: {#fig-inflation-rate fig-cap="**A** inflation rate from time-locked token yields $\Delta S$." fig-alt="A inflation rate from time-locked token yields Delta S."}
+::: {#fig-inflation-rate fig-cap="**A** inflation rate from base accrual $\Delta S$." fig-alt="A inflation rate from base accrual Delta S."}
 
 ::::: {.content-visible when-format="html"}
 ```{ojs}
@@ -4173,7 +4179,7 @@ The residual post-treasury allocation is shared four ways within 2 buckets:
 1. Time-locked **A** & user-locked **G** tokens
 
     Where $S$ is the proportion of time-locked **A** tokens&nbsp;(as defined
-    previously in @sec-time-locked-market):
+    previously in @sec-time-weighted-incentive-curve):
 
     1. Time-locked **A**, $I_S$:
 
