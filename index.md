@@ -2,7 +2,7 @@
 The Dark Sole Enterprise Ltd <ds@darksole.vip>  
 with contributions from the Klima and Carbonmark teams
 
-22 Jan 2026 (Version 1.48)
+23 Jan 2026 (Version 1.48)
 
 <img src="brand/klimaprotocol.svg" style="width:50.0%"
 alt="Klima Protocol Logo." data-fig-align="center" />
@@ -545,7 +545,7 @@ There are always 40 durations, extending out to approximately 10 years.
 - **Incentives**: Time-locked **A** tokens may receive incentives, with
   a rate determined by the base accrual. The base accrual is calculated
   daily based on user positions, via the ‘time-weighted incentive
-  schedule’.
+  curve’.
 
 - **Locks**: Time-locked tokens and any associated **A** incentives are
   released only upon time-lock expiration. Early exit is not possible.
@@ -555,7 +555,7 @@ discount curve is agnostic to carbon class although only time-locked
 **A** token holders can allocate their token to carbon classes for
 portfolio pricing.
 
-#### Synthetic Yield and Forward-Delivery Curve
+#### Time-weighted Incentive Curve
 
 Defining:
 
@@ -564,7 +564,7 @@ Defining:
 
 - $S_t$: Total **A** tokens time-locked in maturity bucket $t$,
   expressed as a proportion of the outstanding supply of **A**, where
-  ${\sum S_t = S}$, and $t$ is the index of standard maturities
+  ${\sum S_t = S}$, and $t$ is the index of standard durations
   $t \in \{1, 2, 3, \dots, 40\}$.
 
 - $E_t$: Time to expiry expressed in years.
@@ -579,58 +579,59 @@ D = \frac{1}{S} \sum_{t=1}^{40} S_t \, E_t
 C = \frac{1}{S} \sum_{t=1}^{40} S_t \, E_t^2
  \qquad(2)$$</span>
 
-The shape of the synthetic yield curve is produced:
+The shape of the time-weighted incentive curve is produced:
 
-<span id="eq-yield-curve-shape">$$
+<span id="eq-time-weighted-incentive-curve-shape">$$
 \gamma_t = \max \left( \frac{E_t}{D} - \frac{E_t^2}{2 \, C}, \, 0 \right)
  \qquad(3)$$</span>
 
 Normalising $\gamma_t$ to $\hat \gamma_t$:
 
-<span id="eq-yield-curve-shape-normalised">$$
+<span id="eq-time-weighted-incentive-curve-normalised">$$
 \hat \gamma_t = \frac{\gamma_t}{\sum_{t=1}^{40} \gamma_t}
  \qquad(4)$$</span>
 
 With the cumulative sum of the normalised values expressed as
 $\Gamma_t$:
 
-<span id="eq-yield-curve-shape-normalized-sum">$$
+<span id="eq-time-weighted-incentive-curve-normalized-sum">$$
 \Gamma_t = \sum_{i=1}^t \hat \gamma_i \quad \text{for } t = 1, \dots, 40
  \qquad(5)$$</span>
 
-The zero-coupon yield curve $Z_t$ is solved:
+The time-weighted incentive curve $Z_t$ is solved:
 
-<span id="eq-yield-curve">$$
+<span id="eq-time-weighted-incentive-curve">$$
 Z_t = (1 - S) \, \frac{\Gamma_t}{E_t}
  \qquad(6)$$</span>
 
-Whereupon, the discount rate $B_t$ that forms the forward-delivery curve
-is derived:
+Whereupon, the discount rate $B_t$ that forms the discount curve is
+derived:
 
 <span id="eq-discount-rate">$$
 B_t = \exp(-Z_t \, E_t)
  \qquad(7)$$</span>
 
-The yield due on time-locked **A** tokens is calculated daily and added
-to the staked principal, hence the daily yield for each time bucket is
-calculated:
+The incentives due on time-locked **A** tokens are calculated daily and
+added to the locked principal, hence the daily accrual for each duration
+is calculated:
 
-<span id="eq-daily-yield">$$
+$$
 Y_t = \exp \left( \frac{Z_t}{365} \right) - 1
- \qquad(8)$$</span>
+$$ {#fig-daily-time-weighted-incentives}
 
-Hence, any time-locked **A** stake $S_t$ will increase by $\Delta S_t$:
+Hence, any time-locked **A** stake $S_t$ will increase by a base accrual
+$\Delta S_t$:
 
 <span id="eq-base-accrual">$$
 \Delta S_t = S_t \, Y_t
- \qquad(9)$$</span>
+ \qquad(8)$$</span>
 
 With the total **A** tokens created on a daily basis for time-locked
 inflation as
 
 <span id="eq-inflation">$$
 R = \sum_{t=1}^{40} \Delta S_t
- \qquad(10)$$</span>
+ \qquad(9)$$</span>
 
 <div class="panel-sidebar">
 
@@ -638,29 +639,29 @@ R = \sum_{t=1}^{40} \Delta S_t
 
 <div class="panel-fill">
 
-<div id="fig-time-locked-market-state">
+<div id="fig-time-locked-incentives-example">
 
-<div id="fig-time-locked-market-state-yield">
+<div id="fig-time-locked-incentives-example-curve">
 
-<img src="figures/time-locked-market-state-yield.svg"
-data-fig-alt="Yield (Total Stake = 55.00%, Inflation = 1.75%)."
-data-ref-parent="fig-time-locked-market-state" />
+<img src="figures/time-locked-incentives-example-curve.svg"
+data-fig-alt="Time-weighted incentives (Total Stake = 55.00%, Inflation = 1.75%)."
+data-ref-parent="fig-time-locked-incentives-example" />
 
-(a) Yield (Total Stake = 55.00%, Inflation = 1.75%).
-
-</div>
-
-<div id="fig-time-locked-market-state-discount-rate">
-
-<img src="figures/time-locked-market-state-discount-rate.svg"
-data-fig-alt="Discount rate."
-data-ref-parent="fig-time-locked-market-state" />
-
-(b) Discount rate.
+(a) Time-weighted incentives (Total Stake = 55.00%, Inflation = 1.75%).
 
 </div>
 
-Figure 4: Example of a Time-Locked Market state.
+<div id="fig-time-locked-incentives-example-discount-rates">
+
+<img src="figures/time-locked-incentives-example-discount-rates.svg"
+data-fig-alt="Discount rates."
+data-ref-parent="fig-time-locked-incentives-example" />
+
+(b) Discount rates.
+
+</div>
+
+Figure 4: Example of time-locked incentives.
 
 </div>
 
@@ -669,14 +670,14 @@ Figure 4: Example of a Time-Locked Market state.
 For visualising the sensitivity of overall **A** inflation rates with
 respect to staking and duration,
 <a href="#fig-inflation-rate" class="quarto-xref">Figure 5</a> assumes a
-single maturity over the staking range to provide an approximation of
+single duration over the staking range to provide an approximation of
 inflation $\Delta S \approx Z \, S$.
 
 <div id="fig-inflation-rate">
 
 ![](figures/inflation-rate.svg)
 
-Figure 5: **A** inflation rate from time-locked token yields $\Delta S$.
+Figure 5: **A** inflation rate from base accrual $\Delta S$.
 
 </div>
 
@@ -702,25 +703,25 @@ of **A**:
 
     <span id="eq-voting-weights-time-locks-initial">$$
      v_t = Z_t \, S_t
-      \qquad(11)$$</span>
+      \qquad(10)$$</span>
 
 2.  Initial voting weights for staked liquidity $w_t$:
 
     <span id="eq-voting-weights-lps-initial">$$
      w_t = Z_t \, A_{Gt}
-      \qquad(12)$$</span>
+      \qquad(11)$$</span>
 
 3.  Final voting weights for time-locked **A** tokens $V_t$:
 
     <span id="eq-voting-weights-time-locks">$$
      V_t = \frac{v_t}{\sum_{j=1}^{40} (v_j + 2 w_j)}
-      \qquad(13)$$</span>
+      \qquad(12)$$</span>
 
 4.  Final voting weights for staked liquidity $W_t$:
 
     <span id="eq-voting-weights-lps">$$
      W_t = \frac{w_t}{\sum_{j=1}^{40} \left( \frac 1 2 v_j + w_j \right)}
-      \qquad(14)$$</span>
+      \qquad(13)$$</span>
 
 ### Portfolio Manager
 
@@ -793,7 +794,7 @@ liquidity schedule and sum the discounted holdings:
 
 <span id="eq-present-value-carbon">$$
 \bar C_i = C_{i0} + \sum_{t=1}^{40} B_t \, C_{it}
- \qquad(15)$$</span>
+ \qquad(14)$$</span>
 
 <div class="panel-sidebar">
 
@@ -816,7 +817,7 @@ sold with a specific maturity index $t$:
 
 <span id="eq-present-value-carbon-change">$$
 \Delta \bar C_i = \Delta C_{i0} + \sum_{t=1}^{40} B_t \, \Delta C_{it}
- \qquad(16)$$</span>
+ \qquad(15)$$</span>
 
 Once standardised by the discount curve, trades can be aggregated in the
 same class for the defined trade or auction period.
@@ -845,15 +846,15 @@ determined as:
 <span id="eq-a-change-intermediary-step">$$
 \ln(1 + \Delta A) =
   \left( A_i - \frac{A_i^2 \, (1 - G_i)^2}{2} \right) \ln(1 + \Delta \bar C_i)
- \qquad(17)$$</span>
+ \qquad(16)$$</span>
 
 Denoting the expression on the right hand side of
 <a href="#eq-a-change-intermediary-step"
-class="quarto-xref">Equation 17</a> as $\mathsf{RHS}$:
+class="quarto-xref">Equation 16</a> as $\mathsf{RHS}$:
 
 <span id="eq-a-change">$$
 \Delta A = \exp(\mathsf{RHS}) - 1
- \qquad(18)$$</span>
+ \qquad(17)$$</span>
 
 Finally, $\Delta A$ is applied to the outstanding supply of **A** to
 solve for token quantities.
@@ -907,7 +908,7 @@ $G_\emptyset$:
 \Delta A =
   \frac{\Delta \bar C_\emptyset}{1 + \Delta \bar C_\emptyset} \,
   \left( A_\emptyset - \frac{A_\emptyset^2 (1 - G_\emptyset)^2}{2} \right)^2
- \qquad(19)$$</span>
+ \qquad(18)$$</span>
 
 <div class="panel-sidebar">
 
@@ -948,15 +949,15 @@ $C_{i0}$:
 <span id="eq-carbon-change-intermediary-step">$$
 \ln(1 + \Delta C_i) =
   \frac{-\ln(1 + \Delta A)}{A_i + \frac 1 2 A_i^2 \, (1 - G_i)^2}
- \qquad(20)$$</span>
+ \qquad(19)$$</span>
 
 As before, denoting the expression on the right hand side of
 <a href="#eq-carbon-change-intermediary-step"
-class="quarto-xref">Equation 20</a> as $\mathsf{RHS}$:
+class="quarto-xref">Equation 19</a> as $\mathsf{RHS}$:
 
 <span id="eq-carbon-change">$$
 \Delta C_i = \exp(\mathsf{RHS}) - 1
- \qquad(21)$$</span>
+ \qquad(20)$$</span>
 
 <div class="panel-sidebar">
 
@@ -1100,7 +1101,7 @@ $\beta$ from the implied betas of each carbon class $i$.
 
 <span id="eq-beta">$$
 \beta = \sqrt{\sum_{i=1}^n A_i - A_i \, (1 - G_i)^2}
- \qquad(22)$$</span>
+ \qquad(21)$$</span>
 
 The portfolio $\beta$ determines a yield factor for the liquidity pools
 of **A** to compensate for the implied risk levels.
@@ -1187,7 +1188,7 @@ The allocation to user-locked **G** tokens, $\lambda_{GG}$:
 
 <span id="eq-lambda-gg">$$
 \lambda_{GG} = \frac{1 - A_Q}{1 + \left( \frac{\sum_{i=1}^{n}{G_i}}{G_G} \right)^2}
- \qquad(23)$$</span>
+ \qquad(22)$$</span>
 
 <div id="fig-g-stake-allocation">
 
@@ -1205,13 +1206,13 @@ pools:
 
 <span id="eq-lambda-g">$$
 \lambda_G = (1 - \lambda_{GG}) \frac{2 A_G}{2 A_G + A_Q \sqrt 2}
- \qquad(24)$$</span>
+ \qquad(23)$$</span>
 
 For completeness:
 
 <span id="eq-lambda-q">$$
 \lambda_Q = 1 - \lambda_{GG} - \lambda_G
- \qquad(25)$$</span>
+ \qquad(24)$$</span>
 
 <div id="fig-liquidity-pool-split">
 
@@ -1227,19 +1228,19 @@ For $\lambda_{GG}$, $\lambda_G$, $\lambda_Q$ we apply $\beta$:
 
 <span id="eq-capital-lambda">$$
 \Lambda_X = \lambda_X \, \beta, \quad \text{for } X \in \{GG, G, Q\}
- \qquad(26)$$</span>
+ \qquad(25)$$</span>
 
 Taking $b$ as a discount parameter:
 
 <span id="eq-discount-parameter">$$
 b = \frac{\sum_1^{40} Z_t \, S_t \, B_t}{\sum_1^{40} Z_t \, S_t }
- \qquad(27)$$</span>
+ \qquad(26)$$</span>
 
 The total Risk Premium tokens $R_\lambda$:
 
 <span id="eq-risk-premium">$$
 R_\lambda = b \, R \, (\Lambda_{GG} + \Lambda_G + \Lambda_Q)
- \qquad(28)$$</span>
+ \qquad(27)$$</span>
 
 The allocations of $R_\lambda$ are pro-rata to $\Lambda_{GG}$,
 $\Lambda_G$, $\Lambda_Q$, and thereafter:
@@ -1252,11 +1253,11 @@ $\Lambda_G$, $\Lambda_Q$, and thereafter:
 
     <span id="eq-risky-premium-weighting-ag-pool">$$
      G_t = \frac{Z_t \, L_{Gt} \, B_t}{\sum Z_t \, L_{Gt} \, B_t}
-      \qquad(29)$$</span>
+      \qquad(28)$$</span>
 
     <span id="eq-risky-premium-weighting-aq-pool">$$
      Q_t = \frac{Z_t \, L_{Qt} \, B_t}{\sum Z_t \, L_{Qt} \, B_t}
-      \qquad(30)$$</span>
+      \qquad(29)$$</span>
 
     Where $L_{Gt}$, $L_{Qt}$ are the proportion of all liquidity locked
     in each time bucket for <span class="overline">**AG**</span> and
@@ -1318,19 +1319,19 @@ Setting $x_0$ from the initial supply parameter:
 
 <span id="eq-incentives-issuance-x-0">$$
 x_0 = \ln\left( \frac{P_0}{1 - P_0} \right)
- \qquad(31)$$</span>
+ \qquad(30)$$</span>
 
 With $x_t$ at time point $t \in (0, \infty)$:
 
 <span id="eq-incentives-issuance-x-t">$$
 x_t = x_0 \, \left( 1 - \frac t T \right)
- \qquad(32)$$</span>
+ \qquad(31)$$</span>
 
 Giving supply function $\operatorname{P}(t)$ as:
 
 <span id="eq-incentives-issuance-curve">$$
 \operatorname{P}(t) = \frac{\exp(x_t)}{\exp(x_t) + 1}
- \qquad(33)$$</span>
+ \qquad(32)$$</span>
 
 $P_0$ set at 7% and $T$ at 24 months:
 
@@ -1436,7 +1437,7 @@ Where $\upsilon = 0$ if $G + L = 0$, otherwise:
 
 <span id="eq-relative-utilisation">$$
 \upsilon = \left( \frac{2 G L}{G^2 + L^2} \right)^2
- \qquad(34)$$</span>
+ \qquad(33)$$</span>
 
 <div id="fig-relative-utilisation">
 
@@ -1451,7 +1452,7 @@ if $G + L = 0$, otherwise:
 
 <span id="eq-absolute-utilisation">$$
 \eta = \frac{2 G L}{G (1 - G) + L ( 1 - L)}
- \qquad(35)$$</span>
+ \qquad(34)$$</span>
 
 <div id="fig-absolute-utilisation">
 
@@ -1470,7 +1471,7 @@ $\upsilon$:
 
 <span id="eq-allocation-treasury">$$
 I_T = 1 - \upsilon \, \eta
- \qquad(36)$$</span>
+ \qquad(35)$$</span>
 
 #### Post Treasury
 
@@ -1480,19 +1481,20 @@ buckets:
 1.  Time-locked **A** & user-locked **G** tokens
 
     Where $S$ is the proportion of time-locked **A** tokens (as defined
-    previously in **?@sec-time-locked-market**):
+    previously in <a href="#sec-time-weighted-incentive-curve"
+    class="quarto-xref">Section 3.1.1</a>):
 
     1.  Time-locked **A**, $I_S$:
 
         <span id="eq-allocation-locked-a">$$
          I_S = S \, \frac{L^2}{G^2 + L^2}
-          \qquad(37)$$</span>
+          \qquad(36)$$</span>
 
     2.  User-locked **G**, $I_G$:
 
         <span id="eq-allocation-locked-g">$$
          I_G = (1 - S) \, \frac{L^2}{G^2 + L^2}
-          \qquad(38)$$</span>
+          \qquad(37)$$</span>
 
 2.  Liquidity
 
@@ -1504,13 +1506,13 @@ buckets:
 
         <span id="eq-allocation-pool-ag">$$
          I_{AG} = \frac{\lambda_G}{1 - \lambda_{GG}} \, \frac{G^2}{G^2 + L^2}
-          \qquad(39)$$</span>
+          \qquad(38)$$</span>
 
     4.  <span class="overline">**AQ**</span> pool $I_{AQ}$:
 
         <span id="eq-allocation-pool-aq">$$
          I_{AQ} = \frac{\lambda_Q}{1 - \lambda_{GG}} \, \frac{G^2}{G^2 + L^2}
-          \qquad(40)$$</span>
+          \qquad(39)$$</span>
 
 <div class="panel-sidebar">
 
