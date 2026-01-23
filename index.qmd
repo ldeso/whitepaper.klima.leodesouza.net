@@ -1026,11 +1026,9 @@ Plot.plot({
 
 :::
 
-#### Governance Weightings {#sec-governance-weightings}
+#### Protocol Governance Signals {#sec-protocol-governance-signals}
 
-Governance rights, for example the whitelisting&nbsp;(and blacklisting) of
-carbon classes, and any other matter requiring token stakeholder voting, are
-allocated to two cohorts:
+Protocol governance signals can be derived from two participation cohorts:
 
 1. Time-locked **A** tokens: $S_t$
 
@@ -1104,7 +1102,7 @@ governance by time-locked **A** token and staked [**AG**]{
   .content-visible unless-format="pdf"
 }[$\overline{\textbf{AG}}$]{
   .content-visible when-format="pdf"
-} liquidity providers&nbsp;(see @sec-governance-weightings).
+} liquidity providers&nbsp;(see @sec-protocol-governance-signals).
 
 For carbon pricing, both **A** tokens and **G** tokens may be allocated to
 specific carbon classes $i$ and these are independent allocations between the
