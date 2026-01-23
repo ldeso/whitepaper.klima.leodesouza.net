@@ -500,21 +500,21 @@ continuous dynamic feedback loops and overall system balances (supply,
 demand, token holder positions). There is no centralised management
 entity with discretionary powers, or fees that can be turned on.
 
-1.  **Carbon inventory layer**: the protocol swaps **A** for carbon
+1.  **Time-locking mechanism**: **A** token holders can time-lock their
+    tokens until a set date to define system parameters and to have the
+    ability to select carbon classes for system weighting.
+
+    - The collective locks influence the **A** rewards, as well as the
+      real-time execution price for carbon credit acquisitions or
+      retirements.
+
+2.  **Carbon inventory layer**: the protocol swaps **A** for carbon
     credits **C** (in) or carbon offset certificates **C\*** (out).
 
     - Both allocations of time-locked **A** tokens and user-locked **G**
       tokens are used in the protocol: allocations of **A** determine
       the pricing of carbon, and allocations of **G** determine
       capacity.
-
-2.  **Governance layer**: **A** token holders can time-lock their tokens
-    until a set date to define system parameters and to have the ability
-    to select carbon classes for system weighting.
-
-    - The collective locks influence the **A** rewards, as well as the
-      real-time execution price for carbon credit acquisitions or
-      retirements.
 
 3.  **Liquidity layer**: External liquidity pools enable conversion
     between **kVCM** and supported settlement assets. Liquidity
@@ -681,11 +681,10 @@ Figure 5: **A** inflation rate from base accrual $\Delta S$.
 
 </div>
 
-#### Governance Weightings
+#### Protocol Governance Signals
 
-Governance rights, for example the whitelisting (and blacklisting) of
-carbon classes, and any other matter requiring token stakeholder voting,
-are allocated to two cohorts:
+Protocol governance signals can be derived from two participation
+cohorts:
 
 1.  Time-locked **A** tokens: $S_t$
 
@@ -723,7 +722,7 @@ of **A**:
      W_t = \frac{w_t}{\sum_{j=1}^{40} \left( \frac 1 2 v_j + w_j \right)}
       \qquad(14)$$</span>
 
-### Portfolio Manager
+### Carbon Inventory
 
 The Portfolio Manager’s role of swapping **A** for carbon is managed
 through a set of smart contracts driven by allocation choices from the
@@ -751,7 +750,7 @@ Figure 6: Klima 2.0 Portfolio Manager.
 Carbon classes ${i \in \{1, 2, 3, \dots, n\}}$ are whitelisted through
 governance by time-locked **A** token and staked
 <span class="overline">**AG**</span> liquidity providers (see
-<a href="#sec-governance-weightings"
+<a href="#sec-protocol-governance-signals"
 class="quarto-xref">Section 3.1.2</a>).
 
 For carbon pricing, both **A** tokens and **G** tokens may be allocated
