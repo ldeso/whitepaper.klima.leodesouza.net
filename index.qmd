@@ -608,7 +608,7 @@ the locked principal, hence the daily accrual for each duration is calculated:
 
 $$
 Y_t = \exp \left( \frac{Z_t}{365} \right) - 1
-$$ {#fig-daily-time-weighted-incentives}
+$$ {#eq-daily-time-weighted-incentives}
 
 Hence, any time-locked **A** stake $S_t$ will increase by a base accrual
 $\Delta S_t$:
