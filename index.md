@@ -109,7 +109,7 @@ transparent pricing, programmatic settlement, and open participation.
 
 The Klima 2.0 protocol replaces treasury-backed mechanisms with a
 rules-based coordination model that uses protocol-native tokens to
-parameterise pricing bounds, intake capacity, and participation
+parameterise execution rates, intake capacity, and participation
 incentives. Carbon credits handled by the protocol are acquired solely
 to fulfil retirement demand and are not held, traded, or managed for
 financial gain.
