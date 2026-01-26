@@ -124,10 +124,10 @@ on discretionary intermediaries.
 ### Protocol Tokens
 
 Klima 2.0 operates using two protocol-native tokens, **kVCM** and
-**K2**, which together enable rules-based coordination of pricing,
-capacity, and participation within the system. These tokens do not
-confer ownership rights, redemption rights, or claims on
-protocol-handled carbon, and do not represent investment interests.
+**K2**, which together enable rules-based coordination and participation
+within the system. These tokens do not confer ownership rights,
+redemption rights, or claims on protocol-handled carbon, and do not
+represent investment interests.
 
 **kVCM** functions as the internal unit of account and pricing reference
 for protocol-facilitated carbon retirement, while **K2** provides
