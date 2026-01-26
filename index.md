@@ -2,7 +2,7 @@
 The Dark Sole Enterprise Ltd <ds@darksole.vip>  
 with contributions from the Klima and Carbonmark teams
 
-23 Jan 2026 (Version 1.48)
+26 Jan 2026 (Version 1.48)
 
 <img src="brand/klimaprotocol.svg" style="width:50.0%"
 alt="Klima Protocol Logo." data-fig-align="center" />
@@ -23,8 +23,8 @@ author.
 ## Prologue
 
 Klima 2.0 is an autonomous, rules-based coordination protocol designed
-to support the retirement of carbon credits through transparent pricing,
-continuous execution, and onchain settlement.
+to support the retirement of carbon credits through continuous and
+transparent execution terms.
 
 It is not a financial product, investment vehicle, or asset management
 system, but a piece of market infrastructure that enables carbon supply
@@ -38,8 +38,8 @@ system capacity. Together, these tokens inform protocol parameters
 through deterministic smart-contract logic. This architecture enables
 the protocol to:
 
-- price and intake eligible, tokenised carbon credits according to
-  transparent, onchain rules;
+- define execution rates and intake eligibility for carbon credits
+  against transparent, pre-defined rules;
 
 - make acquired credits available exclusively for irreversible
   retirement;
@@ -48,22 +48,22 @@ the protocol to:
   for continuous operation.
 
 Participant actions such as locking tokens, signalling preferences, or
-providing liquidity serve as non-custodial inputs into a coordination
-mechanism that adjusts protocol parameters within predefined bounds.
-These inputs do not confer ownership rights, redemption rights, or
-claims on protocol-held carbon, nor do they constitute discretionary
-management of assets.
+providing liquidity serve inputs into a coordination mechanism that
+adjusts protocol parameters within predefined bounds. These inputs do
+not confer ownership rights, redemption rights, or claims on
+protocol-held carbon, nor do they constitute discretionary management of
+assets.
 
 The protocol consists of three interdependent functional layers:
 
 - a carbon inventory layer that holds credits solely for the purpose of
   facilitating retirement;
 
-- a governance layer that aggregates participant signals to inform
-  pricing and intake parameters; and
+- a coordination layer that aggregates participant signals to inform
+  protocol parameters; and
 
-- a liquidity layer that supports entry and exit from the system through
-  external markets.
+- a liquidity layer that supports access and withdrawal from the system
+  through external markets.
 
 These layers are designed to operate together as a self-contained
 system, adjusting to observable supply and retirement demand without
