@@ -1218,7 +1218,7 @@ Plot.plot({
     legend: true,
     scheme: "Spectral",
     type: "sequential",
-    label: `ΔA, where ΔC̄ᵢ = ${stringInputDeltaBarCi}`,
+    label: `ΔA, where ΔCᵢ = ${stringInputDeltaBarCi}`,
   },
   x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
   y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
@@ -1268,7 +1268,7 @@ Plot.plot({
     legend: true,
     scheme: "Spectral",
     type: "sequential",
-    label: `Normalised ΔA, where ΔC̄ᵢ = ${stringInputDeltaBarCi}`,
+    label: `Normalised ΔA, where ΔCᵢ = ${stringInputDeltaBarCi}`,
   },
   x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
   y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
@@ -1316,14 +1316,14 @@ effects become more pronounced as $\Delta C_i$ increases.
 
 ##### Zero Carbon Scenario {#sec-zero-carbon-scenario}
 
-There are circumstances when there is zero carbon held in the portfolio for a
+There are circumstances when there is zero carbon held in the inventory for a
 particular class, i.e. ${C_i = 0}$, which invalidates the calculation of
 $\Delta C_i$ and a different approach is required.
 
-Taking $\Delta C_\emptyset$ as the tonnes of carbon tokens (implying an
-existing balance of 1 tonne), adjusted for forward discounting, to be sold for
-any carbon class that has a strictly positive **A** allocation $A_\emptyset$,
-together with **G** allocation $G_\emptyset$:
+Taking $\Delta C_\emptyset$ as the tonnes of carbon tokens (implying an existing
+balance of 1 tonne) to be supplied for any carbon class that has a strictly
+positive **A** allocation $A_\emptyset$, together with **G** allocation
+$G_\emptyset$:
 
 $$
 \Delta A =
@@ -1420,7 +1420,7 @@ Plot.plot({
     legend: true,
     scheme: "Spectral",
     type: "sequential",
-    label: `ΔA, where ΔC̄∅ = ${stringDeltaBarCnull} tCO2eq`,
+    label: `ΔA, where ΔC∅ = ${stringDeltaBarCnull} tCO2eq`,
   },
   x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
   y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
@@ -1471,7 +1471,7 @@ Plot.plot({
     legend: true,
     scheme: "Spectral",
     type: "sequential",
-    label: `Normalised ΔA, where ΔC̄∅ = ${stringDeltaBarCnull} tCO2eq`,
+    label: `Normalised ΔA, where ΔC∅ = ${stringDeltaBarCnull} tCO2eq`,
   },
   x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
   y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
@@ -1516,7 +1516,7 @@ Plot.plot({
 
 :::
 
-#### Sell Offset Certificates {#sec-sell-offset-certificates}
+#### Carbon Credit Retirements {#sec-sell-offset-certificates}
 
 _User swaps **A** tokens for carbon offset certificates._
 
@@ -1524,8 +1524,7 @@ _User swaps **A** tokens for carbon offset certificates._
 
 For retiring carbon that is _weighted_, that is for which there is a strictly
 positive **A** token allocation, an **A** token holder can extract the carbon
-class offset certificate of their choice $C_i$ but the available pool is only
-the liquid carbon balance, namely the element $C_{i0}$:
+class offset certificate of their choice $C_i$:
 
 $$
 \ln(1 + \Delta C_i) =
@@ -1649,14 +1648,16 @@ and decreasing on $G_i$.
 An offset certificate for a carbon class with a zero **A** allocation cannot be
 extracted from the portfolio by swapping in **A** tokens.
 
-##### Liquidation: $\Delta A = 1$ {#sec-liquidation-delta-a-1}
+##### Round Trip Difference {#sec-round-trip-difference}
 
-In the event that 100% of **A** tokens are placed into the burn mechanism for
-carbon offset certificates, the balances of all carbon held in the portfolio
-post-trade are distributed to all **G** token holders.
+Any difference between the **A** tokens issued in connection with carbon intake
+and the **A** tokens burned in connection with retirement is reflected solely as
+a change in the circulating supply of **A** tokens, according to the above
+protocol rules. No margin, profit, or financial surplus is retained or extracted
+by any entity.
 
-@fig-carbon-spread below shows the spread captured on a 'round trip' by the
-system where $\varepsilon$ is the proportion retained:
+@fig-carbon-difference below shows the difference captured on a 'round trip' by
+the system where $\varepsilon$ is the proportion retained:
 
 ::: {.panel-sidebar}
 
@@ -1674,7 +1675,7 @@ viewof inputDeltaCinitial = Inputs.range([0.001, 1], {
 
 ::: {.panel-fill}
 
-::::: {#fig-carbon-spread fig-cap="Carbon ‘spread’." fig-alt="Carbon spread."}
+::::: {#fig-carbon-difference fig-cap="Carbon ‘difference’." fig-alt="Carbon difference."}
 
 ::::::: {.content-visible when-format="html"}
 ```{ojs}
@@ -1734,7 +1735,7 @@ Plot.plot({
     scheme: "Spectral",
     domain: [0, computeSpread(1, 0, 1)],
     type: "sequential",
-    label: `Carbon Spread ε, where initial ΔC = ${stringInputDeltaCinitial}`,
+    label: `Carbon Difference ε, where initial ΔC = ${stringInputDeltaCinitial}`,
   },
   x: { ticks: d3.range(0, 1.01, 0.1), label: "Aᵢ" },
   y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Gᵢ" },
@@ -1767,15 +1768,15 @@ Plot.plot({
 :::::::
 
 ::::::: {.content-visible unless-format="html"}
-![](figures/carbon-spread.svg)
+![](figures/carbon-difference.svg)
 :::::::
 
 :::::
 
 :::
 
-@fig-carbon-spread-components shows the component 'spread' contributions on a
-carbon sale and purchase round trip of a carbon offset certificate.
+@fig-carbon-difference-components shows the component difference contributions
+on a carbon supply and purchase round trip of a carbon offset certificate.
 
 ::: {.panel-sidebar}
 
@@ -1796,11 +1797,11 @@ Inputs.bind(
 
 ::: {.panel-fill}
 
-::::: {#fig-carbon-spread-components fig-cap="Carbon ‘spread’ components."}
+::::: {#fig-carbon-difference-components fig-cap="Carbon ‘difference’ components."}
 
 ::::::: {.content-visible when-format="html"}
 ```{ojs}
-//|fig-cap: Carbon ‘spread’ component ΔA.
+//|fig-cap: Carbon ‘difference’ component ΔA.
 Plot.plot({
   color: {
     legend: true,
@@ -1836,7 +1837,7 @@ Plot.plot({
 ```
 
 ```{ojs}
-//|fig-cap: Carbon ‘spread’ component ΔC.
+//|fig-cap: Carbon ‘difference’ component ΔC.
 Plot.plot({
   color: {
     legend: true,
@@ -1891,14 +1892,14 @@ Plot.plot({
 :::::::
 
 ::::::: {.content-visible unless-format="html"}
-![Carbon ‘spread’ component $\Delta A$.](figures/carbon-spread-component-delta-a.svg){
-  #fig-carbon-spread-component-delta-a
-  fig-alt="Carbon Spread Component Delta A."
+![Carbon ‘difference’ component $\Delta A$.](figures/carbon-difference-component-delta-a.svg){
+  #fig-carbon-difference-component-delta-a
+  fig-alt="Carbon Difference Component Delta A."
 }
 
-![Carbon ‘spread’ component $\Delta C$.](figures/carbon-spread-component-delta-c.svg){
-  #fig-carbon-spread-component-delta-c
-  fig-alt="Carbon Spread Component Delta C."
+![Carbon ‘difference’ component $\Delta C$.](figures/carbon-difference-component-delta-c.svg){
+  #fig-carbon-difference-component-delta-c
+  fig-alt="Carbon Difference Component Delta C."
 }
 :::::::
 
