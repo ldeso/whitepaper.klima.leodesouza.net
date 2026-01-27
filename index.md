@@ -2,7 +2,7 @@
 The Dark Sole Enterprise Ltd <ds@darksole.vip>  
 with contributions from the Klima and Carbonmark teams
 
-26 Jan 2026 (Version 1.48)
+27 Jan 2026 (Version 1.48)
 
 <img src="brand/klimaprotocol.svg" style="width:50.0%"
 alt="Klima Protocol Logo." data-fig-align="center" />
@@ -147,10 +147,10 @@ together support continuous, non-discretionary operation:
 
     - Accumulates carbon credits by minting **kVCM**.
     - Sells carbon certificates by burning **kVCM**.
-    - Prices carbon based on the system’s code.
+    - Sets carbon execution rates based on the system’s code.
 
     Carbon credits handled by the protocol cannot be withdrawn,
-    transferred, or resold.
+    transferred, or resold. They may only be retired.
 
 2.  **Governance Layer**:
 
@@ -165,7 +165,7 @@ together support continuous, non-discretionary operation:
 
     - **kVCM** and **K2** holders are able to pair their tokens
       together, or in the case of **kVCM** with USDC, in order to
-      generate liquidity fees.
+      generate liquidity fees in the standard way.
     - Staking the resulting liquidity provider tokens may generate a
       share of protocol incentives.
     - Liquidity locked in the **kVCM**/**K2** liquidity pool
@@ -193,8 +193,8 @@ services necessary for system operation.
 
 #### K2 Incentives
 
-The supply of K2 is allocated to stakeholders at various rates,
-depending on overall system balances:
+The supply of K2 is allocated at various rates, depending on overall
+system balances:
 
 1.  Time-locked **kVCM**.
 
@@ -204,9 +204,9 @@ depending on overall system balances:
 
 ### Carbon Inventory
 
-The protocol’s carbon inventory layer accumulates and distributes
-carbon. It is driven by parameters determined by its rules-based smart
-contracts, and token holder actions.
+The protocol’s carbon inventory layer accumulates and retires carbon. It
+is driven by parameters determined by its rules-based smart contracts,
+and user activities.
 
 <div id="fig-carbon-inventory">
 
@@ -218,10 +218,11 @@ Figure 1: Klima 2.0 Carbon Inventory.
 
 Carbon credits are acquired from suppliers, and consumed by offset
 buyers. Carbon credits are grouped by pre-defined classifications called
-**carbon classes**. The protocol does <u>not</u> sell carbon credits.
+**carbon classes**.
 
 Aggregate token holder allocations collectively set the parameters for
-the pricing of **each class** by defining:
+the execution rates of **each class** for, both suppliers and retirees,
+by defining:
 
 - Inventory weighting.
 
@@ -230,12 +231,11 @@ the pricing of **each class** by defining:
 Additional **global** parameters are also determined by the aggregate
 allocations, including the **kVCM** incentive curve.
 
-There are no oracles or external inputs required for Klima 2.0 as it is
-fully autonomous and responds to its own native state of token balances.
-
-The protocol does not facilitate the trading of unretired carbon credits
-and does not engage in discretionary allocation, resale, or optimisation
-of carbon inventory.
+Thus the Protocol is driven in response to its own native token
+balances, acting as rules-based carbon market infrastructure to connect
+available supply with retirement demand. It is able to do so without
+using oracles or external inputs, and without discretionary allocation,
+resale, or optimisation of inventory.
 
 ### Tokens
 
