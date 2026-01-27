@@ -240,12 +240,12 @@ resale, or optimisation of inventory.
 ### Tokens
 
 Locking or staking the protocol’s tokens allows participants to signal
-pricing preferences and capacity parameters within the protocol.
-However, holding or locking the tokens does not represent risk
-ownership, profit participation, or exposure to carbon price movements.
-Participants may receive protocol incentives for performing defined
-coordination functions, distributed according to transparent,
-rules-based mechanisms.
+preferences within the system. Doing so may make them eligible for
+protocol incentives when they perform defined coordination functions.
+
+Holding or locking protocol tokens does not represent ownership of
+protocol carbon assets, profit participation, or direct exposure to
+carbon price movements.
 
 Together, **kVCM** and **K2** enable the protocol to operate as neutral,
 non-extractive infrastructure, coordinating participation and execution
@@ -259,11 +259,11 @@ contracts when it is retired.
 
 - When **time-locked**:
 
-  - It *may* vote for carbon classes for inventory weighting.
+  - It may vote for carbon classes for inventory weighting.
 
   - It receives **kVCM** base accrual and **K2** incentives.
 
-  - In aggregate, it determines the rate of incentive issuance.
+  - In aggregate, time-locks determine the rate of incentive issuance.
 
 - **Transactional** usage:
 
@@ -272,7 +272,7 @@ contracts when it is retired.
   - **Burn**: when credits are retired from the protocol.
 
 - When **staked** in liquidity pools it is also eligible for incentives,
-  based on the position’s relative share.
+  based on the position’s relative share of the pool.
 
 <div id="fig-token-utility">
 
@@ -289,15 +289,15 @@ time.
 
 - When **user-locked**:
 
-  - It *may* vote for carbon classes to reduce the difference between
+  - It may vote for carbon classes to reduce the difference between
     execution terms on carbon intake and retirements.
 
   - It receives **kVCM** and **K2** incentives.
 
-  - In aggregate, it influences the rates of incentive issuance.
+  - In aggregate, user-locks influence the rates of incentive issuance.
 
 - When **staked** in the kVCM/K2 liquidity pool it is also eligible for
-  incentives, based on the position’s relative share.
+  incentives, based on the position’s relative share of the pool.
 
 #### Utility Functions
 
@@ -316,26 +316,27 @@ Figure 3: **kVCM** utility functions.
     time which determines a kVCM ‘base accrual’ rate. This cannot be
     amended.
 
-2.  **Price allocation**: Collective selection of carbon classes by
-    **kVCM** allocations determines the **real-time** execution ratio
-    for carbon intake and retirements, in kVCM terms. This selection can
-    be amended and withdrawn at any time to allow modulation of protocol
-    parameters.
+2.  **Execution rate allocation**: Collective signalling of carbon
+    classes via **kVCM** allocations determines determines the
+    protocol’s execution rate for carbonintake and retirement, expressed
+    in kVCM units. These parameters govern how the protocol issues or
+    burns kVCM when carbon is supplied or retired. Allocations may be
+    updated over time.
 
 The **K2** token also has <u>two</u> utility functions:
 
 1.  **User lock**: The **K2** token remains locked for at least 24
     hours.
 
-2.  **Capacity allocation**: Collective selection of carbon classes by
-    **K2** allocations determines the rate of issuance or retirement of
-    **kVCM** for the specified carbon class. More capacity allocations
-    on a given carbon class reduce the impact that new transactions have
-    on the execution ratio created by price allocations.
+2.  **Capacity allocation**: Collective selection of carbon classes via
+    K2 allocations determines the protocol-defined execution capacity
+    for carbon intake and retirement operations for a given class.
+    Higher capacity allocations increase the system’s ability to process
+    additional carbon activity without materially altering the execution
+    rate, as defined by kVCM allocations.
 
-Both tokens facilitate the carbon market to function efficiently, with
-the **kVCM** token responsible for setting execution ratios, and the
-**K2** token modulating capacity.
+Both tokens support the operation of the infrastructure, with**kVCM**
+informing execution rateios, and the **K2** token modulating capacity.
 
 ### Token Initialisation
 
@@ -384,12 +385,6 @@ Table 1: Token Summary
 
 </div>
 
-**kVCM** is issued when carbon credits are supplied to the protocol for
-the purpose of facilitating future retirement, and permanently removed
-from circulation when carbon is retired. This mint-and-burn process
-serves as an internal accounting mechanism and does not represent asset
-ownership or claims on protocol-held carbon.
-
 ### Participants
 
 1.  **Carbon Suppliers & Retirees**
@@ -399,8 +394,8 @@ ownership or claims on protocol-held carbon.
     handled solely for retirement and cannot be withdrawn, transferred,
     resold or otherwise arbitraged.
 
-    **Carbon inventory**: Real-time execution terms for suppliers are
-    continuously updated based on protocol token balances.
+    **Carbon inventory**: Indicative excution rates for suppliers and
+    retirees are continuously updated based on protocol state.
 
 2.  **Liquidity Providers**
 
@@ -409,16 +404,17 @@ ownership or claims on protocol-held carbon.
     supports continuous execution and is incentivised according to
     predefined protocol rules.
 
-    **Staked liquidity**: Provides continuous incentives for those
-    contributing liquidity to the system.
+    **Staked liquidity**: Protocol incentives may be issued for
+    participants providing liquidity to support system operation.
 
-3.  **Governance Users**
+3.  **Coordinators**
 
-    Participants who wish to affect carbon price and capacity may do so
-    by allocating **kVCM** and **K2** tokens.
+    Participants may influence execution conditions by allocating
+    **kVCM** and **K2** tokens within pre-defined protocol parameters.
 
-    **Time locks & user locks**: Provide continuous incentives for those
-    contributing activities that coordinate the protocol.
+    **Time locks & user locks**: Protocol incentives may be issued for
+    those contributing activities that coordinate the protocol and
+    signal long-term participation.
 
 ### Protocol Design Principles
 
@@ -426,10 +422,10 @@ ownership or claims on protocol-held carbon.
 
     Klima 2.0 is designed as shared market infrastructure rather than an
     extractive financial product. The protocol does not charge fees,
-    take spreads, or operate profit-taking mechanisms for any sponsor,
-    foundation, or investor. All protocol behaviour is rules-based and
-    applies uniformly to all participants, with no privileged economic
-    positions or revenue capture layers.
+    take hidden spreads, or operate profit-taking mechanisms for any
+    sponsor, foundation, or investor. All protocol behaviour is
+    rules-based and applies uniformly to all participants, with no
+    privileged economic positions or revenue capture layers.
 
     **Design intent**: Reduce opaque intermediation and hidden margins
     common in carbon markets, not replace them with a new rent-seeking
@@ -458,11 +454,10 @@ ownership or claims on protocol-held carbon.
 
 4.  **Autonomous, Rules-based Operation**
 
-    All protocol behaviour — including pricing logic, intake conditions,
-    retirement execution, and incentive distribution — is governed by
-    deterministic smart contracts. Once deployed, the system operates
-    autonomously and does not rely on discretionary decisions by any
-    individual, committee, or organisation.
+    All protocol behaviour is governed by deterministic smart contracts.
+    Once deployed, the system operates autonomously and does not rely on
+    discretionary decisions by any individual, committee, or
+    organisation.
 
     **Design intent**: Build a trustless, auditable system, that is not
     based on subjective, opaque intervention.
@@ -496,16 +491,17 @@ From this section we refer to **kVCM** tokens as **A**, **K2** tokens as
 certificates as **C\***.
 
 Three layers enable the Klima Protocol to find equilibrium through
-continuous dynamic feedback loops and overall system balances (supply,
-demand, token holder positions). There is no centralised management
-entity with discretionary powers, or fees that can be turned on.
+continuous, rule-based feedback mechanisms representing system
+state (supply, demand, coordinator allocations). There is no centralised
+management entity with discretionary powers, or fees that can be turned
+on.
 
 1.  **Time-locking mechanics**: **A** token holders can time-lock their
-    tokens until a set date to define system parameters and to have the
-    ability to select carbon classes for system weighting.
+    tokens until a set date to influence system parameters and to have
+    the ability to select carbon classes for system weighting.
 
-    - The collective locks influence the **A** rewards, as well as the
-      real-time execution price for carbon credit acquisitions or
+    - The collective locks influence the **A** incentives, as well as
+      the real-time execution price for carbon credit acquisitions or
       retirements.
 
 2.  **Carbon inventory layer**: the protocol swaps **A** for carbon
@@ -513,13 +509,13 @@ entity with discretionary powers, or fees that can be turned on.
 
     - Both allocations of time-locked **A** tokens and user-locked **G**
       tokens are used in the protocol: allocations of **A** determine
-      the pricing of carbon, and allocations of **G** determine
+      the execution rates of carbon, and allocations of **G** determine
       capacity.
 
 3.  **Liquidity layer**: External liquidity pools enable conversion
     between **kVCM** and supported settlement assets. Liquidity
-    provision supports system availability and users may receive
-    incentivises through the transparent, rule-based approach.
+    provision supports system availability and may make participants
+    eligible for protocol incentives.
 
     - <span class="overline">**AG**</span> liquidity pool: Native token
       swap **A** and **G**.
@@ -528,19 +524,19 @@ entity with discretionary powers, or fees that can be turned on.
       token **A** with USDC **Q**.
 
 The Klima system enables each participant to contribute to various
-aspects of the model, in the interests of their own utility. This, in
-conjunction with the autonomous model, enables the protocol to fulfill
-its mandate of facilitating retirement demand into the carbon markets.
+aspects of the model, in the interests of their own use and preference.
+This, in conjunction with the autonomous model, enables the protocol to
+fulfill continuous carbon retirement activity within the carbon markets.
 
 ### Time-locking Mechanics
 
-Time-locking **A** tokens represents a non-custodial commitment to
-protocol participation for a fixed duration. Lock durations are
-standardised at 90 days increments and expire on a rolling schedule.
-There are always 40 durations, extending out to approximately 10 years.
+Time-locking **A** tokens represents a commitment to protocol
+participation for a fixed duration. Lock durations are standardised at
+90 days increments and expire on a rolling schedule. There are always 40
+durations, extending out to approximately 10 years.
 
 - **Discount curve**: Aggregate time-locking determines the shape of the
-  discount curve of the **A** token with regards to execution prices.
+  discount curve of the **A** token.
 
 - **Incentives**: Time-locked **A** tokens may receive incentives, with
   a rate determined by the base accrual. The base accrual is calculated
@@ -612,7 +608,7 @@ B_t = \exp(-Z_t \, E_t)
  \qquad(7)$$</span>
 
 The incentives due on time-locked **A** tokens are calculated daily and
-added to the locked principal, hence the daily accrual for each duration
+added to the locked balance, hence the daily accrual for each duration
 is calculated:
 
 <span id="eq-daily-time-weighted-incentives">$$
