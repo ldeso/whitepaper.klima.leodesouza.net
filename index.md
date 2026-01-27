@@ -827,14 +827,14 @@ the effects become more pronounced as $\Delta C_i$ increases.
 
 ##### Zero Carbon Scenario
 
-There are circumstances when there is zero carbon held in the portfolio
+There are circumstances when there is zero carbon held in the inventory
 for a particular class, i.e. ${C_i = 0}$, which invalidates the
 calculation of $\Delta C_i$ and a different approach is required.
 
 Taking $\Delta C_\emptyset$ as the tonnes of carbon tokens (implying an
-existing balance of 1 tonne), adjusted for forward discounting, to be
-sold for any carbon class that has a strictly positive **A** allocation
-$A_\emptyset$, together with **G** allocation $G_\emptyset$:
+existing balance of 1 tonne) to be supplied for any carbon class that
+has a strictly positive **A** allocation $A_\emptyset$, together with
+**G** allocation $G_\emptyset$:
 
 <span id="eq-a-change-zero-carbon">$$
 \Delta A =
@@ -866,7 +866,7 @@ Figure 11: Normalised **A** price curves in the zero carbon scenario.
 
 </div>
 
-#### Sell Offset Certificates
+#### Carbon Credit Retirements
 
 *User swaps **A** tokens for carbon offset certificates.*
 
@@ -874,9 +874,7 @@ Figure 11: Normalised **A** price curves in the zero carbon scenario.
 
 For retiring carbon that is *weighted*, that is for which there is a
 strictly positive **A** token allocation, an **A** token holder can
-extract the carbon class offset certificate of their choice $C_i$ but
-the available pool is only the liquid carbon balance, namely the element
-$C_{i0}$:
+extract the carbon class offset certificate of their choice $C_i$:
 
 <span id="eq-carbon-change-intermediary-step">$$
 \ln(1 + \Delta C_i) =
@@ -916,15 +914,16 @@ with $A_i$ and decreasing on $G_i$.
 An offset certificate for a carbon class with a zero **A** allocation
 cannot be extracted from the portfolio by swapping in **A** tokens.
 
-##### Liquidation: $\Delta A = 1$
+##### Round Trip Difference
 
-In the event that 100% of **A** tokens are placed into the burn
-mechanism for carbon offset certificates, the balances of all carbon
-held in the portfolio post-trade are distributed to all **G** token
-holders.
+Any difference between the **A** tokens issued in connection with carbon
+intake and the **A** tokens burned in connection with retirement is
+reflected solely as a change in the circulating supply of **A** tokens,
+according to the above protocol rules. No margin, profit, or financial
+surplus is retained or extracted by any entity.
 
-<a href="#fig-carbon-spread" class="quarto-xref">Figure 13</a> below
-shows the spread captured on a ‘round trip’ by the system where
+<a href="#fig-carbon-difference" class="quarto-xref">Figure 13</a> below
+shows the difference captured on a ‘round trip’ by the system where
 $\varepsilon$ is the proportion retained:
 
 <div class="panel-sidebar">
@@ -933,19 +932,19 @@ $\varepsilon$ is the proportion retained:
 
 <div class="panel-fill">
 
-<div id="fig-carbon-spread">
+<div id="fig-carbon-difference">
 
-![](figures/carbon-spread.svg)
+![](figures/carbon-difference.svg)
 
-Figure 13: Carbon ‘spread’.
-
-</div>
+Figure 13: Carbon ‘difference’.
 
 </div>
 
-<a href="#fig-carbon-spread-components"
-class="quarto-xref">Figure 14</a> shows the component ‘spread’
-contributions on a carbon sale and purchase round trip of a carbon
+</div>
+
+<a href="#fig-carbon-difference-components"
+class="quarto-xref">Figure 14</a> shows the component difference
+contributions on a carbon supply and purchase round trip of a carbon
 offset certificate.
 
 <div class="panel-sidebar">
@@ -954,29 +953,29 @@ offset certificate.
 
 <div class="panel-fill">
 
-<div id="fig-carbon-spread-components">
+<div id="fig-carbon-difference-components">
 
-<div id="fig-carbon-spread-component-delta-a">
+<div id="fig-carbon-difference-component-delta-a">
 
-<img src="figures/carbon-spread-component-delta-a.svg"
-data-fig-alt="Carbon Spread Component Delta A."
-data-ref-parent="fig-carbon-spread-components" />
+<img src="figures/carbon-difference-component-delta-a.svg"
+data-fig-alt="Carbon Difference Component Delta A."
+data-ref-parent="fig-carbon-difference-components" />
 
-(a) Carbon ‘spread’ component $\Delta A$.
-
-</div>
-
-<div id="fig-carbon-spread-component-delta-c">
-
-<img src="figures/carbon-spread-component-delta-c.svg"
-data-fig-alt="Carbon Spread Component Delta C."
-data-ref-parent="fig-carbon-spread-components" />
-
-(b) Carbon ‘spread’ component $\Delta C$.
+(a) Carbon ‘difference’ component $\Delta A$.
 
 </div>
 
-Figure 14: Carbon ‘spread’ components.
+<div id="fig-carbon-difference-component-delta-c">
+
+<img src="figures/carbon-difference-component-delta-c.svg"
+data-fig-alt="Carbon Difference Component Delta C."
+data-ref-parent="fig-carbon-difference-components" />
+
+(b) Carbon ‘difference’ component $\Delta C$.
+
+</div>
+
+Figure 14: Carbon ‘difference’ components.
 
 </div>
 
