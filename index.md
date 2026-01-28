@@ -181,7 +181,7 @@ or centralised intervention.
 The protocol issues incentives to participants who provide defined
 services necessary for system operation.
 
-#### kVCM Incentives
+#### kVCM Incentives (Base Accrual)
 
 **kVCM** incentives are continuously emitted to:
 
@@ -1008,16 +1008,14 @@ For this reason, the fees are extremely low.
 
 By staking liquidity (liquidity provider tokens) to the **standard
 durations**, both pools may receive a distribution of **A** tokens
-determined from the Risk Premium calculation below. This is an
+determined from the kVCM incentives calculation below. This is an
 <u>additional</u> primary issuance to the Base Accrual already
 discussed.
 
-#### Risk Premium: Beta Determination
+#### kVCM Incentives
 
-We can consider the Time-Locked Market yield as the system’s *risk-free*
-rate. In addition to this mechanism, a *risky* spread is determined that
-is ultimately paid to the staked liquidity providers of the **A** and
-**G** tokens as compensation for the risk levels assumed.
+In addition to the base accrual mechanism, additional incentives is
+distributed to staked liquidity providers of the **A** and **G** tokens.
 
 As we have seen, the **G** token has an impact on risk-pricing of **A**.
 As **G** staking increases, the relationship between the carbon class
@@ -1080,10 +1078,10 @@ allocation as a function of **A** allocation; that is to say that a
 large $G_i$ stake on a small $A_i$ stake has limited
 effects (notwithstanding other consequential factors).
 
-#### Allocation of Risk Premium
+#### Allocation of kVCM incentives
 
 The full issuance of **A** tokens is depicted below including now the
-Risk Premium for the liquidity pools accordingly.
+kVCM incentives for the liquidity pools accordingly.
 
 <div id="fig-a-token-flow-structure">
 
@@ -1093,9 +1091,9 @@ Figure 18: **A** token flow structure.
 
 </div>
 
-#### Share of Risk Premium
+#### Share of kVCM incentives
 
-The Risk Premium allocation is shared between user-locked **G** tokens,
+The kVCM incentives are shared between user-locked **G** tokens,
 <span class="overline">**AG**</span>. and
 <span class="overline">**AQ**</span> pools, with shares $\lambda_{GG}$,
 $\lambda_G$, and $\lambda_Q$ respectively.
@@ -1149,7 +1147,7 @@ Figure 20: Liquidity pool split $\lambda_G, \lambda_Q$.
 
 </div>
 
-#### Risk Premium Distribution
+#### kVCM Incentives Distribution
 
 For $\lambda_{GG}$, $\lambda_G$, $\lambda_Q$ we apply $\beta$:
 
@@ -1163,7 +1161,7 @@ Taking $b$ as a discount parameter:
 b = \frac{\sum_1^{40} Z_t \, S_t \, B_t}{\sum_1^{40} Z_t \, S_t }
  \qquad(25)$$</span>
 
-The total Risk Premium tokens $R_\lambda$:
+The total kVCM incentive tokens $R_\lambda$:
 
 <span id="eq-risk-premium">$$
 R_\lambda = b \, R \, (\Lambda_{GG} + \Lambda_G + \Lambda_Q)
