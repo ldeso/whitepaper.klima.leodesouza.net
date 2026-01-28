@@ -235,7 +235,7 @@ driven by parameters determined by its rules-based smart contracts, and user act
 
 :::
 
-Carbon credits are acquired from suppliers, and consumed by offset buyers.
+Carbon credits are acquired from suppliers, and consumed by retirement buyers.
 Carbon credits are grouped by pre-defined classifications called **carbon
 classes**.
 
@@ -474,7 +474,7 @@ future emissions are distributed autonomously via incentives.
 ## Core Protocol Layers {#sec-core-protocol-layers}
 
 From this section we refer to **kVCM** tokens as **A**, **K2** tokens as **G**,
-USDC tokens as **Q**, carbon credits as **C**, and carbon offset certificates as
+USDC tokens as **Q**, carbon credits as **C**, and carbon retirement certificates as
 **C\***.
 
 Three layers enable the Klima Protocol to find equilibrium through continuous,
@@ -490,7 +490,7 @@ select carbon classes for system weighting.
     real-time execution price for carbon credit acquisitions or retirements.
 
 2. **Carbon inventory layer**: the protocol swaps **A** for carbon credits
-**C**&nbsp;(in) or carbon offset certificates **C\***&nbsp;(out).
+**C**&nbsp;(in) or carbon retirement certificates **C\***&nbsp;(out).
 
     - Both allocations of time-locked **A** tokens and user-locked **G** tokens
     are used in the protocol: allocations of **A** determine the execution rates
@@ -1013,9 +1013,9 @@ Plot.plot({
 
 :::
 
-#### Protocol Governance Signals {#sec-protocol-governance-signals}
+#### Protocol Coordination Signals {#sec-protocol-governance-signals}
 
-Protocol governance signals can be derived from two participation cohorts:
+Protocol coordination signals can be derived from two participation cohorts:
 
 1. Time-locked **A** tokens: $S_t$
 
@@ -1060,7 +1060,7 @@ Voting power is allocated by time and applied to the respective balance of
 The carbon inventory layer ultimately swaps carbon through a set of smart
 contracts, driven by carbon supply, demand, and user-inputs. The combined
 allocations of **A** and **G** tokens creates a dynamic real-time execution
-price curve by carbon class.
+rate curve by carbon class.
 
 ::: {#fig-carbon-inventory-mechanics fig-cap="Klima&nbsp;2.0 carbon inventory mechanics." fig-alt="Klima 2.0 carbon inventory mechanics."}
 
@@ -1080,7 +1080,7 @@ _User swaps carbon credits for **A** tokens._
 
 ##### Existing Carbon in the Inventory {#sec-existing-carbon-in-the-inventory}
 
-For carbon pricing, both **A** tokens and **G** tokens may be allocated to
+For execution terms, both **A** tokens and **G** tokens may be allocated to
 specific carbon classes ${i \in \{1, 2, 3, \dots, n\}}$ and these are
 independent allocations between the two tokens.
 
@@ -1098,7 +1098,7 @@ independent allocations between the two tokens.
 
 For a carbon class quantity to be supplied to the protocol, it must have a
 strictly positive quantity of **A** tokens allocated to that carbon class,
-otherwise there is no price, and the carbon cannot be sold.
+otherwise there is no defined rate, and the carbon cannot be swapped.
 
 Defining:
 
@@ -1111,7 +1111,7 @@ the outstanding supply of **A** tokens, where ${\sum A_i = A}$.
 the outstanding supply of **G** Tokens.
 
 Where $\Delta C_i$ is expressed as the relative increment to its respective pool
-balance, the amount of **A** tokens issued to pay for carbon, $\Delta A$,
+balance, the amount of **A** tokens issued for carbon, $\Delta A$,
 expressed as a proportion of current supply, is determined as:
 
 $$
@@ -1507,13 +1507,13 @@ Plot.plot({
 
 #### Carbon Credit Retirements {#sec-sell-offset-certificates}
 
-_User swaps **A** tokens for carbon offset certificates._
+_User swaps **A** tokens for carbon retirement certificates._
 
 ##### Weighted Carbon Class {#sec-weighted-carbon-class}
 
 For retiring carbon that is _weighted_, that is for which there is a strictly
 positive **A** token allocation, an **A** token holder can extract the carbon
-class offset certificate of their choice $C_i$:
+class retirement certificate of their choice $C_i$:
 
 $$
 \ln(1 + \Delta C_i) =
@@ -1634,7 +1634,7 @@ and decreasing on $G_i$.
 
 ##### Unweighted Carbon Class {#sec-unweighted-carbon-class}
 
-An offset certificate for a carbon class with a zero **A** allocation cannot be
+A retirement certificate for a carbon class with a zero **A** allocation cannot be
 extracted from the portfolio by swapping in **A** tokens.
 
 ##### Round Trip Difference {#sec-round-trip-difference}
@@ -1765,7 +1765,7 @@ Plot.plot({
 :::
 
 @fig-carbon-difference-components shows the component difference contributions
-on a carbon supply and purchase round trip of a carbon offset certificate.
+on a carbon supply and purchase round trip of a carbon retirement certificate.
 
 ::: {.panel-sidebar}
 
@@ -1946,7 +1946,7 @@ The [**AG**]{
 represent the same economy. For this reason, the fees are extremely low.
 
 By staking liquidity&nbsp;(liquidity provider tokens) to the **standard
-maturities**, both pools may receive a distribution of **A** tokens determined
+durations**, both pools may receive a distribution of **A** tokens determined
 from the Risk Premium calculation below. This is an [additional]{.underline}
 primary issuance to the Base Accrual already discussed.
 
