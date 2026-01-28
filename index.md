@@ -216,7 +216,7 @@ Figure 1: Klima 2.0 Carbon Inventory.
 
 </div>
 
-Carbon credits are acquired from suppliers, and consumed by offset
+Carbon credits are acquired from suppliers, and consumed by retirement
 buyers. Carbon credits are grouped by pre-defined classifications called
 **carbon classes**.
 
@@ -488,8 +488,8 @@ Table 1: Token Summary
 ## Core Protocol Layers
 
 From this section we refer to **kVCM** tokens as **A**, **K2** tokens as
-**G**, USDC tokens as **Q**, carbon credits as **C**, and carbon offset
-certificates as **C\***.
+**G**, USDC tokens as **Q**, carbon credits as **C**, and carbon
+retirement certificates as **C\***.
 
 Three layers enable the Klima Protocol to find equilibrium through
 continuous, rule-based feedback mechanisms representing system
@@ -506,7 +506,7 @@ on.
       retirements.
 
 2.  **Carbon inventory layer**: the protocol swaps **A** for carbon
-    credits **C** (in) or carbon offset certificates **C\*** (out).
+    credits **C** (in) or carbon retirement certificates **C\*** (out).
 
     - Both allocations of time-locked **A** tokens and user-locked **G**
       tokens are used in the protocol: allocations of **A** determine
@@ -676,9 +676,9 @@ Figure 5: **A** annual growth rate from base accrual $\Delta S$.
 
 </div>
 
-#### Protocol Governance Signals
+#### Protocol Coordination Signals
 
-Protocol governance signals can be derived from two participation
+Protocol coordination signals can be derived from two participation
 cohorts:
 
 1.  Time-locked **A** tokens: $S_t$
@@ -722,7 +722,7 @@ of **A**:
 The carbon inventory layer ultimately swaps carbon through a set of
 smart contracts, driven by carbon supply, demand, and user-inputs. The
 combined allocations of **A** and **G** tokens creates a dynamic
-real-time execution price curve by carbon class.
+real-time execution rate curve by carbon class.
 
 <div id="fig-carbon-inventory-mechanics">
 
@@ -738,7 +738,7 @@ Figure 6: Klima 2.0 carbon inventory mechanics.
 
 ##### Existing Carbon in the Inventory
 
-For carbon pricing, both **A** tokens and **G** tokens may be allocated
+For execution terms, both **A** tokens and **G** tokens may be allocated
 to specific carbon classes ${i \in \{1, 2, 3, \dots, n\}}$ and these are
 independent allocations between the two tokens.
 
@@ -752,7 +752,8 @@ Figure 7: Token staking class structure.
 
 For a carbon class quantity to be supplied to the protocol, it must have
 a strictly positive quantity of **A** tokens allocated to that carbon
-class, otherwise there is no price, and the carbon cannot be sold.
+class, otherwise there is no defined rate, and the carbon cannot be
+swapped.
 
 Defining:
 
@@ -767,9 +768,9 @@ Defining:
   proportion of the outstanding supply of **G** Tokens.
 
 Where $\Delta C_i$ is expressed as the relative increment to its
-respective pool balance, the amount of **A** tokens issued to pay for
-carbon, $\Delta A$, expressed as a proportion of current supply, is
-determined as:
+respective pool balance, the amount of **A** tokens issued for carbon,
+$\Delta A$, expressed as a proportion of current supply, is determined
+as:
 
 <span id="eq-a-change-intermediary-step">$$
 \ln(1 + \Delta A) =
@@ -863,13 +864,13 @@ Figure 11: Normalised **A** price curves in the zero carbon scenario.
 
 #### Carbon Credit Retirements
 
-*User swaps **A** tokens for carbon offset certificates.*
+*User swaps **A** tokens for carbon retirement certificates.*
 
 ##### Weighted Carbon Class
 
 For retiring carbon that is *weighted*, that is for which there is a
 strictly positive **A** token allocation, an **A** token holder can
-extract the carbon class offset certificate of their choice $C_i$:
+extract the carbon class retirement certificate of their choice $C_i$:
 
 <span id="eq-carbon-change-intermediary-step">$$
 \ln(1 + \Delta C_i) =
@@ -906,7 +907,7 @@ with $A_i$ and decreasing on $G_i$.
 
 ##### Unweighted Carbon Class
 
-An offset certificate for a carbon class with a zero **A** allocation
+A retirement certificate for a carbon class with a zero **A** allocation
 cannot be extracted from the portfolio by swapping in **A** tokens.
 
 ##### Round Trip Difference
@@ -940,7 +941,7 @@ Figure 13: Carbon ‘difference’.
 <a href="#fig-carbon-difference-components"
 class="quarto-xref">Figure 14</a> shows the component difference
 contributions on a carbon supply and purchase round trip of a carbon
-offset certificate.
+retirement certificate.
 
 <div class="panel-sidebar">
 
@@ -1006,7 +1007,7 @@ the assets are highly correlated since they represent the same economy.
 For this reason, the fees are extremely low.
 
 By staking liquidity (liquidity provider tokens) to the **standard
-maturities**, both pools may receive a distribution of **A** tokens
+durations**, both pools may receive a distribution of **A** tokens
 determined from the Risk Premium calculation below. This is an
 <u>additional</u> primary issuance to the Base Accrual already
 discussed.

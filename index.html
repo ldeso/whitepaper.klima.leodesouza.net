@@ -363,7 +363,7 @@ Figure&nbsp;1: Klima&nbsp;2.0 Carbon Inventory.
 </figcaption>
 </figure>
 </div>
-<p>Carbon credits are acquired from suppliers, and consumed by offset buyers. Carbon credits are grouped by pre-defined classifications called <strong>carbon classes</strong>.</p>
+<p>Carbon credits are acquired from suppliers, and consumed by retirement buyers. Carbon credits are grouped by pre-defined classifications called <strong>carbon classes</strong>.</p>
 <p>Aggregate token holder allocations collectively set the parameters for the execution rates of <strong>each class</strong> for, both suppliers and retirees, by defining:</p>
 <ul>
 <li><p>Inventory weighting.</p></li>
@@ -528,14 +528,14 @@ Table&nbsp;1: Token Summary
 </section>
 <section id="sec-core-protocol-layers" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="sec-core-protocol-layers"><span class="header-section-number">3</span> Core Protocol Layers</h2>
-<p>From this section we refer to <strong>kVCM</strong> tokens as <strong>A</strong>, <strong>K2</strong> tokens as <strong>G</strong>, USDC tokens as <strong>Q</strong>, carbon credits as <strong>C</strong>, and carbon offset certificates as <strong>C*</strong>.</p>
+<p>From this section we refer to <strong>kVCM</strong> tokens as <strong>A</strong>, <strong>K2</strong> tokens as <strong>G</strong>, USDC tokens as <strong>Q</strong>, carbon credits as <strong>C</strong>, and carbon retirement certificates as <strong>C*</strong>.</p>
 <p>Three layers enable the Klima Protocol to find equilibrium through continuous, rule-based feedback mechanisms representing system state&nbsp;(supply, demand, coordinator allocations). There is no centralised management entity with discretionary powers, or fees that can be turned on.</p>
 <ol type="1">
 <li><p><strong>Time-locking mechanics</strong>: <strong>A</strong> token holders can time-lock their tokens until a set date to influence system parameters and to have the ability to select carbon classes for system weighting.</p>
 <ul>
 <li>The collective locks influence the <strong>A</strong> incentives, as well as the real-time execution price for carbon credit acquisitions or retirements.</li>
 </ul></li>
-<li><p><strong>Carbon inventory layer</strong>: the protocol swaps <strong>A</strong> for carbon credits <strong>C</strong>&nbsp;(in) or carbon offset certificates <strong>C*</strong>&nbsp;(out).</p>
+<li><p><strong>Carbon inventory layer</strong>: the protocol swaps <strong>A</strong> for carbon credits <strong>C</strong>&nbsp;(in) or carbon retirement certificates <strong>C*</strong>&nbsp;(out).</p>
 <ul>
 <li>Both allocations of time-locked <strong>A</strong> tokens and user-locked <strong>G</strong> tokens are used in the protocol: allocations of <strong>A</strong> determine the execution rates of carbon, and allocations of <strong>G</strong> determine capacity.</li>
 </ul></li>
@@ -1217,8 +1217,8 @@ Figure&nbsp;5: <strong>A</strong> annual growth rate from base accrual <span cla
 </div>
 </section>
 <section id="sec-protocol-governance-signals" class="level4" data-number="3.1.2">
-<h4 data-number="3.1.2" class="anchored" data-anchor-id="sec-protocol-governance-signals"><span class="header-section-number">3.1.2</span> Protocol Governance Signals</h4>
-<p>Protocol governance signals can be derived from two participation cohorts:</p>
+<h4 data-number="3.1.2" class="anchored" data-anchor-id="sec-protocol-governance-signals"><span class="header-section-number">3.1.2</span> Protocol Coordination Signals</h4>
+<p>Protocol coordination signals can be derived from two participation cohorts:</p>
 <ol type="1">
 <li><p>Time-locked <strong>A</strong> tokens: <span class="math inline">S_t</span></p></li>
 <li><p>Staked liquidity in the <strong>A</strong>-<strong>G</strong> pair <span class="overline"><strong>AG</strong></span>&nbsp;(see <a href="#sec-liquidity-markets" class="quarto-xref">Section&nbsp;3.3</a>), defined here as <span class="math inline">A_{Gt}</span>, representing the quantity of <strong>A</strong> tokens held in the liquidity pool expressed as a proportion of circulating supply.</p></li>
@@ -1246,7 +1246,7 @@ W_t = \frac{w_t}{\sum_{j=1}^{40} \left( \frac 1 2 v_j + w_j \right)}
 </section>
 <section id="sec-carbon-inventory-mechanics" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="sec-carbon-inventory-mechanics"><span class="header-section-number">3.2</span> Carbon Inventory Mechanics</h3>
-<p>The carbon inventory layer ultimately swaps carbon through a set of smart contracts, driven by carbon supply, demand, and user-inputs. The combined allocations of <strong>A</strong> and <strong>G</strong> tokens creates a dynamic real-time execution price curve by carbon class.</p>
+<p>The carbon inventory layer ultimately swaps carbon through a set of smart contracts, driven by carbon supply, demand, and user-inputs. The combined allocations of <strong>A</strong> and <strong>G</strong> tokens creates a dynamic real-time execution rate curve by carbon class.</p>
 <div id="fig-carbon-inventory-mechanics" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Klima 2.0 carbon inventory mechanics.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-carbon-inventory-mechanics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1262,7 +1262,7 @@ Figure&nbsp;6: Klima&nbsp;2.0 carbon inventory mechanics.
 <p><em>User swaps carbon credits for <strong>A</strong> tokens.</em></p>
 <section id="sec-existing-carbon-in-the-inventory" class="level5" data-number="3.2.1.1">
 <h5 data-number="3.2.1.1" class="anchored" data-anchor-id="sec-existing-carbon-in-the-inventory"><span class="header-section-number">3.2.1.1</span> Existing Carbon in the Inventory</h5>
-<p>For carbon pricing, both <strong>A</strong> tokens and <strong>G</strong> tokens may be allocated to specific carbon classes <span class="math inline">{i \in \{1, 2, 3, \dots, n\}}</span> and these are independent allocations between the two tokens.</p>
+<p>For execution terms, both <strong>A</strong> tokens and <strong>G</strong> tokens may be allocated to specific carbon classes <span class="math inline">{i \in \{1, 2, 3, \dots, n\}}</span> and these are independent allocations between the two tokens.</p>
 <div id="fig-token-staking-class-structure" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Token staking class structure.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-token-staking-class-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1273,14 +1273,14 @@ Figure&nbsp;7: Token staking class structure.
 </figcaption>
 </figure>
 </div>
-<p>For a carbon class quantity to be supplied to the protocol, it must have a strictly positive quantity of <strong>A</strong> tokens allocated to that carbon class, otherwise there is no price, and the carbon cannot be sold.</p>
+<p>For a carbon class quantity to be supplied to the protocol, it must have a strictly positive quantity of <strong>A</strong> tokens allocated to that carbon class, otherwise there is no defined rate, and the carbon cannot be swapped.</p>
 <p>Defining:</p>
 <ul>
 <li><p><span class="math inline">C_i</span>: Total tonnes of carbon class <span class="math inline">i</span> currently held in the inventory.</p></li>
 <li><p><span class="math inline">A_i</span>: <strong>A</strong> tokens allocated to carbon class <span class="math inline">i</span> expressed as a proportion of the outstanding supply of <strong>A</strong> tokens, where <span class="math inline">{\sum A_i = A}</span>.</p></li>
 <li><p><span class="math inline">G_i</span>: <strong>G</strong> tokens allocated to carbon class <span class="math inline">i</span> expressed as a proportion of the outstanding supply of <strong>G</strong> Tokens.</p></li>
 </ul>
-<p>Where <span class="math inline">\Delta C_i</span> is expressed as the relative increment to its respective pool balance, the amount of <strong>A</strong> tokens issued to pay for carbon, <span class="math inline">\Delta A</span>, expressed as a proportion of current supply, is determined as:</p>
+<p>Where <span class="math inline">\Delta C_i</span> is expressed as the relative increment to its respective pool balance, the amount of <strong>A</strong> tokens issued for carbon, <span class="math inline">\Delta A</span>, expressed as a proportion of current supply, is determined as:</p>
 <p><span id="eq-a-change-intermediary-step"><span class="math display">
 \ln(1 + \Delta A) =
   \left( A_i - \frac{A_i^2 \, (1 - G_i)^2}{2} \right) \ln(1 + \Delta C_i)
@@ -1741,10 +1741,10 @@ Figure&nbsp;11: Normalised <strong>A</strong> price curves in the zero carbon sc
 </section>
 <section id="sec-sell-offset-certificates" class="level4" data-number="3.2.2">
 <h4 data-number="3.2.2" class="anchored" data-anchor-id="sec-sell-offset-certificates"><span class="header-section-number">3.2.2</span> Carbon Credit Retirements</h4>
-<p><em>User swaps <strong>A</strong> tokens for carbon offset certificates.</em></p>
+<p><em>User swaps <strong>A</strong> tokens for carbon retirement certificates.</em></p>
 <section id="sec-weighted-carbon-class" class="level5" data-number="3.2.2.1">
 <h5 data-number="3.2.2.1" class="anchored" data-anchor-id="sec-weighted-carbon-class"><span class="header-section-number">3.2.2.1</span> Weighted Carbon Class</h5>
-<p>For retiring carbon that is <em>weighted</em>, that is for which there is a strictly positive <strong>A</strong> token allocation, an <strong>A</strong> token holder can extract the carbon class offset certificate of their choice <span class="math inline">C_i</span>:</p>
+<p>For retiring carbon that is <em>weighted</em>, that is for which there is a strictly positive <strong>A</strong> token allocation, an <strong>A</strong> token holder can extract the carbon class retirement certificate of their choice <span class="math inline">C_i</span>:</p>
 <p><span id="eq-carbon-change-intermediary-step"><span class="math display">
 \ln(1 + \Delta C_i) =
   \frac{-\ln(1 + \Delta A)}{A_i + \frac 1 2 A_i^2 \, (1 - G_i)^2}
@@ -1883,7 +1883,7 @@ Figure&nbsp;12: Proportion of carbon retired.
 </section>
 <section id="sec-unweighted-carbon-class" class="level5" data-number="3.2.2.2">
 <h5 data-number="3.2.2.2" class="anchored" data-anchor-id="sec-unweighted-carbon-class"><span class="header-section-number">3.2.2.2</span> Unweighted Carbon Class</h5>
-<p>An offset certificate for a carbon class with a zero <strong>A</strong> allocation cannot be extracted from the portfolio by swapping in <strong>A</strong> tokens.</p>
+<p>A retirement certificate for a carbon class with a zero <strong>A</strong> allocation cannot be extracted from the portfolio by swapping in <strong>A</strong> tokens.</p>
 </section>
 <section id="sec-round-trip-difference" class="level5" data-number="3.2.2.3">
 <h5 data-number="3.2.2.3" class="anchored" data-anchor-id="sec-round-trip-difference"><span class="header-section-number">3.2.2.3</span> Round Trip Difference</h5>
@@ -2050,7 +2050,7 @@ Figure&nbsp;13: Carbon ‘difference’.
 </div>
 </div>
 </div>
-<p><a href="#fig-carbon-difference-components" class="quarto-xref">Figure&nbsp;14</a> shows the component difference contributions on a carbon supply and purchase round trip of a carbon offset certificate.</p>
+<p><a href="#fig-carbon-difference-components" class="quarto-xref">Figure&nbsp;14</a> shows the component difference contributions on a carbon supply and purchase round trip of a carbon retirement certificate.</p>
 <div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
 <div class="panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <div class="cell">
@@ -2220,7 +2220,7 @@ Figure&nbsp;15: Token liquidity and pricing structure.
 <h4 data-number="3.3.1" class="anchored" data-anchor-id="sec-liquidity-fees"><span class="header-section-number">3.3.1</span> Liquidity Fees</h4>
 <p>The <span class="overline"><strong>AQ</strong></span> pool will have its own set of fees in the normal way.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>The <span class="overline"><strong>AG</strong></span> pool has different economics as the assets are highly correlated since they represent the same economy. For this reason, the fees are extremely low.</p>
-<p>By staking liquidity&nbsp;(liquidity provider tokens) to the <strong>standard maturities</strong>, both pools may receive a distribution of <strong>A</strong> tokens determined from the Risk Premium calculation below. This is an <u>additional</u> primary issuance to the Base Accrual already discussed.</p>
+<p>By staking liquidity&nbsp;(liquidity provider tokens) to the <strong>standard durations</strong>, both pools may receive a distribution of <strong>A</strong> tokens determined from the Risk Premium calculation below. This is an <u>additional</u> primary issuance to the Base Accrual already discussed.</p>
 </section>
 <section id="sec-risk-premium-beta-determination" class="level4" data-number="3.3.2">
 <h4 data-number="3.3.2" class="anchored" data-anchor-id="sec-risk-premium-beta-determination"><span class="header-section-number">3.3.2</span> Risk Premium: Beta Determination</h4>
