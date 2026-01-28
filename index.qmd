@@ -209,8 +209,8 @@ necessary for system operation.
 
 #### K2 Incentives {#sec-k2-incentives}
 
-The supply of K2 is allocated at various rates, depending on
-overall system balances:
+The supply of **K2** is allocated at various rates, depending on overall system
+balances:
 
 1. Time-locked **kVCM**.
 
@@ -257,11 +257,12 @@ and without discretionary allocation, resale, or optimisation of inventory.
 ### Tokens {#sec-tokens}
 
 Locking or staking the protocol's tokens allows participants to signal
-preferences within the system. Doing so may make them eligible for 
-protocol incentives when they perform defined coordination functions. 
+preferences within the system. Doing so may make them eligible for protocol
+incentives when they perform defined coordination functions.
 
-Holding or locking protocol tokens does not represent ownership of protocol 
-carbon assets, profit participation, or direct exposure to carbon price movements.
+Holding or locking protocol tokens does not represent ownership of protocol
+carbon assets, profit participation, or direct exposure to carbon price
+movements.
 
 Together, **kVCM** and **K2** enable the protocol to operate as neutral,
 non-extractive infrastructure, coordinating participation and execution without
@@ -310,14 +311,14 @@ time.
 
 - When **user-locked**:
 
-    - It may vote for carbon classes to reduce the difference between
-    execution terms on carbon intake and retirements.
+    - It may vote for carbon classes to reduce the difference between execution
+    terms on carbon intake and retirements.
 
     - It receives **kVCM** and **K2** incentives.
 
     - In aggregate, user-locks influence the rates of incentive issuance.
 
-- When **staked** in the kVCM/K2 liquidity pool it is also eligible for
+- When **staked** in the **kVCM**/**K2** liquidity pool it is also eligible for
 incentives, based on the position's relative share of the pool.
 
 #### Utility Functions {#sec-utility-functions}
@@ -338,27 +339,26 @@ independent:
 :::
 
 1. **Time lock**: The **kVCM** token is locked for a specific period of time
-which determines a kVCM 'base accrual' rate. This cannot be amended.
+which determines a **kVCM** 'base accrual' rate. This cannot be amended.
 
-2. **Execution rate allocation**: Collective signalling of carbon classes
-via **kVCM** allocations determines determines the protocol’s execution 
-rate for carbonintake and retirement, expressed in kVCM units. These 
-parameters govern how the protocol issues or burns kVCM when carbon is 
-supplied or retired. Allocations may be updated over time.
+2. **Execution rate allocation**: Collective signalling of carbon classes via
+**kVCM** allocations determines determines the protocol's execution rate for
+carbon intake and retirement, expressed in **kVCM** units. These parameters
+govern how the protocol issues or burns **kVCM** when carbon is supplied or
+retired. Allocations may be updated over time.
 
 The **K2** token also has [two]{.underline} utility functions:
 
 1. **User lock**: The **K2** token remains locked for at least 24 hours.
 
-2. **Capacity allocation**: Collective selection of carbon classes via K2 
-allocations determines the protocol-defined execution capacity for carbon 
-intake and retirement operations for a given class. Higher capacity 
-allocations increase the system’s ability to process additional carbon activity 
-without materially altering the execution rate, as defined by 
-kVCM allocations.
+2. **Capacity allocation**: Collective selection of carbon classes via **K2**
+allocations determines the protocol-defined execution capacity for carbon intake
+and retirement operations for a given class. Higher capacity allocations
+increase the system's ability to process additional carbon activity without
+materially altering the execution rate, as defined by **kVCM** allocations.
 
-Both tokens support the operation of the infrastructure, with**kVCM** 
-informing execution rateios, and the **K2** token modulating capacity.
+Both tokens support the operation of the infrastructure, with **kVCM** informing
+execution rateios, and the **K2** token modulating capacity.
 
 ### Token Initialisation {#sec-token-initialisation}
 
@@ -386,8 +386,8 @@ future emissions are distributed autonomously via incentives.
     retirement and cannot be withdrawn, transferred, resold or otherwise
     arbitraged.
 
-    **Carbon inventory**: Indicative excution rates for suppliers and retirees are
-    continuously updated based on protocol state.
+    **Carbon inventory**: Indicative excution rates for suppliers and retirees
+    are continuously updated based on protocol state.
 
 2. **Liquidity Providers**
 
@@ -395,13 +395,13 @@ future emissions are distributed autonomously via incentives.
     entry and exit from the system. Liquidity provision supports continuous
     execution and is incentivised according to predefined protocol rules.
 
-    **Staked liquidity**: Protocol incentives may be issued for participants 
+    **Staked liquidity**: Protocol incentives may be issued for participants
     providing liquidity to support system operation.
 
 3. **Coordinators**
 
-    Participants may influence execution conditions by allocating **kVCM** and 
-    **K2** tokens within pre-defined protocol parameters.
+    Participants may influence execution conditions by allocating **kVCM** and
+    **K2** tokens within predefined protocol parameters.
 
     **Time locks & user locks**: Protocol incentives may be issued for those
     contributing activities that coordinate the protocol and signal long-term
@@ -412,10 +412,11 @@ future emissions are distributed autonomously via incentives.
 1. **Infrastructure, Not Extraction**:
 
     Klima&nbsp;2.0 is designed as shared market infrastructure rather than an
-    extractive financial product. The protocol does not charge fees, take
-    hidden spreads, or operate profit-taking mechanisms for any sponsor, foundation, 
-    or investor. All protocol behaviour is rules-based and applies uniformly to all
-    participants, with no privileged economic positions or revenue capture layers.
+    extractive financial product. The protocol does not charge fees, take hidden
+    spreads, or operate profit-taking mechanisms for any sponsor, foundation, or
+    investor. All protocol behaviour is rules-based and applies uniformly to all
+    participants, with no privileged economic positions or revenue capture
+    layers.
 
     **Design intent**: Reduce opaque intermediation and hidden margins common in
     carbon markets, not replace them with a new rent-seeking intermediary.
@@ -427,7 +428,7 @@ future emissions are distributed autonomously via incentives.
     may only be accessed for irreversible retirement through protocol-defined
     processes.
 
-    **Design intent**: Align the system with carbon’s end use (retirement),
+    **Design intent**: Align the system with carbon's end use (retirement),
     rather than treating credits as financial instruments.
 
 3. **Coordination Through Signalling**:
@@ -443,8 +444,8 @@ future emissions are distributed autonomously via incentives.
 
 4. **Autonomous, Rules-based Operation**
 
-    All protocol behaviour is governed by deterministic smart contracts. 
-    Once deployed, the system operates autonomously and does not rely on 
+    All protocol behaviour is governed by deterministic smart contracts. Once
+    deployed, the system operates autonomously and does not rely on
     discretionary decisions by any individual, committee, or organisation.
 
     **Design intent**: Build a trustless, auditable system, that is not based on
@@ -455,7 +456,7 @@ future emissions are distributed autonomously via incentives.
     All participants interact with the protocol on identical terms. There are no
     side agreements, preferential execution paths, differentiated rights, or
     bespoke economic arrangements. Protocol rules apply uniformly to all users,
-    including the protocol’s creators and affiliated entities.
+    including the protocol's creators and affiliated entities.
 
     **Design intent**: Ensure credibility, neutrality, and resistance to
     capture.
@@ -477,23 +478,23 @@ USDC tokens as **Q**, carbon credits as **C**, and carbon offset certificates as
 **C\***.
 
 Three layers enable the Klima Protocol to find equilibrium through continuous,
-rule-based feedback mechanisms representing system state&nbsp;(supply, demand, 
-coordinator allocations). There is no centralised management entity with discretionary
-powers, or fees that can be turned on.
+rule-based feedback mechanisms representing system state&nbsp;(supply, demand,
+coordinator allocations). There is no centralised management entity with
+discretionary powers, or fees that can be turned on.
 
 1. **Time-locking mechanics**: **A** token holders can time-lock their tokens
-until a set date to influence system parameters and to have the ability to select
-carbon classes for system weighting.
+until a set date to influence system parameters and to have the ability to
+select carbon classes for system weighting.
 
-    - The collective locks influence the **A** incentives, as well as the real-time
-    execution price for carbon credit acquisitions or retirements.
+    - The collective locks influence the **A** incentives, as well as the
+    real-time execution price for carbon credit acquisitions or retirements.
 
 2. **Carbon inventory layer**: the protocol swaps **A** for carbon credits
 **C**&nbsp;(in) or carbon offset certificates **C\***&nbsp;(out).
 
     - Both allocations of time-locked **A** tokens and user-locked **G** tokens
-    are used in the protocol: allocations of **A** determine the execution rates of
-    carbon, and allocations of **G** determine capacity.
+    are used in the protocol: allocations of **A** determine the execution rates
+    of carbon, and allocations of **G** determine capacity.
 
 3. **Liquidity layer**: External liquidity pools enable conversion between
 **kVCM** and supported settlement assets. Liquidity provision supports system
@@ -514,23 +515,23 @@ availability and may make participants eligible for protocol incentives.
     } liquidity pool: The asset token **A** with USDC **Q**.
 
 The Klima system enables each participant to contribute to various aspects of
-the model, in the interests of their own use and preference. This, in conjunction 
-with the autonomous model, enables the protocol to fulfill continuous carbon
-retirement activity within the carbon markets. 
+the model, in the interests of their own use and preference. This, in
+conjunction with the autonomous model, enables the protocol to fulfill
+continuous carbon retirement activity within the carbon markets.
 
 ### Time-locking Mechanics {#sec-time-locking-mechanics}
 
-Time-locking **A** tokens represents a commitment to protocol
-participation for a fixed duration. Lock durations are standardised at 90 days
-increments and expire on a rolling schedule. There are always 40 durations,
-extending out to approximately 10 years.
+Time-locking **A** tokens represents a commitment to protocol participation for
+a fixed duration. Lock durations are standardised at 90 days increments and
+expire on a rolling schedule. There are always 40 durations, extending out to
+approximately 10 years.
 
 - **Discount curve**: Aggregate time-locking determines the shape of the
 discount curve of the **A** token.
 
 - **Incentives**: Time-locked **A** tokens may receive incentives, with a rate
 determined by the base accrual. The base accrual is calculated daily based on
-user positions, via the 'time-weighted incentive curve'.
+time-locked positions.
 
 - **Locks**: Time-locked tokens and any associated **A** incentives are released
 only upon time-lock expiration. Early exit is not possible.
@@ -539,7 +540,7 @@ only upon time-lock expiration. Early exit is not possible.
 discount curve is agnostic to carbon class although only time-locked **A** token
 holders can allocate their token to carbon classes for portfolio pricing.
 
-#### Time-weighted Incentive Curve {#sec-time-weighted-incentive-curve}
+#### Base Accrual {#sec-base-accrual}
 
 Defining:
 
@@ -562,29 +563,29 @@ $$
 C = \frac{1}{S} \sum_{t=1}^{40} S_t \, E_t^2
 $$ {#eq-curve-parameter-c}
 
-The shape of the time-weighted incentive curve is produced:
+The shape of the base accrual curve is produced:
 
 $$
 \gamma_t = \max \left( \frac{E_t}{D} - \frac{E_t^2}{2 \, C}, \, 0 \right)
-$$ {#eq-time-weighted-incentive-curve-shape}
+$$ {#eq-base-accrual-shape}
 
 Normalising $\gamma_t$ to $\hat \gamma_t$:
 
 $$
 \hat \gamma_t = \frac{\gamma_t}{\sum_{t=1}^{40} \gamma_t}
-$$ {#eq-time-weighted-incentive-curve-normalised}
+$$ {#eq-base-accrual-normalised}
 
 With the cumulative sum of the normalised values expressed as $\Gamma_t$:
 
 $$
 \Gamma_t = \sum_{i=1}^t \hat \gamma_i \quad \text{for } t = 1, \dots, 40
-$$ {#eq-time-weighted-incentive-curve-normalized-sum}
+$$ {#eq-base-accrual-normalized-sum}
 
-The time-weighted incentive curve $Z_t$ is solved:
+The base accrual curve $Z_t$ is solved:
 
 $$
 Z_t = (1 - S) \, \frac{\Gamma_t}{E_t}
-$$ {#eq-time-weighted-incentive-curve}
+$$ {#eq-base-accrual}
 
 Whereupon, the discount rate $B_t$ that forms the discount curve is derived:
 
@@ -597,21 +598,19 @@ the locked balance, hence the daily accrual for each duration is calculated:
 
 $$
 Y_t = \exp \left( \frac{Z_t}{365} \right) - 1
-$$ {#eq-daily-time-weighted-incentives}
+$$ {#eq-daily-accrual}
 
-Hence, any time-locked **A** stake $S_t$ will increase by a base accrual
-$\Delta S_t$:
+Hence, any time-locked **A** stake $S_t$ will increase daily by $\Delta S_t$:
 
 $$
 \Delta S_t = S_t \, Y_t
-$$ {#eq-base-accrual}
+$$ {#eq-daily-increase}
 
-With the total **A** tokens created on a daily basis for time-locked inflation
-as
+With the total **A** tokens created on a daily basis, or 'growth', as
 
 $$
 R = \sum_{t=1}^{40} \Delta S_t
-$$ {#eq-inflation}
+$$ {#eq-daily-growth}
 
 ::: {.panel-sidebar}
 
@@ -634,7 +633,7 @@ viewof inputD = Inputs.range([0.25, 10], {
 
 ::: {.panel-fill}
 
-::::: {#fig-time-locked-incentives-example fig-cap="Example of time-locked incentives."}
+::::: {#fig-base-accrual-example fig-cap="Example of base accrual."}
 
 ::::::: {.content-visible when-format="html"}
 ```{ojs}
@@ -773,12 +772,12 @@ yieldData = {
          time: vecE[t],
       });
       yieldData.push({
-         key: "Time-weighted Incentive Curve",
+         key: "Base Accrual",
          value: 100 * vecZ[t],
          time: vecE[t],
       });
       yieldData.push({
-         key: "Inflation-adjusted Incentives",
+         key: "Growth-adjusted Base Accrual",
          value: 100 * (vecZ[t] - paramI),
          time: vecE[t],
       });
@@ -796,8 +795,8 @@ yieldData = {
    return yieldData;
 };
 getStake = d => d.key === "Stake A" ? d.value : NaN;
-getYieldTerm = d => d.key === "Time-weighted Incentive Curve" ? d.value : NaN;
-getRealYield = d => d.key === "Inflation-adjusted Incentives" ? d.value : NaN;
+getYieldTerm = d => d.key === "Base Accrual" ? d.value : NaN;
+getRealYield = d => d.key === "Growth-adjusted Base Accrual" ? d.value : NaN;
 getDiscount = d => d.key === "Discount Curve" ? d.value : NaN;
 getCumStake = d => d.key === "Cumulative Stake A" ? d.value : NaN;
 
@@ -805,10 +804,10 @@ stringS = "Total Stake = " + inputS.toLocaleString(
   "en-GB",
   { style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2 },
 );
-stringI = "Inflation = " + paramI.toLocaleString(
+stringI = "Growth = " + paramI.toLocaleString(
   "en-GB",
   { style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2 },
-);
+) + "/Year";
 stringD = `D = ${paramD.toLocaleString(
   "en-GB",
   { minimumFractionDigits: 2, maximumFractionDigits: 2 },
@@ -825,15 +824,15 @@ yieldParams = [
 ```
 
 ```{ojs}
-//| fig-cap: Time-weighted incentives (${stringS}, ${stringI}).
+//| fig-cap: Base accrual (${stringS}, ${stringI}).
 Plot.plot({
   color: {
     legend: true,
     range: d3.schemeCategory10,
     domain: [
       "Stake A",
-      "Time-weighted Incentive Curve",
-      "Inflation-adjusted Incentives",
+      "Base Accrual",
+      "Growth-adjusted Base Accrual",
       stringD,
       stringC,
     ],
@@ -857,7 +856,7 @@ Plot.plot({
   marks: [
     Plot.frame(),
     Plot.axisY({ anchor: "left", label: "Stake A (%)" }),
-    Plot.axisY({ anchor: "right", label: "Incentive Rates (%)" }),
+    Plot.axisY({ anchor: "right", label: "Accrual Rate (%/Year)" }),
     Plot.rectY(yieldData, {
       x1: d => d.time - 0.45,
       x2: d => d.time + 0.45,
@@ -920,13 +919,13 @@ Plot.plot({
 :::::::
 
 ::::::: {.content-visible unless-format="html"}
-![Time-weighted incentives (Total Stake = 55.00%, Inflation = 1.75%).](figures/time-locked-incentives-example-curve.svg){
-  #fig-time-locked-incentives-example-curve
-  fig-alt="Time-weighted incentives (Total Stake = 55.00%, Inflation = 1.75%)."
+![Base accrual (Total Stake = 55.00%, Growth = 1.75%/Year).](figures/base-accrual-example-curve.svg){
+  #fig-base-accrual-example-curve
+  fig-alt="Base accrual (Total Stake = 55.00%, Growth = 1.75%/Year)."
 }
 
-![Discount rates.](figures/time-locked-incentives-example-discount-rates.svg){
-  #fig-time-locked-incentives-example-discount-rates
+![Discount rates.](figures/base-accrual-example-discount-rates.svg){
+  #fig-base-accrual-example-discount-rates
   fig-alt="Discount rates."
 }
 :::::::
@@ -935,12 +934,11 @@ Plot.plot({
 
 :::
 
-For visualising the sensitivity of overall **A** inflation rates with respect to
-staking and duration, @fig-inflation-rate assumes a single duration over the
-staking range to provide an approximation of inflation
-$\Delta S \approx Z \, S$.
+For visualising the sensitivity of overall **A** base accrual with respect to
+staking and duration, @fig-growth-rate assumes a single duration over the
+staking range to provide an approximation of growth $\Delta S \approx Z \, S$.
 
-::: {#fig-inflation-rate fig-cap="**A** inflation rate from base accrual $\Delta S$." fig-alt="A inflation rate from base accrual Delta S."}
+::: {#fig-growth-rate fig-cap="**A** annual growth rate from base accrual $\Delta S$." fig-alt="A annual growth rate from base accrual Delta S."}
 
 ::::: {.content-visible when-format="html"}
 ```{ojs}
@@ -960,11 +958,11 @@ function computeApproxDeltaA(paramS, paramE) {
 ```
 
 ```{ojs}
-inflationData = {
-  const inflationData = [];
+growthData = {
+  const growthData = [];
   for (let paramS = 0; paramS < 1.01; paramS += 0.1) {
     for (let paramE = 1; paramE <= 10; paramE++) {
-      inflationData.push({
+      growthData.push({
         key: "ΔA",
         e: paramE,
         s: paramS,
@@ -972,25 +970,25 @@ inflationData = {
       });
     }
   }
-  return inflationData;
+  return growthData;
 };
 ```
 
 ```{ojs}
 Plot.plot({
-  color: { legend: true, scheme: "Spectral", type: "sequential", label: "ΔS" },
+  color: { legend: true, scheme: "Spectral", type: "sequential", label: "Annual Growth ΔS" },
   x: { ticks: d3.range(1, 10.1, 1), domain: [10.5, 0.5], label: "Duration E (Years)" },
   y: { ticks: d3.range(0, 1.01, 0.1), domain: [1.05, -0.05], label: "Staking S" },
   marks: [
     Plot.frame(),
-    Plot.rect(inflationData, {
+    Plot.rect(growthData, {
       x1: d => d.e - 0.5,
       x2: d => d.e + 0.5,
       y1: d => d.s - 0.05,
       y2: d => d.s + 0.05,
       fill: "value",
     }),
-    Plot.text(inflationData, {
+    Plot.text(growthData, {
       x: "e",
       y: "s",
       text: d => Number.isNaN(d.value) ? "" : d.value.toLocaleString(
@@ -1010,7 +1008,7 @@ Plot.plot({
 :::::
 
 ::::: {.content-visible unless-format="html"}
-![](figures/inflation-rate.svg)
+![](figures/growth-rate.svg)
 :::::
 
 :::
@@ -3895,7 +3893,7 @@ The residual post-treasury allocation is shared four ways within 2 buckets:
 1. Time-locked **A** & user-locked **G** tokens
 
     Where $S$ is the proportion of time-locked **A** tokens&nbsp;(as defined
-    previously in @sec-time-weighted-incentive-curve):
+    previously in @sec-base-accrual):
 
     1. Time-locked **A**, $I_S$:
 
