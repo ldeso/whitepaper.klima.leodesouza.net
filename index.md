@@ -2,7 +2,7 @@
 The Dark Sole Enterprise Ltd <ds@darksole.vip>  
 with contributions from the Klima and Carbonmark teams
 
-27 Jan 2026 (Version 1.48)
+28 Jan 2026 (Version 1.48)
 
 <img src="brand/klimaprotocol.svg" style="width:50.0%"
 alt="Klima Protocol Logo." data-fig-align="center" />
@@ -193,7 +193,7 @@ services necessary for system operation.
 
 #### K2 Incentives
 
-The supply of K2 is allocated at various rates, depending on overall
+The supply of **K2** is allocated at various rates, depending on overall
 system balances:
 
 1.  Time-locked **kVCM**.
@@ -296,8 +296,9 @@ time.
 
   - In aggregate, user-locks influence the rates of incentive issuance.
 
-- When **staked** in the kVCM/K2 liquidity pool it is also eligible for
-  incentives, based on the position’s relative share of the pool.
+- When **staked** in the **kVCM**/**K2** liquidity pool it is also
+  eligible for incentives, based on the position’s relative share of the
+  pool.
 
 #### Utility Functions
 
@@ -313,15 +314,15 @@ Figure 3: **kVCM** utility functions.
 </div>
 
 1.  **Time lock**: The **kVCM** token is locked for a specific period of
-    time which determines a kVCM ‘base accrual’ rate. This cannot be
+    time which determines a **kVCM** ‘base accrual’ rate. This cannot be
     amended.
 
 2.  **Execution rate allocation**: Collective signalling of carbon
     classes via **kVCM** allocations determines determines the
-    protocol’s execution rate for carbonintake and retirement, expressed
-    in kVCM units. These parameters govern how the protocol issues or
-    burns kVCM when carbon is supplied or retired. Allocations may be
-    updated over time.
+    protocol’s execution rate for carbon intake and retirement,
+    expressed in **kVCM** units. These parameters govern how the
+    protocol issues or burns **kVCM** when carbon is supplied or
+    retired. Allocations may be updated over time.
 
 The **K2** token also has <u>two</u> utility functions:
 
@@ -329,13 +330,13 @@ The **K2** token also has <u>two</u> utility functions:
     hours.
 
 2.  **Capacity allocation**: Collective selection of carbon classes via
-    K2 allocations determines the protocol-defined execution capacity
-    for carbon intake and retirement operations for a given class.
-    Higher capacity allocations increase the system’s ability to process
-    additional carbon activity without materially altering the execution
-    rate, as defined by kVCM allocations.
+    **K2** allocations determines the protocol-defined execution
+    capacity for carbon intake and retirement operations for a given
+    class. Higher capacity allocations increase the system’s ability to
+    process additional carbon activity without materially altering the
+    execution rate, as defined by **kVCM** allocations.
 
-Both tokens support the operation of the infrastructure, with**kVCM**
+Both tokens support the operation of the infrastructure, with **kVCM**
 informing execution rateios, and the **K2** token modulating capacity.
 
 ### Token Initialisation
@@ -410,7 +411,7 @@ Table 1: Token Summary
 3.  **Coordinators**
 
     Participants may influence execution conditions by allocating
-    **kVCM** and **K2** tokens within pre-defined protocol parameters.
+    **kVCM** and **K2** tokens within predefined protocol parameters.
 
     **Time locks & user locks**: Protocol incentives may be issued for
     those contributing activities that coordinate the protocol and
@@ -540,8 +541,7 @@ durations, extending out to approximately 10 years.
 
 - **Incentives**: Time-locked **A** tokens may receive incentives, with
   a rate determined by the base accrual. The base accrual is calculated
-  daily based on user positions, via the ‘time-weighted incentive
-  curve’.
+  daily based on time-locked positions.
 
 - **Locks**: Time-locked tokens and any associated **A** incentives are
   released only upon time-lock expiration. Early exit is not possible.
@@ -551,7 +551,7 @@ discount curve is agnostic to carbon class although only time-locked
 **A** token holders can allocate their token to carbon classes for
 portfolio pricing.
 
-#### Time-weighted Incentive Curve
+#### Base Accrual
 
 Defining:
 
@@ -575,28 +575,28 @@ D = \frac{1}{S} \sum_{t=1}^{40} S_t \, E_t
 C = \frac{1}{S} \sum_{t=1}^{40} S_t \, E_t^2
  \qquad(2)$$</span>
 
-The shape of the time-weighted incentive curve is produced:
+The shape of the base accrual curve is produced:
 
-<span id="eq-time-weighted-incentive-curve-shape">$$
+<span id="eq-base-accrual-shape">$$
 \gamma_t = \max \left( \frac{E_t}{D} - \frac{E_t^2}{2 \, C}, \, 0 \right)
  \qquad(3)$$</span>
 
 Normalising $\gamma_t$ to $\hat \gamma_t$:
 
-<span id="eq-time-weighted-incentive-curve-normalised">$$
+<span id="eq-base-accrual-normalised">$$
 \hat \gamma_t = \frac{\gamma_t}{\sum_{t=1}^{40} \gamma_t}
  \qquad(4)$$</span>
 
 With the cumulative sum of the normalised values expressed as
 $\Gamma_t$:
 
-<span id="eq-time-weighted-incentive-curve-normalized-sum">$$
+<span id="eq-base-accrual-normalized-sum">$$
 \Gamma_t = \sum_{i=1}^t \hat \gamma_i \quad \text{for } t = 1, \dots, 40
  \qquad(5)$$</span>
 
-The time-weighted incentive curve $Z_t$ is solved:
+The base accrual curve $Z_t$ is solved:
 
-<span id="eq-time-weighted-incentive-curve">$$
+<span id="eq-base-accrual">$$
 Z_t = (1 - S) \, \frac{\Gamma_t}{E_t}
  \qquad(6)$$</span>
 
@@ -611,21 +611,20 @@ The incentives due on time-locked **A** tokens are calculated daily and
 added to the locked balance, hence the daily accrual for each duration
 is calculated:
 
-<span id="eq-daily-time-weighted-incentives">$$
+<span id="eq-daily-accrual">$$
 Y_t = \exp \left( \frac{Z_t}{365} \right) - 1
  \qquad(8)$$</span>
 
-Hence, any time-locked **A** stake $S_t$ will increase by a base accrual
+Hence, any time-locked **A** stake $S_t$ will increase daily by
 $\Delta S_t$:
 
-<span id="eq-base-accrual">$$
+<span id="eq-daily-increase">$$
 \Delta S_t = S_t \, Y_t
  \qquad(9)$$</span>
 
-With the total **A** tokens created on a daily basis for time-locked
-inflation as
+With the total **A** tokens created on a daily basis, or ‘growth’, as
 
-<span id="eq-inflation">$$
+<span id="eq-daily-growth">$$
 R = \sum_{t=1}^{40} \Delta S_t
  \qquad(10)$$</span>
 
@@ -635,45 +634,45 @@ R = \sum_{t=1}^{40} \Delta S_t
 
 <div class="panel-fill">
 
-<div id="fig-time-locked-incentives-example">
+<div id="fig-base-accrual-example">
 
-<div id="fig-time-locked-incentives-example-curve">
+<div id="fig-base-accrual-example-curve">
 
-<img src="figures/time-locked-incentives-example-curve.svg"
-data-fig-alt="Time-weighted incentives (Total Stake = 55.00%, Inflation = 1.75%)."
-data-ref-parent="fig-time-locked-incentives-example" />
+<img src="figures/base-accrual-example-curve.svg"
+data-fig-alt="Base accrual (Total Stake = 55.00%, Growth = 1.75%/Year)."
+data-ref-parent="fig-base-accrual-example" />
 
-(a) Time-weighted incentives (Total Stake = 55.00%, Inflation = 1.75%).
+(a) Base accrual (Total Stake = 55.00%, Growth = 1.75%/Year).
 
 </div>
 
-<div id="fig-time-locked-incentives-example-discount-rates">
+<div id="fig-base-accrual-example-discount-rates">
 
-<img src="figures/time-locked-incentives-example-discount-rates.svg"
+<img src="figures/base-accrual-example-discount-rates.svg"
 data-fig-alt="Discount rates."
-data-ref-parent="fig-time-locked-incentives-example" />
+data-ref-parent="fig-base-accrual-example" />
 
 (b) Discount rates.
 
 </div>
 
-Figure 4: Example of time-locked incentives.
+Figure 4: Example of base accrual.
 
 </div>
 
 </div>
 
-For visualising the sensitivity of overall **A** inflation rates with
+For visualising the sensitivity of overall **A** base accrual with
 respect to staking and duration,
-<a href="#fig-inflation-rate" class="quarto-xref">Figure 5</a> assumes a
+<a href="#fig-growth-rate" class="quarto-xref">Figure 5</a> assumes a
 single duration over the staking range to provide an approximation of
-inflation $\Delta S \approx Z \, S$.
+growth $\Delta S \approx Z \, S$.
 
-<div id="fig-inflation-rate">
+<div id="fig-growth-rate">
 
-![](figures/inflation-rate.svg)
+![](figures/growth-rate.svg)
 
-Figure 5: **A** inflation rate from base accrual $\Delta S$.
+Figure 5: **A** annual growth rate from base accrual $\Delta S$.
 
 </div>
 
@@ -1408,8 +1407,8 @@ buckets:
 1.  Time-locked **A** & user-locked **G** tokens
 
     Where $S$ is the proportion of time-locked **A** tokens (as defined
-    previously in <a href="#sec-time-weighted-incentive-curve"
-    class="quarto-xref">Section 3.1.1</a>):
+    previously in
+    <a href="#sec-base-accrual" class="quarto-xref">Section 3.1.1</a>):
 
     1.  Time-locked **A**, $I_S$:
 
