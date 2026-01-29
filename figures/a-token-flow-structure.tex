@@ -50,7 +50,7 @@
         text=#1,
         align=center,
         rounded corners=5pt,
-         font=\footnotesize \bfseries
+         font=\bfseries
     },
     token/.style={
         rectangle,
@@ -61,7 +61,7 @@
         minimum height=1cm,
         text=white,
         align=center,
-        font=\footnotesize
+        font=\bfseries
     },
     market/.style={
         rectangle,
@@ -71,7 +71,8 @@
         minimum width=5cm,
         minimum height=1cm,
         text=white,
-        align=center
+        align=center,
+        font=\bfseries
     },
     gtoken/.style={
         rectangle,
@@ -87,7 +88,7 @@
     label/.style={
         text=#1,
         align=center,
-        font=\large
+        font=\bfseries
     },
     arrow/.style={
         -{Stealth[length=8pt]},
@@ -97,25 +98,21 @@
 ]
 
 % Carbon In/Out boxes at top
-\node[carbon=steel_teal] (carbonin) at (-3.5,3) {Carbon In};
-\node[carbon=blue_green] (carbonout) at (3.5,3) {Carbon Out};
+\node[carbon=steel_teal] (carbonin) at (-3.5,2.5) {Carbon Supply};
+\node[carbon=blue_green] (carbonout) at (3.5,2.5) {Carbon Retirement};
 
 % Central token flow
-\node[token=teal] (tokenflow) at (0,0) {A TOKEN FLOW};
+\node[token=teal] (tokenflow) at (0,0) {\A{} Token Flow};
 
 % Market boxes at bottom
-\node[token=blue_green] (liquidity) at (-3.5,-2) {LIQUIDITY POOLS};
-\node[market=steel_teal] (Bonds) at (3.5,-2) {BONDS};
+\node[token=blue_green] (liquidity) at (-3.5,-2) {Liquidity Pools};
+\node[market=steel_teal] (Bonds) at (3.5,-2) {\A{} Time Locks};
 
 % G Token Staking at bottom
-\node[gtoken=peacock_blue] (gstaking) at (-3.5,-3.5) {G Token Staking};
+\node[gtoken=peacock_blue] (gstaking) at (-3.5,-3.5) {\G{} User Lock};
 
 % MINT <--> BURN text
 \node[label=teal] at (0,1) {\footnotesize Mint $\leftrightarrow$ Burn};
-
-% Labels for flows to markets
-\node[label=blue_green] at (-3.5,-1) {\footnotesize Risky};
-\node[label=steel_teal] at (3.5,-1) {\footnotesize Risk-free};
 
 % Arrows
 \draw[arrow=steel_teal] (carbonin.south) |- (tokenflow.west);
