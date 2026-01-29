@@ -156,35 +156,32 @@
 \node[column=steel_teal] at (-4,6.25) {};
 \node[column=peacock_blue] at (4,6.25) {};
 
-\node[market=steel_teal] (sales) at (-4,8.5) {Carbon Sale};
+\node[market=steel_teal] (supply) at (-4,8.5) {Carbon Supply};
 
-\node[token=steel_teal] (carbon1) at (-4,7) {\C{} Pool};
+\node[token=steel_teal] (carbon1) at (-4,7) {\C{} Credit};
 \node[token=teal] (token1) at (-4,5.5) {\A{} Token};
 
-\node[activity=teal] (mint) at (-4,4) {MINT \A{}};
+\node[activity=teal] (mint) at (-4,4) {Mint \A{}};
 
 \node[market=blue_green] (retire) at (4,8.5) {Carbon Retirement};
 
 \node[token=teal] (token2) at (4,7) {\A{} Token};
 
 
-\node[token=sage_gray] (offset) at (4,5.5) {Certificate \CC{}};
-\node[activity=warm_gray] (burn) at (4,4) {BURN \A{}};
+\node[token=sage_gray] (offset) at (4,5.5) {\CC{} Certificate};
+\node[activity=warm_gray] (burn) at (4,4) {Burn \A{}};
 
-\node[market=teal] (aam) at (0,2) {PORTFOLIO \\ MANAGER};
+\node[market=teal] (aam) at (0,2) {Carbon Inventory};
 
-\node[token=teal] (atoken) at (-2,0.5) {\A{} Token};
+\node[token=teal] (atoken) at (-2,0) {\A{} Token};
 
-\node[token=peacock_blue] (gtoken) at (2,0.5) {\G{} Token};
+\node[token=peacock_blue] (gtoken) at (2,0) {\G{} Token};
 
-\node[activity=teal] (Portfolio) at (-2,-0.5) {Portfolio Selection};
-\node[activity=teal] (forward) at (-2,-1.5) {Forward Curve};
+\node[activity=teal] (Inventory) at (-2,-1) {Inventory Selection};
 
+\node[activity=peacock_blue] (capacity) at (2,-1) {Capacity};
 
-\node[activity=peacock_blue] (capacity) at (2,-0.5) {Capacity Pricing};
-\node[activity=peacock_blue] (spread) at (2,-1.5) {Retirement Spread};
-
-\node[market=peacock_blue] (liquidity) at (-5,-3) {Liquidity};
+\node[market=peacock_blue] (liquidity) at (-5,-3) {Liquidity Pools};
 \node[market=steel_teal] (bondmarket) at (5,-3) {Time Locks};
 
 \node[token_bg=teal] (big_a) at (0,-6) {\A{} Token};

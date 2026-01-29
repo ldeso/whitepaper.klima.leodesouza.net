@@ -76,16 +76,16 @@
 ]
 
 % Position nodes
-\node[trader=steel_teal] (sellers) at (-5,3) {Carbon Sellers};
-\node[aam=teal] (aam) at (0,0) {Portfolio\\Manager};
+\node[trader=steel_teal] (suppliers) at (-5,3) {Carbon Suppliers};
+\node[aam=teal] (aam) at (0,0) {Carbon\\Inventory};
 \node[trader = warm_gray] (db) at (5,-3) {Registry};
 \node[trader=blue_green] (buyers) at (-5,-3) {Offset Buyers};
-\node[trader=teal] (investor) at (5,3) {\KA{} };
+\node[trader=teal] (investor) at (5,3) {Participants};
 
 
-\draw[arrow=steel_teal] (sellers.east) -| node[pos=0.2, above, text=steel_teal, font=\small\itshape] {Tokenised Credits}  (aam.north);
+\draw[arrow=steel_teal] (suppliers.east) -| node[pos=0.2, above, text=steel_teal, font=\small\itshape] {Tokenised Credits}  (aam.north);
 
-\draw[arrow=teal] (aam.north west) -| node[pos=0.2, below, text=teal, font=\small\itshape] {\KA{}}  (sellers.south);
+\draw[arrow=teal] (aam.north west) -| node[pos=0.2, below, text=teal, font=\small\itshape] {\KA{}}  (suppliers.south);
 
 
 \draw[arrow=teal] (buyers.east) -| node[pos=0.2, above, text=teal, font=\small\itshape] {\KA{}}  (aam.south);
@@ -94,7 +94,7 @@
 
 \draw[double_arrow=warm_gray] (aam.south east) -| node[pos=0.4, above, text=warm_gray, font=\small\itshape] {Update}  (db.north);
 
-\draw[arrow=teal] (aam.north east) -| node[pos=0.4, below, text=teal, font=\small\itshape] {Yield: \KA{} \& Tokenised Credits}  (investor.south);
+\draw[arrow=teal] (aam.north east) -| node[pos=0.4, below, text=teal, font=\small\itshape] {Incentives: \KA{}}  (investor.south);
 
 
 \end{tikzpicture}
