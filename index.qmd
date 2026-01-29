@@ -2222,6 +2222,10 @@ as a function of **A** allocation; that is to say that a large $G_i$ stake on a
 small $A_i$ stake has limited effects&nbsp;(notwithstanding other consequential
 factors).
 
+::: {.content-visible when-format="pdf"}
+`\pagebreak`{=latex}
+:::
+
 #### Allocation of kVCM incentives {#sec-allocation-of-kvcm-incentives}
 
 The full issuance of **A** tokens is depicted below, including now the **A**
