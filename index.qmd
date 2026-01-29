@@ -60,12 +60,12 @@ demand to interact under predefined conditions.
 The protocol operates through a dual-token architecture that facilitates
 coordination without discretionary control: **kVCM** functions as the internal
 unit of account and pricing reference for protocol-facilitated carbon
-retirement, while **K2** provides signalling inputs related to system capacity.
+retirement, while **K2** provides signalling inputs related to capacity.
 Together, these tokens inform protocol parameters through deterministic
 smart-contract logic. This architecture enables the protocol to:
 
 - define execution rates and intake eligibility for carbon credits against
-transparent, pre-defined rules;
+transparent, predefined rules;
 
 - make acquired credits available exclusively for irreversible retirement;
 
@@ -83,11 +83,11 @@ The protocol consists of three interdependent functional layers:
 - a carbon inventory layer that holds credits solely for the purpose of
 facilitating retirement;
 
-- a coordination layer that aggregates participant signals to inform protocol
-parameters; and
-
 - a liquidity layer that supports access and withdrawal from the system through
-external markets.
+external markets; and
+
+- a coordination layer that aggregates participant signals to inform protocol
+parameters.
 
 These layers are designed to operate together as a self-contained system,
 adjusting to observable supply and retirement demand without reliance on
@@ -141,87 +141,62 @@ execution layer for carbon markets, enabling suppliers, buyers, and integrators
 to interact under predefined conditions without reliance on discretionary
 intermediaries.
 
-### Protocol Tokens {#sec-protocol-tokens}
+### High-Level Architecture {#sec-high-level-architecture}
 
 Klima&nbsp;2.0 operates using two protocol-native tokens, **kVCM** and **K2**,
 which together enable rules-based coordination and participation within the
 system. These tokens do not confer ownership rights, redemption rights, or
 claims on protocol-handled carbon, and do not represent investment interests.
 
-**kVCM** functions as the internal unit of account and pricing reference for
-protocol-facilitated carbon retirement, while **K2** provides signalling inputs
-related to system capacity. Both tokens are used exclusively to parameterise
-protocol behaviour through deterministic smart-contract logic.
-
-**kVCM** tokens set core allocation choices, whereas **K2** acts as the
-calibration mechanism for inventory development.
-
-### High-Level Architecture {#sec-high-level-architecture}
-
-Klima&nbsp;2.0 is composed of three interdependent functional layers that
-together support continuous, non-discretionary operation:
+The **kVCM** and **K2** tokens are used in three interdependent functional
+layers that together support continuous, non-discretionary operation:
 
 1. **Carbon Inventory Layer**:
 
     - Accumulates carbon credits by minting **kVCM**.
-    - Sells carbon certificates by burning **kVCM**.
-    - Sets carbon execution rates based on the system's code.
+
+    - Sells carbon retirement certificates by burning **kVCM**.
+
+    - Sets carbon execution rates based on predefined rules.
 
     Carbon credits handled by the protocol cannot be withdrawn, transferred, or
     resold. They may only be retired.
 
-2. **Governance Layer**:
+2. **Liquidity Layer**:
+
+    - **kVCM** and **K2** token holders are able to pair their tokens together
+    (or, in the case of **kVCM**, with USDC) in a standard liquidity pool to
+    provide liquidity and generate fees on trades executed through the pool.
+
+    - Liquidity providers may stake their liquidity provider tokens for a fixed
+    time period of their choice, making them eligible to receive a share of the
+    **kVCM** and **K2** incentives.
+
+3. **Coordination Layer**:
 
     - **kVCM** holders may **time-lock** their **kVCM** for a fixed time period
-    and become eligible to select carbon assets for the inventory.
-    - This action creates a **kVCM** Base Accrual curve, which is distributed to
-    the time-locked holders. This is utilised to derive discount rates and
-    governance weightings.
+    of their choice, making them eligible to receive **kVCM** base accrual,
+    **K2** incentives, and to allocate their **kVCM** to carbon classes -- which
+    increases the weight of these carbon classes in the inventory.
 
-3. **Liquidity Layer**:
+    - **K2** holders may **user-lock** their **K2** for at least 48 hours,
+    making them eligible to receive **kVCM** and **K2** incentives, and to
+    allocate their **K2** to carbon classes -- which reduces the difference
+    between the execution terms on carbon intake and retirements for these
+    carbon classes.
 
-    - **kVCM** and **K2** holders are able to pair their tokens together, or in
-    the case of **kVCM** with USDC, in order to generate liquidity fees in the
-    standard way.
-    - Staking the resulting liquidity provider tokens may generate a share of
-    protocol incentives.
-    - Liquidity locked in the **kVCM**/**K2** liquidity pool participates in
-    general governance alongside time-locked **kVCM** holders.
+    - Time-locked **kVCM** holders participate in protocol coordination
+    alongside liquidity providers with liquidity staked in the **kVCM**/**K2**
+    liquidity pool.
 
 These layers operate together as a self-contained system that responds only to
 its own observable state, without reliance on external oracles or centralised
 intervention.
 
-### Incentives and Participation {#sec-incentives-and-participation}
-
-The protocol issues incentives to participants who provide defined services
-necessary for system operation.
-
-#### kVCM Incentives (Base Accrual) {#sec-kvcm-incentives}
-
-**kVCM** incentives are continuously emitted to:
-
-1. Time-locked **kVCM** ('**kVCM** Base Accrual').
-
-2. User-locked **K2**.
-
-3. Both **kVCM** and **K2** liquidity providers.
-
-#### K2 Incentives {#sec-k2-incentives}
-
-The supply of **K2** is allocated at various rates, depending on overall system
-balances:
-
-1. Time-locked **kVCM**.
-
-2. User-locked **K2**.
-
-3. Both **kVCM** and **K2** liquidity providers.
-
 ### Carbon Inventory {#sec-carbon-inventory}
 
-The protocol's carbon inventory layer accumulates and retires carbon. It is
-driven by parameters determined by its rules-based smart contracts, and user activities.
+The protocol's carbon inventory accumulates and retires carbon. It is driven by
+parameters determined by its rules-based smart contracts, and user activities.
 
 ::: {#fig-carbon-inventory fig-cap="Klima&nbsp;2.0 Carbon Inventory." fig-alt="Klima 2.0 Carbon Inventory."}
 
@@ -236,29 +211,27 @@ driven by parameters determined by its rules-based smart contracts, and user act
 :::
 
 Carbon credits are acquired from suppliers, and consumed by retirement buyers.
-Carbon credits are grouped by pre-defined classifications called **carbon
+Carbon credits are grouped by predefined classifications called **carbon
 classes**.
 
 Aggregate token holder allocations collectively set the parameters for the
-execution rates of **each class** for, both suppliers and retirees, by defining:
+execution rates of **each class**, for both suppliers and retirees, by defining:
 
 - Inventory weighting.
 
 - Capacity.
 
-Additional **global** parameters are also determined by the aggregate
-allocations, including the **kVCM** incentive curve.
-
-Thus the Protocol is driven in response to its own native token balances, acting
-as rules-based carbon market infrastructure to connect available supply with
-retirement demand. It is able to do so without using oracles or external inputs,
-and without discretionary allocation, resale, or optimisation of inventory.
+Thus the Protocol is driven in response to its own native token allocations,
+acting as rules-based carbon market infrastructure to connect available supply
+with retirement demand. It is able to do so without using oracles or external
+inputs, and without discretionary allocation, resale, or optimisation of
+inventory.
 
 ### Tokens {#sec-tokens}
 
 Locking or staking the protocol's tokens allows participants to signal
-preferences within the system. Doing so may make them eligible for protocol
-incentives when they perform defined coordination functions.
+preferences within the system, and may make them eligible to receive protocol
+incentives.
 
 Holding or locking protocol tokens does not represent ownership of protocol
 carbon assets, profit participation, or direct exposure to carbon price
@@ -276,7 +249,7 @@ and contracts when it is retired.
 
 - When **time-locked**:
 
-    - It may vote for carbon classes for inventory weighting.
+    - It may be allocated to carbon classes for inventory weighting.
 
     - It receives **kVCM** base accrual and **K2** incentives.
 
@@ -289,8 +262,9 @@ and contracts when it is retired.
 
     - **Burn**: when credits are retired from the protocol.
 
-- When **staked** in liquidity pools it is also eligible for incentives, based
-on the position's relative share of the pool.
+- When **staked** in liquidity pools it is also eligible for **kVCM** and **K2**
+incentives, based on the duration of the stake and the position's relative share
+of the pool.
 
 ::: {#fig-token-utility fig-cap="Token utility." fig-alt="Token utility."}
 
@@ -311,15 +285,16 @@ time.
 
 - When **user-locked**:
 
-    - It may vote for carbon classes to reduce the difference between execution
-    terms on carbon intake and retirements.
+    - It may be allocated to carbon classes to reduce the difference between
+    execution terms on carbon intake and retirements.
 
     - It receives **kVCM** and **K2** incentives.
 
     - In aggregate, user-locks influence the rates of incentive issuance.
 
 - When **staked** in the **kVCM**/**K2** liquidity pool it is also eligible for
-incentives, based on the position's relative share of the pool.
+**kVCM** and **K2** incentives, based on the duration of the stake and the
+position's relative share of the pool.
 
 #### Utility Functions {#sec-utility-functions}
 
@@ -352,23 +327,57 @@ The **K2** token also has [two]{.underline} utility functions:
 1. **User lock**: The **K2** token remains locked for at least 24 hours.
 
 2. **Capacity allocation**: Collective selection of carbon classes via **K2**
-allocations determines the protocol-defined execution capacity for carbon intake
-and retirement operations for a given class. Higher capacity allocations
-increase the system's ability to process additional carbon activity without
-materially altering the execution rate, as defined by **kVCM** allocations.
+allocations determines the protocol's execution capacity for carbon intake and
+retirement operations for a given class. Higher capacity allocations increase
+the system's ability to process additional carbon activity without materially
+altering the execution rate, as defined by **kVCM** allocations.
 
 Both tokens support the operation of the infrastructure, with **kVCM** informing
 execution rateios, and the **K2** token modulating capacity.
 
-### Token Initialisation {#sec-token-initialisation}
+#### Base Accrual and Incentives {#sec-base-accrual-incentives}
+
+The protocol issues tokens to participants who provide services necessary for
+system operation.
+
+1. **kVCM Base Accrual**
+
+    A base accrual of **kVCM** tokens is continously emitted to:
+
+    - Time-locked **kVCM**.
+
+2. **kVCM Incentives**
+
+    **kVCM** incentives are continuously emitted to:
+
+    - User-locked **K2**.
+
+    - Both **kVCM** and **K2** liquidity providers.
+
+    The number of **kVCM** tokens emitted as **kVCM** incentives is proportional to
+    (but never higher than) the number of **kVCM** tokens emitted as base accrual.
+
+3. **K2 Incentives**
+
+    Depending on overall system balances, the supply of **K2** tokens is
+    programatically allocated at various rates to:
+
+    - Time-locked **kVCM**.
+
+    - User-locked **K2**.
+
+    - Both **kVCM** and **K2** liquidity providers.
+
+#### Token Initialisation {#sec-token-initialisation}
 
 There is an initial issuance of tokens at the genesis of Klima&nbsp;2.0. All
-future emissions are distributed autonomously via incentives.
+future emissions are distributed autonomously via carbon swaps and incentives.
 
 +-------------+-------------+-------------------------------------------------------------------------------------------------------+
 | Token       | Supply      | Notes                                                                                                 |
 +:============+:============+:======================================================================================================+
 | **kVCM**    | 20 million  | - Supply expands and contracts programmatically in response to carbon intake and retirement activity. |
+|             |             | - New tokens are emitted continuously as base accrual and incentives.                                 |
 |             |             | - A portion of the initial supply is allocated to existing KLIMA holders.                             |
 +-------------+-------------+-------------------------------------------------------------------------------------------------------+
 | **K2**      | 100 million | - Fixed supply.                                                                                       |
@@ -471,32 +480,31 @@ future emissions are distributed autonomously via incentives.
     **Design intent**: Enable transparent market coordination without
     positioning the protocol as an asset manager or investment vehicle
 
-## Core Protocol Layers {#sec-core-protocol-layers}
+## Core Protocol Mechanics {#sec-core-protocol-mechanics}
 
 From this section we refer to **kVCM** tokens as **A**, **K2** tokens as **G**,
-USDC tokens as **Q**, carbon credits as **C**, and carbon retirement certificates as
-**C\***.
+USDC tokens as **Q**, carbon credits as **C**, and carbon retirement
+certificates as **C\***.
 
-Three layers enable the Klima Protocol to find equilibrium through continuous,
-rule-based feedback mechanisms representing system state&nbsp;(supply, demand,
-coordinator allocations). There is no centralised management entity with
-discretionary powers, or fees that can be turned on.
+Three types of mechanics enable the Klima Protocol to find equilibrium through
+continuous, rule-based feedback mechanisms representing system
+state&nbsp;(supply, demand, coordinator allocations). There is no centralised
+management entity with discretionary powers, or fees that can be turned on.
 
 1. **Time-locking mechanics**: **A** token holders can time-lock their tokens
-until a set date to influence system parameters and to have the ability to
-select carbon classes for system weighting.
+until a set date to have the ability to select carbon classes for inventory
+weighting.
 
-    - The collective locks influence the **A** incentives, as well as the
-    real-time execution price for carbon credit acquisitions or retirements.
+    - The collective time locks define the base accrual curve.
 
-2. **Carbon inventory layer**: the protocol swaps **A** for carbon credits
+2. **Carbon inventory mechanics**: the protocol swaps **A** for carbon credits
 **C**&nbsp;(in) or carbon retirement certificates **C\***&nbsp;(out).
 
     - Both allocations of time-locked **A** tokens and user-locked **G** tokens
     are used in the protocol: allocations of **A** determine the execution rates
     of carbon, and allocations of **G** determine capacity.
 
-3. **Liquidity layer**: External liquidity pools enable conversion between
+3. **Liquidity mechanics**: External liquidity pools enable conversion between
 **kVCM** and supported settlement assets. Liquidity provision supports system
 availability and may make participants eligible for protocol incentives.
 
@@ -515,7 +523,7 @@ availability and may make participants eligible for protocol incentives.
     } liquidity pool: The asset token **A** with USDC **Q**.
 
 The Klima system enables each participant to contribute to various aspects of
-the model, in the interests of their own use and preference. This, in
+the model, according to their own interests and preferences. This, in
 conjunction with the autonomous model, enables the protocol to fulfill
 continuous carbon retirement activity within the carbon markets.
 
@@ -529,16 +537,15 @@ approximately 10 years.
 - **Discount curve**: Aggregate time-locking determines the shape of the
 discount curve of the **A** token.
 
-- **Incentives**: Time-locked **A** tokens may receive incentives, with a rate
-determined by the base accrual. The base accrual is calculated daily based on
-time-locked positions.
+- **Incentives**: Time-locked **A** tokens receive base accrual. Base accrual is
+calculated daily based on time-locked positions.
 
-- **Locks**: Time-locked tokens and any associated **A** incentives are released
+- **Locks**: Time-locked tokens and any associated base accrual are released
 only upon time-lock expiration. Early exit is not possible.
 
 **G** tokens are [not]{.underline} involved in the time-locking mechanics. The
 discount curve is agnostic to carbon class although only time-locked **A** token
-holders can allocate their token to carbon classes for portfolio pricing.
+holders can allocate their token to carbon classes for inventory weighting.
 
 #### Base Accrual {#sec-base-accrual}
 
@@ -593,8 +600,8 @@ $$
 B_t = \exp(-Z_t \, E_t)
 $$ {#eq-discount-rate}
 
-The incentives due on time-locked **A** tokens are calculated daily and added to
-the locked balance, hence the daily accrual for each duration is calculated:
+The accrual of time-locked **A** tokens is calculated daily and added to the
+locked balance, hence the daily accrual for each duration is calculated:
 
 $$
 Y_t = \exp \left( \frac{Z_t}{365} \right) - 1
@@ -938,7 +945,7 @@ For visualising the sensitivity of overall **A** base accrual with respect to
 staking and duration, @fig-growth-rate assumes a single duration over the
 staking range to provide an approximation of growth $\Delta S \approx Z \, S$.
 
-::: {#fig-growth-rate fig-cap="**A** annual growth rate from base accrual $\Delta S$." fig-alt="A annual growth rate from base accrual Delta S."}
+::: {#fig-growth-rate fig-cap="**A** annual growth rate $\Delta S$ from base accrual." fig-alt="A annual growth rate Delta S from base accrual."}
 
 ::::: {.content-visible when-format="html"}
 ```{ojs}
@@ -1013,9 +1020,10 @@ Plot.plot({
 
 :::
 
-#### Protocol Coordination Signals {#sec-protocol-governance-signals}
+#### Protocol Coordination Voting Power {#sec-protocol-coordination-voting-power}
 
-Protocol coordination signals can be derived from two participation cohorts:
+Protocol coordination voting power can be derived from two participation
+cohorts:
 
 1. Time-locked **A** tokens: $S_t$
 
@@ -1024,43 +1032,43 @@ Protocol coordination signals can be derived from two participation cohorts:
   .content-visible unless-format="pdf"
 }[$\overline{\textbf{AG}}$]{
   .content-visible when-format="pdf"
-}&nbsp;(see @sec-liquidity-markets), defined here as $A_{Gt}$, representing the
-quantity of **A** tokens held in the liquidity pool expressed as a proportion of
-circulating supply.
+}&nbsp;(see @sec-liquidity-mechanics), defined here as $A_{Gt}$, representing
+the quantity of **A** tokens held in the liquidity pool expressed as a
+proportion of circulating supply.
 
-Voting power is allocated by time and applied to the respective balance of
-**A**:
+Voting power is allocated by lock or stake duration, and applied to the
+respective balance of **A** tokens:
 
-1. Initial voting weights for time-locked **A** tokens $v_t$:
+1. Voting weights for time-locked **A** tokens $v_t$:
 
     $$
     v_t = Z_t \, S_t
-    $$ {#eq-voting-weights-time-locks-initial}
+    $$ {#eq-voting-weights-time-locks}
 
-2. Initial voting weights for staked liquidity $w_t$:
+2. Voting weights for staked liquidity $w_t$:
 
     $$
     w_t = Z_t \, A_{Gt}
-    $$ {#eq-voting-weights-lps-initial}
+    $$ {#eq-voting-weights-lps}
 
-1. Final voting weights for time-locked **A** tokens $V_t$:
+1. Voting power for time-locked **A** tokens $V_t$:
 
     $$
     V_t = \frac{v_t}{\sum_{j=1}^{40} (v_j + 2 w_j)}
-    $$ {#eq-voting-weights-time-locks}
+    $$ {#eq-voting-power-time-locks}
 
-2. Final voting weights for staked liquidity $W_t$:
+2. Voting power for staked liquidity $W_t$:
 
     $$
     W_t = \frac{w_t}{\sum_{j=1}^{40} \left( \frac 1 2 v_j + w_j \right)}
-    $$ {#eq-voting-weights-lps}
+    $$ {#eq-voting-power-lps}
 
 ### Carbon Inventory Mechanics {#sec-carbon-inventory-mechanics}
 
 The carbon inventory layer ultimately swaps carbon through a set of smart
-contracts, driven by carbon supply, demand, and user-inputs. The combined
-allocations of **A** and **G** tokens creates a dynamic real-time execution
-rate curve by carbon class.
+contracts, driven by carbon supply, demand, and user inputs. The combined
+allocations of **A** and **G** tokens creates a dynamic real-time execution rate
+curve for each carbon class.
 
 ::: {#fig-carbon-inventory-mechanics fig-cap="Klima&nbsp;2.0 carbon inventory mechanics." fig-alt="Klima 2.0 carbon inventory mechanics."}
 
@@ -1111,8 +1119,8 @@ the outstanding supply of **A** tokens, where ${\sum A_i = A}$.
 the outstanding supply of **G** Tokens.
 
 Where $\Delta C_i$ is expressed as the relative increment to its respective pool
-balance, the amount of **A** tokens issued for carbon, $\Delta A$,
-expressed as a proportion of current supply, is determined as:
+balance, the amount of **A** tokens issued for carbon, $\Delta A$, expressed as
+a proportion of current supply, is determined as:
 
 $$
 \ln(1 + \Delta A) =
@@ -1634,8 +1642,8 @@ and decreasing on $G_i$.
 
 ##### Unweighted Carbon Class {#sec-unweighted-carbon-class}
 
-A retirement certificate for a carbon class with a zero **A** allocation cannot be
-extracted from the portfolio by swapping in **A** tokens.
+A retirement certificate for a carbon class with a zero **A** allocation cannot
+be extracted from the inventory by swapping in **A** tokens.
 
 ##### Round Trip Difference {#sec-round-trip-difference}
 
@@ -1896,11 +1904,11 @@ Plot.plot({
 
 :::
 
-### Liquidity Markets {#sec-liquidity-markets}
+### Liquidity Mechanics {#sec-liquidity-mechanics}
 
 Both **A** and **G** tokens can be used for providing liquidity.
 
-::: {#fig-token-liquidity fig-cap="Token liquidity and pricing structure." fig-alt="Token liquidity and pricing structure."}
+::: {#fig-token-liquidity fig-cap="Token liquidity and execution structure." fig-alt="Token liquidity and execution structure."}
 
 ::::: {.content-visible when-format="pdf"}
 ![](figures/token-liquidity.tex)
@@ -1914,7 +1922,7 @@ Both **A** and **G** tokens can be used for providing liquidity.
 
 There are two core liquidity pools:
 
-1. An AAM 50:50 pairing of **A** and **G**&nbsp;tokens: pool [**AG**]{
+1. An AMM 50:50 pairing of **A** and **G**&nbsp;tokens: pool [**AG**]{
   .overline
   .content-visible unless-format="pdf"
 }[$\overline{\textbf{AG}}$]{
@@ -1935,7 +1943,7 @@ The [**AQ**]{
   .content-visible unless-format="pdf"
 }[$\overline{\textbf{AQ}}$]{
   .content-visible when-format="pdf"
-} pool will have its own set of fees in the normal way.[^1]
+} pool will have its own set of fees in the standard way.[^1]
 
 The [**AG**]{
   .overline
@@ -1947,30 +1955,32 @@ represent the same economy. For this reason, the fees are extremely low.
 
 By staking liquidity&nbsp;(liquidity provider tokens) to the **standard
 durations**, both pools may receive a distribution of **A** tokens determined
-from the kVCM incentives calculation below. This is an [additional]{.underline}
-primary issuance to the Base Accrual already discussed.
+from @sec-kvcm-incentives below. This is an [additional]{.underline} primary
+issuance to the Base Accrual already discussed.
 
 [^1]: Note the development of liquidity pool pricing functionality may be
 applicable.
 
-#### kVCM Incentives {#sec-risk-premium-beta-determination}
+#### kVCM Incentives {#sec-kvcm-incentives}
 
-In addition to the base accrual mechanism, additional incentives is 
-distributed to staked liquidity providers of the **A** and **G** tokens.
+In addition to the base accrual mechanism, **kVCM** incentives are distributed
+to user-locked **G** token holders and staked liquidity providers of **A** and
+**G** tokens.
 
-As we have seen, the **G** token has an impact on risk-pricing of **A**. As
-**G** staking increases, the relationship between the carbon class selected
-under $G_i$ and the portfolio token **A** strengthens. We can consider $G_i$
-staking as an estimate of residual or idiosyncratic risk in the carbon class and
-this allows us to calculate a portfolio beta $\beta$ from the implied betas of
-each carbon class $i$.
+As we have seen, a higher **G** token allocation $G_i$ for a carbon class
+increases the protocol's capacity to process additional carbon activity without
+materially altering the execution rate. As a consequence, the relationship
+between the carbon class selected under $G_i$ and the **A** strengthens. If we
+consider $G_i$ as an estimate of residual or idiosyncratic sensitivity in the
+carbon class, we can calculate an inventory beta $\beta$ from the implied betas
+of each carbon class $i$.
 
 $$
 \beta = \sqrt{\sum_{i=1}^n A_i - A_i \, (1 - G_i)^2}
 $$ {#eq-beta}
 
-The portfolio $\beta$ determines a yield factor for the liquidity pools of **A**
-to compensate for the implied risk levels.
+The inventory $\beta$ determines a sensitivity factor for the liquidity pools of
+**A**.
 
 For intuition, the map in @fig-range-of-beta-i shows the various outputs of the
 function per carbon class.
@@ -2207,15 +2217,15 @@ Plot.plot({
 
 :::
 
-@fig-example-of-g-stake-on-beta shows $\beta$'s sensitivity to **G** allocation
+@fig-example-of-g-stake-on-beta shows the effect of **G** allocation on $\beta$
 as a function of **A** allocation; that is to say that a large $G_i$ stake on a
 small $A_i$ stake has limited effects&nbsp;(notwithstanding other consequential
 factors).
 
-#### Allocation of kVCM incentives {#sec-allocation-of-risk-premium}
+#### Allocation of kVCM incentives {#sec-allocation-of-kvcm-incentives}
 
-The full issuance of **A** tokens is depicted below including now the kVCM 
-incentives for the liquidity pools accordingly.
+The full issuance of **A** tokens is depicted below, including now the **A**
+incentives for the liquidity pools.
 
 ::: {#fig-a-token-flow-structure fig-cap="**A** token flow structure." fig-alt="A token flow structure."}
 
@@ -2229,9 +2239,9 @@ incentives for the liquidity pools accordingly.
 
 :::
 
-#### Share of kVCM incentives {#sec-share-of-risk-premium}
+#### Share of kVCM incentives {#sec-share-of-kvcm-incentives}
 
-The kVCM incentives are shared between user-locked **G** tokens,
+The **kVCM** incentives are shared between user-locked **G** tokens,
 [**AG**]{
   .overline
   .content-visible unless-format="pdf"
@@ -2494,7 +2504,7 @@ plotLambdaGQ = {
 
 :::
 
-#### kVCM Incentives Distribution {#sec-risk-premium-distribution}
+#### kVCM Incentives Distribution {#sec-kvcm-incentives-distribution}
 
 For $\lambda_{GG}$, $\lambda_G$, $\lambda_Q$ we apply $\beta$:
 
@@ -2508,11 +2518,11 @@ $$
 b = \frac{\sum_1^{40} Z_t \, S_t \, B_t}{\sum_1^{40} Z_t \, S_t }
 $$ {#eq-discount-parameter}
 
-The total kVCM incentive tokens $R_\lambda$:
+The total **kVCM** incentive tokens $R_\lambda$:
 
 $$
 R_\lambda = b \, R \, (\Lambda_{GG} + \Lambda_G + \Lambda_Q)
-$$ {#eq-risk-premium}
+$$ {#eq-kvcm-incentives}
 
 The allocations of $R_\lambda$ are pro-rata to $\Lambda_{GG}$, $\Lambda_G$,
 $\Lambda_Q$, and thereafter:
@@ -2534,11 +2544,11 @@ $t$:
 
     $$
     G_t = \frac{Z_t \, L_{Gt} \, B_t}{\sum Z_t \, L_{Gt} \, B_t}
-    $$ {#eq-risky-premium-weighting-ag-pool}
+    $$ {#eq-kvcm-incentives-weighting-ag-pool}
 
     $$
     Q_t = \frac{Z_t \, L_{Qt} \, B_t}{\sum Z_t \, L_{Qt} \, B_t}
-    $$ {#eq-risky-premium-weighting-aq-pool}
+    $$ {#eq-kvcm-incentives-weighting-aq-pool}
 
     Where $L_{Gt}$, $L_{Qt}$ are the proportion of all liquidity locked in each
     time bucket for [**AG**]{
@@ -2561,23 +2571,23 @@ provider token holdings.
 ### Interactive Model {#sec-interactive-model}
 
 This additional section is only in the interactive version of the whitepaper. It
-presents an interactive model of the AAM where each parameter of interest can be
-adjusted by the reader.
+presents an interactive model where parameters of interest can be adjusted by
+the reader.
 
-In @sec-kvcm-tokens-minted-when-the-aam-purchases-carbon, a carbon holder sells
-carbon to the AAM in exchange for **A** tokens; from the point of view of the
-AAM, this represents a carbon purchase. In
-@sec-carbon-sold-by-the-aam-when-it-burns-kvcm-tokens, a holder of **A** tokens
-burns them to buy carbon from the AAM; from the point of view of the AAM, this
-represents a carbon sale.
+In @sec-kvcm-tokens-minted-when-the-protocol-acquires-carbon, a carbon supplier
+swaps carbon to the protocol in exchange for **A** tokens; from the point of
+view of the protocol, this represents a carbon acquisition. In
+@sec-carbon-retired-by-the-protocol-when-it-burns-kvcm-tokens, a holder of **A**
+tokens burns them to retire carbon from the protocol; from the point of view of
+the protocol, this represents a carbon retirement.
 
-#### kVCM Tokens Minted When the AAM Purchases Carbon {#sec-kvcm-tokens-minted-when-the-aam-purchases-carbon}
+#### kVCM Tokens Minted When the Protocol Acquires Carbon {#sec-kvcm-tokens-minted-when-the-protocol-acquires-carbon}
 
-In this section, the reader controls how many present-value tonnes of carbon
-class $i$ are purchased by the AAM. The number of **A** tokens emitted in
-exchange is calculated in real time. The price of carbon class $i$ is calculated
-by dividing the number of **A** tokens emitted by the AAM by the number of
-present-value tonnes of carbon class $i$ purchased by the AAM.
+In this section, the reader controls how many tonnes of carbon class $i$ are
+acquired by the protocol. The number of **A** tokens emitted in exchange is
+calculated in real time. The price of carbon class $i$ is calculated by dividing
+the number of **A** tokens emitted by the protocol by the number of tonnes
+purchased by the protocol.
 
 ::::: {.panel-sidebar}
 ```{ojs}
@@ -2635,7 +2645,7 @@ viewof inputASupply = Inputs.range([1e6, 1e10], {
   transform: Math.log,
 });
 viewof inputPresentTonnes = Inputs.range([0, 1e9], {
-  label: tex`\text{Portfolio } C_i`,
+  label: tex`\text{Inventory } C_i`,
   step: 1e-3,
   value: defaultPresentTonnes,
   transform: piecewiseLogTransform(1e-3),
@@ -2720,7 +2730,7 @@ stringBarCiPrice = "$" + paramBarCiPrice.toLocaleString(
 
 ::::: {.panel-fill}
 
-|                | Supply of **A** Tokens | Portfolio Carbon       |
+|                | Supply of **A** Tokens | Inventory Carbon       |
 |----------------|-----------------------:|-----------------------:|
 | **Total**      | ${stringASupply}       | ${stringPresentTonnes} |
 | **Variation**  | ${stringAEmitted}      | ${stringDeltaTonnes}   |
@@ -2730,13 +2740,13 @@ stringBarCiPrice = "$" + paramBarCiPrice.toLocaleString(
 
 :::::
 
-#### Carbon Sold by the AAM When it Burns kVCM Tokens {#sec-carbon-sold-by-the-aam-when-it-burns-kvcm-tokens}
+#### Carbon Retired by the Protocol When it Burns kVCM Tokens {#sec-carbon-retired-by-the-protocol-when-it-burns-kvcm-tokens}
 
-In this section, the reader controls how many **A** tokens are burnt by the AAM.
-The number of liquid tonnes of carbon class $i$ sold by the AAM in exchange is
+In this section, the reader controls how many **A** tokens are burnt by the
+protocol. The number of liquid tonnes retired by the protocol AAM in exchange is
 calculated in real time. The price of carbon is calculated by dividing the
-number of **A** tokens burnt by the AAM by the number of liquid tonnes of carbon
-class $i$ sold by the AAM.
+number of **A** tokens burnt by the protocol by the number of tonnes of carbon
+retired.
 
 ::::: {.panel-sidebar}
 ```{ojs}
@@ -2774,7 +2784,7 @@ viewof inputASupply_ = Inputs.range([1e6, 1e10], {
   transform: Math.log,
 });
 viewof inputLiquidTonnes = Inputs.range([1e-3, 1e9], {
-  label: tex`\text{Portfolio } C_{i0}`,
+  label: tex`\text{Inventory } C_i`,
   step: 1e-3,
   value: defaultLiquidTonnes,
   transform: Math.log,
@@ -2864,7 +2874,7 @@ stringCiPrice = "$" + paramCiPrice.toLocaleString(
 
 ::::: {.panel-fill}
 
-|                | Supply of **A** Tokens | Portfolio Carbon       |
+|                | Supply of **A** Tokens | Inventory Carbon       |
 |----------------| ----------------------:| ----------------------:|
 | **Total**      | ${stringASupply_}      | ${stringLiquidTonnes}  |
 | **Variation**  | ${stringABurnt}        | ${stringDeltaCiTonnes} |
@@ -3590,11 +3600,10 @@ Plot.plot({
 
 :::::
 
-::::: {#fig-k2-risk-metrics fig-cap="**K2** token supply risk metrics."}
+::::: {#fig-k2-supply-differential fig-cap="**K2** supply differential (stacked)." fig-alt="K2 supply differential (stacked)."}
 
 ::::::: {.content-visible when-format="html"}
 ```{ojs}
-//| fig-cap: Total supply differential (stacked).
 Plot.plot({
   color: { legend: true, range: d3.schemeCategory10, domain: cohortsDomain },
   x: { ticks: d3.range(0, 60.1, 12), label: "Time (Months)", grid: true },
@@ -3614,67 +3623,17 @@ Plot.plot({
   ]
 });
 ```
-
-```{ojs}
-//| fig-cap: Utility incentive yield.
-Plot.plot({
-  color: {
-    legend: true,
-    range: [9, 8].map(i => d3.schemeCategory10[i]),
-    domain: ["APY", "APR"],
-  },
-  x: { ticks: d3.range(0, 60.1, 12), label: "Time (Months)", grid: true },
-  y: {
-    domain: [0, Math.max(d3.max(vecAPR), d3.max(vecAPY))],
-    label: "Annual Percentage (%)",
-    grid: true,
-  },
-  insetTop: 16,
-  clip: true,
-  marks: [
-    Plot.frame(),
-    Plot.lineY(supplyData, {
-      x: "x",
-      y: getAPY,
-      stroke: "key",
-      strokeWidth : 2,
-    }),
-    Plot.areaY(supplyData, {
-      x: "x",
-      y1: 0,
-      y2: getAPY,
-      fill: "key",
-      fillOpacity: 0.2,
-    }),
-    Plot.lineY(supplyData, {
-      x: "x",
-      y: getAPR,
-      stroke: "key",
-      strokeWidth : 2,
-      strokeDasharray: 4,
-    }),
-  ]
-});
-```
 :::::::
 
 ::::::: {.content-visible unless-format="html"}
-![Total supply differential (stacked).](figures/k2-risk-metrics-differential.svg){
-  #fig-k2-risk-metrics-differential
-  fig-alt="Total supply differential (stacked)."
-}
-
-![Utility incentive yield.](figures/k2-risk-metrics-yield.svg){
-  #fig-k2-risk-metrics-yield
-  fig-alt="Utility incentive yield."
-}
+![](figures/k2-supply-differential.svg)
 :::::::
 
 :::::
 
 :::
 
-### Incentive Allocations {#sec-incentive-allocations}
+### Share of K2 Incentives {#sec-share-of-k2-incentives}
 
 ::: {#fig-k2-incentive-distribution fig-cap="**K2** token incentive distribution structure." fig-alt="K2 token incentive distribution structure"}
 
@@ -3908,7 +3867,7 @@ The residual post-treasury allocation is shared four ways within 2 buckets:
 2. Liquidity
 
     With $\lambda_G$, $\lambda_Q$, $\lambda_{GG}$ as defined in
-    @sec-share-of-risk-premium:
+    @sec-share-of-kvcm-incentives:
 
     3. [**AG**]{
       .overline
