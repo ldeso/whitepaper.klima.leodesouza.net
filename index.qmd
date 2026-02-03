@@ -67,7 +67,7 @@ retirement, while **K2** provides signalling inputs related to capacity.
 Together, these tokens inform protocol parameters through deterministic
 smart-contract logic. This architecture enables the protocol to:
 
-- define execution rates and intake eligibility for carbon credits against
+- define execution terms and intake eligibility for carbon credits against
 transparent, predefined rules;
 
 - make acquired credits available exclusively for irreversible retirement;
@@ -133,7 +133,7 @@ settlement, and open participation.
 
 The Klima&nbsp;2.0 protocol replaces treasury-backed mechanisms with a
 rules-based coordination model that uses protocol-native tokens to parameterise
-execution rates, intake capacity, and participation incentives. Carbon credits
+execution terms, intake capacity, and participation incentives. Carbon credits
 handled by the protocol are acquired solely to fulfil retirement demand and are
 not held, traded, or managed for financial gain.
 
@@ -160,7 +160,7 @@ layers that together support continuous, non-discretionary operation:
 
     - Sells carbon retirement certificates by burning **kVCM**.
 
-    - Sets carbon execution rates based on predefined rules.
+    - Sets carbon execution terms based on predefined rules.
 
     Carbon credits handled by the protocol cannot be withdrawn, transferred, or
     resold. They may only be retired.
@@ -218,7 +218,7 @@ Carbon credits are grouped by predefined classifications called **carbon
 classes**.
 
 Aggregate token holder allocations collectively set the parameters for the
-execution rates of **each class**, for both suppliers and retirees, by defining:
+execution terms of **each class**, for both suppliers and retirees, by defining:
 
 - Inventory weighting.
 
@@ -319,8 +319,8 @@ independent:
 1. **Time lock**: The **kVCM** token is locked for a specific period of time
 which determines a **kVCM** 'base accrual' rate. This cannot be amended.
 
-2. **Execution rate allocation**: Collective signalling of carbon classes via
-**kVCM** allocations determines the protocol's execution rate for carbon intake
+2. **Execution terms allocation**: Collective signalling of carbon classes via
+**kVCM** allocations determines the protocol's execution terms for carbon intake
 and retirement, expressed in **kVCM** units. These parameters govern how the
 protocol issues or burns **kVCM** when carbon is supplied or retired.
 Allocations may be updated over time.
@@ -333,10 +333,10 @@ The **K2** token also has [two]{.underline} utility functions:
 allocations determines the protocol's execution capacity for carbon intake and
 retirement operations for a given class. Higher capacity allocations increase
 the system's ability to process additional carbon activity without materially
-altering the execution rate, as defined by **kVCM** allocations.
+altering the execution terms, as defined by **kVCM** allocations.
 
 Both tokens support the operation of the infrastructure, with **kVCM** informing
-execution rates, and the **K2** token modulating capacity.
+execution terms, and the **K2** token modulating capacity.
 
 #### Base Accrual and Incentives {#sec-base-accrual-incentives}
 
@@ -394,11 +394,11 @@ future emissions are distributed autonomously via carbon swaps and incentives.
 1. **Carbon Suppliers & Retirees**
 
     Participants may supply or retire eligible, tokenised carbon credits to the
-    protocol at quoted execution rates. Supplied credits are handled solely for
+    protocol at quoted execution terms. Supplied credits are handled solely for
     retirement and cannot be withdrawn, transferred, resold or otherwise
     arbitraged.
 
-    **Carbon inventory**: Indicative execution rates for suppliers and retirees
+    **Carbon inventory**: Indicative execution terms for suppliers and retirees
     are continuously updated based on protocol state.
 
 2. **Liquidity Providers**
@@ -506,7 +506,7 @@ weighting.
 **C**&nbsp;(in) or carbon retirement certificates **C\***&nbsp;(out).
 
     - Both allocations of time-locked **A** tokens and user-locked **G** tokens
-    are used in the protocol: allocations of **A** determine the execution rates
+    are used in the protocol: allocations of **A** determine the execution terms
     of carbon, and allocations of **G** determine capacity.
 
 3. **Liquidity mechanics**: External liquidity pools enable conversion between
@@ -1072,7 +1072,7 @@ respective balance of **A** tokens:
 
 The carbon inventory layer ultimately swaps carbon through a set of smart
 contracts, driven by carbon supply, demand, and user inputs. The combined
-allocations of **A** and **G** tokens create a dynamic real-time execution rate
+allocations of **A** and **G** tokens create a dynamic real-time execution terms
 curve for each carbon class.
 
 ::: {#fig-carbon-inventory-mechanics fig-cap="Klima&nbsp;2.0 carbon inventory mechanics." fig-alt="Klima 2.0 carbon inventory mechanics."}
@@ -1093,9 +1093,9 @@ _User swaps carbon credits for **A** tokens._
 
 ##### Existing Carbon in the Inventory {#sec-existing-carbon-in-the-inventory}
 
-For execution terms, both **A** tokens and **G** tokens may be allocated to
-specific carbon classes ${i \in \{1, 2, 3, \dots, n\}}$ and these are
-independent allocations between the two tokens.
+Both **A** tokens and **G** tokens may be allocated to specific carbon classes
+${i \in \{1, 2, 3, \dots, n\}}$ and these are independent allocations between
+the two tokens.
 
 ::: {#fig-token-staking-class-structure fig-cap="Token staking class structure." fig-alt="Token staking class structure."}
 
@@ -1974,7 +1974,7 @@ to user-locked **G** token holders and staked liquidity providers of **A** and
 
 As we have seen, a higher allocation of **G** tokens, $G_i$, for a carbon class
 increases the protocol's capacity to process additional carbon activity without
-materially altering the execution rate. As a consequence, the relationship
+materially altering the execution terms. As a consequence, the relationship
 between the carbon class selected under $G_i$ and the **A** strengthens. If we
 consider $G_i$ as an estimate of residual or idiosyncratic sensitivity in the
 carbon class, we can calculate an inventory beta $\beta$ from the implied betas
