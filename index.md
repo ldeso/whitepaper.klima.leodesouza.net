@@ -2,7 +2,7 @@
 The Dark Sole Enterprise Ltd <ds@darksole.vip>  
 with contributions from the Klima and Carbonmark teams
 
-29 Jan 2026 (Version 1.49)
+3 Feb 2026 (Version 1.49)
 
 <img src="brand/klimaprotocol.svg" style="width:50.0%"
 alt="Klima Protocol Logo." data-fig-align="center" />
@@ -28,7 +28,11 @@ transparent execution terms.
 
 It is not a financial product, investment vehicle, or asset management
 system, but a piece of market infrastructure that enables carbon supply
-and retirement demand to interact under predefined conditions.
+and retirement demand to interact under predefined conditions. While the
+protocol issues additional tokens to certain participants, these
+emissions are purely rule-based incentives for coordination and
+infrastructure provision, not a guarantee of financial return or claim
+on underlying assets.
 
 The protocol operates through a dual-token architecture that facilitates
 coordination without discretionary control: **kVCM** functions as the
@@ -38,7 +42,7 @@ capacity. Together, these tokens inform protocol parameters through
 deterministic smart-contract logic. This architecture enables the
 protocol to:
 
-- define execution rates and intake eligibility for carbon credits
+- define execution terms and intake eligibility for carbon credits
   against transparent, predefined rules;
 
 - make acquired credits available exclusively for irreversible
@@ -48,7 +52,7 @@ protocol to:
   for continuous operation.
 
 Participant actions such as locking tokens, signalling preferences, or
-providing liquidity serve inputs into a coordination mechanism that
+providing liquidity serves as inputs into a coordination mechanism that
 adjusts protocol parameters within predefined bounds. These inputs do
 not confer ownership rights, redemption rights, or claims on
 protocol-held carbon, nor do they constitute discretionary management of
@@ -109,7 +113,7 @@ transparent pricing, programmatic settlement, and open participation.
 
 The Klima 2.0 protocol replaces treasury-backed mechanisms with a
 rules-based coordination model that uses protocol-native tokens to
-parameterise execution rates, intake capacity, and participation
+parameterise execution terms, intake capacity, and participation
 incentives. Carbon credits handled by the protocol are acquired solely
 to fulfil retirement demand and are not held, traded, or managed for
 financial gain.
@@ -139,7 +143,7 @@ operation:
 
     - Sells carbon retirement certificates by burning **kVCM**.
 
-    - Sets carbon execution rates based on predefined rules.
+    - Sets carbon execution terms based on predefined rules.
 
     Carbon credits handled by the protocol cannot be withdrawn,
     transferred, or resold. They may only be retired.
@@ -196,18 +200,18 @@ buyers. Carbon credits are grouped by predefined classifications called
 **carbon classes**.
 
 Aggregate token holder allocations collectively set the parameters for
-the execution rates of **each class**, for both suppliers and retirees,
+the execution terms of **each class**, for both suppliers and retirees,
 by defining:
 
 - Inventory weighting.
 
 - Capacity.
 
-Thus the Protocol is driven in response to its own native token
-allocations, acting as rules-based carbon market infrastructure to
-connect available supply with retirement demand. It is able to do so
-without using oracles or external inputs, and without discretionary
-allocation, resale, or optimisation of inventory.
+Thus the protocol is driven by its own native token allocations, acting
+as rules-based carbon market infrastructure to connect available supply
+with retirement demand. It is able to do so without using oracles or
+external inputs, and without discretionary allocation, resale, or
+optimisation of inventory.
 
 ### Tokens
 
@@ -226,8 +230,9 @@ without discretionary management.
 #### kVCM
 
 **kVCM** is the protocol’s primary utility token. Its supply is <u>not
-capped</u>: it grows when new carbon is supplied to the protocol, and
-contracts when it is retired.
+capped</u>: it grows when new carbon is supplied to the protocol and via
+rule-based emissions (base accrual and incentives), and it contracts
+when carbon is retired.
 
 - When **time-locked**:
 
@@ -290,16 +295,16 @@ Figure 3: **kVCM** utility functions.
     time which determines a **kVCM** ‘base accrual’ rate. This cannot be
     amended.
 
-2.  **Execution rate allocation**: Collective signalling of carbon
-    classes via **kVCM** allocations determines determines the
-    protocol’s execution rate for carbon intake and retirement,
-    expressed in **kVCM** units. These parameters govern how the
-    protocol issues or burns **kVCM** when carbon is supplied or
-    retired. Allocations may be updated over time.
+2.  **Execution terms allocation**: Collective signalling of carbon
+    classes via **kVCM** allocations determines the protocol’s execution
+    terms for carbon intake and retirement, expressed in **kVCM** units.
+    These parameters govern how the protocol issues or burns **kVCM**
+    when carbon is supplied or retired. Allocations may be updated over
+    time.
 
 The **K2** token also has <u>two</u> utility functions:
 
-1.  **User lock**: The **K2** token remains locked for at least 24
+1.  **User lock**: The **K2** token remains locked for at least 48
     hours.
 
 2.  **Capacity allocation**: Collective selection of carbon classes via
@@ -307,10 +312,10 @@ The **K2** token also has <u>two</u> utility functions:
     carbon intake and retirement operations for a given class. Higher
     capacity allocations increase the system’s ability to process
     additional carbon activity without materially altering the execution
-    rate, as defined by **kVCM** allocations.
+    terms, as defined by **kVCM** allocations.
 
 Both tokens support the operation of the infrastructure, with **kVCM**
-informing execution rateios, and the **K2** token modulating capacity.
+informing execution terms, and the **K2** token modulating capacity.
 
 #### Base Accrual and Incentives
 
@@ -319,15 +324,15 @@ necessary for system operation.
 
 1.  **kVCM Base Accrual**
 
-    A base accrual of **kVCM** tokens is continously emitted to:
+    A base accrual of **kVCM** tokens is continuously emitted to:
 
-    - Time-locked **kVCM**.
+    - Time-locked **kVCM** positions.
 
 2.  **kVCM Incentives**
 
     **kVCM** incentives are continuously emitted to:
 
-    - User-locked **K2**.
+    - User-locked **K2** poositions.
 
     - Both **kVCM** and **K2** liquidity providers.
 
@@ -338,11 +343,11 @@ necessary for system operation.
 3.  **K2 Incentives**
 
     Depending on overall system balances, the supply of **K2** tokens is
-    programatically allocated at various rates to:
+    programmatically allocated at various rates to:
 
-    - Time-locked **kVCM**.
+    - Time-locked **kVCM** positions.
 
-    - User-locked **K2**.
+    - User-locked **K2** positions.
 
     - Both **kVCM** and **K2** liquidity providers.
 
@@ -385,7 +390,7 @@ holders.</li>
 <td style="text-align: left;">100 million</td>
 <td style="text-align: left;"><ul>
 <li>Fixed supply.</li>
-<li>Distributed programatically over time, with a portion allocated to
+<li>Distributed programmatically over time, with a portion allocated to
 existing KLIMA holders.</li>
 </ul></td>
 </tr>
@@ -401,11 +406,11 @@ Table 1: Token Summary
 1.  **Carbon Suppliers & Retirees**
 
     Participants may supply or retire eligible, tokenised carbon credits
-    to the protocol at quoted execution rates. Supplied credits are
+    to the protocol at quoted execution terms. Supplied credits are
     handled solely for retirement and cannot be withdrawn, transferred,
     resold or otherwise arbitraged.
 
-    **Carbon inventory**: Indicative excution rates for suppliers and
+    **Carbon inventory**: Indicative execution terms for suppliers and
     retirees are continuously updated based on protocol state.
 
 2.  **Liquidity Providers**
@@ -434,7 +439,9 @@ Table 1: Token Summary
     Klima 2.0 is designed as shared market infrastructure rather than an
     extractive financial product. The protocol does not charge fees,
     take hidden spreads, or operate profit-taking mechanisms for any
-    sponsor, foundation, or investor. All protocol behaviour is
+    sponsor, foundation, or investor. Standard trading fees charged by
+    external automated market makers and venues are separate from, and
+    not controlled by, the protocol. All protocol behaviour is
     rules-based and applies uniformly to all participants, with no
     privileged economic positions or revenue capture layers.
 
@@ -475,16 +482,17 @@ Table 1: Token Summary
 
 5.  **Equal Access and Uniform Treatment**
 
-    All participants interact with the protocol on identical terms.
-    There are no side agreements, preferential execution paths,
-    differentiated rights, or bespoke economic arrangements. Protocol
-    rules apply uniformly to all users, including the protocol’s
-    creators and affiliated entities.
+    All on-chain interactions with the protocol (carbon intake,
+    retirement, locking, liquidity, incentives) occur on identical terms
+    for all users. While initial token allocations differ by cohort (see
+    <a href="#sec-klima-2.0-token-distribution"
+    class="quarto-xref">Section 4</a>), no cohort receives preferential
+    execution, pricing, or fee treatment within the protocol.
 
     **Design intent**: Ensure credibility, neutrality, and resistance to
     capture.
 
-6.  **Market-driven Outcomes, Not Managed returns**
+6.  **Market-driven Outcomes, Not Managed Returns**
 
     Any economic effects associated with protocol participation arise
     solely from predefined rules and participant interaction with the
@@ -493,7 +501,7 @@ Table 1: Token Summary
     participant.
 
     **Design intent**: Enable transparent market coordination without
-    positioning the protocol as an asset manager or investment vehicle
+    positioning the protocol as an asset manager or investment vehicle.
 
 ## Core Protocol Mechanics
 
@@ -518,7 +526,7 @@ on.
 
     - Both allocations of time-locked **A** tokens and user-locked **G**
       tokens are used in the protocol: allocations of **A** determine
-      the execution rates of carbon, and allocations of **G** determine
+      the execution terms of carbon, and allocations of **G** determine
       capacity.
 
 3.  **Liquidity mechanics**: External liquidity pools enable conversion
@@ -535,13 +543,13 @@ on.
 The Klima system enables each participant to contribute to various
 aspects of the model, according to their own interests and preferences.
 This, in conjunction with the autonomous model, enables the protocol to
-fulfill continuous carbon retirement activity within the carbon markets.
+fulfil continuous carbon retirement activity within the carbon markets.
 
 ### Time-locking Mechanics
 
 Time-locking **A** tokens represents a commitment to protocol
 participation for a fixed duration. Lock durations are standardised at
-90 days increments and expire on a rolling schedule. There are always 40
+90-day increments and expire on a rolling schedule. There are always 40
 durations, extending out to approximately 10 years.
 
 - **Discount curve**: Aggregate time-locking determines the shape of the
@@ -555,7 +563,7 @@ durations, extending out to approximately 10 years.
 
 **G** tokens are <u>not</u> involved in the time-locking mechanics. The
 discount curve is agnostic to carbon class although only time-locked
-**A** token holders can allocate their token to carbon classes for
+**A** token holders can allocate their tokens to carbon classes for
 inventory weighting.
 
 #### Base Accrual
@@ -728,8 +736,8 @@ respective balance of **A** tokens:
 
 The carbon inventory layer ultimately swaps carbon through a set of
 smart contracts, driven by carbon supply, demand, and user inputs. The
-combined allocations of **A** and **G** tokens creates a dynamic
-real-time execution rate curve for each carbon class.
+combined allocations of **A** and **G** tokens create a dynamic
+real-time execution terms curve for each carbon class.
 
 <div id="fig-carbon-inventory-mechanics">
 
@@ -745,9 +753,9 @@ Figure 6: Klima 2.0 carbon inventory mechanics.
 
 ##### Existing Carbon in the Inventory
 
-For execution terms, both **A** tokens and **G** tokens may be allocated
-to specific carbon classes ${i \in \{1, 2, 3, \dots, n\}}$ and these are
-independent allocations between the two tokens.
+Both **A** tokens and **G** tokens may be allocated to specific carbon
+classes ${i \in \{1, 2, 3, \dots, n\}}$ and these are independent
+allocations between the two tokens.
 
 <div id="fig-token-staking-class-structure">
 
@@ -910,7 +918,7 @@ Figure 12: Proportion of carbon retired.
 
 <a href="#fig-proportion-of-carbon-retired"
 class="quarto-xref">Figure 12</a> shows the cost of carbon increasing
-with $A_i$ and decreasing on $G_i$.
+with $A_i$ and decreasing with $G_i$.
 
 ##### Unweighted Carbon Class
 
@@ -920,10 +928,11 @@ cannot be extracted from the inventory by swapping in **A** tokens.
 ##### Round Trip Difference
 
 Any difference between the **A** tokens issued in connection with carbon
-intake and the **A** tokens burned in connection with retirement is
+intake and the **A** tokens burnt in connection with retirement is
 reflected solely as a change in the circulating supply of **A** tokens,
 according to the above protocol rules. No margin, profit, or financial
-surplus is retained or extracted by any entity.
+surplus is retained or extracted by the protocol or any privileged
+entity.
 
 <a href="#fig-carbon-difference" class="quarto-xref">Figure 13</a> below
 shows the difference captured on a ‘round trip’ by the system where
@@ -1026,9 +1035,9 @@ In addition to the base accrual mechanism, **kVCM** incentives are
 distributed to user-locked **G** token holders and staked liquidity
 providers of **A** and **G** tokens.
 
-As we have seen, a higher **G** token allocation $G_i$ for a carbon
-class increases the protocol’s capacity to process additional carbon
-activity without materially altering the execution rate. As a
+As we have seen, a higher allocation of **G** tokens, $G_i$, for a
+carbon class increases the protocol’s capacity to process additional
+carbon activity without materially altering the execution terms. As a
 consequence, the relationship between the carbon class selected under
 $G_i$ and the **A** strengthens. If we consider $G_i$ as an estimate of
 residual or idiosyncratic sensitivity in the carbon class, we can
