@@ -62,10 +62,10 @@ financial return or claim on underlying assets.
 
 The protocol operates through a dual-token architecture that facilitates
 coordination without discretionary control: **kVCM** functions as the internal
-unit of account and pricing reference for protocol-facilitated carbon, while 
-**K2** provides signalling inputs related to capacity. Together, these tokens 
-inform protocol parameters through deterministic smart-contract logic. 
-This architecture enables the protocol to:
+unit of account and pricing reference for protocol-facilitated carbon, while
+**K2** provides signalling inputs related to capacity. Together, these tokens
+inform protocol parameters through deterministic smart-contract logic. This
+architecture enables the protocol to:
 
 - define execution terms and intake eligibility for carbon credits against
 transparent, predefined rules;
@@ -128,8 +128,8 @@ challenges that limited scalability and operational clarity.
 Klima&nbsp;2.0 is a ground-up redesign informed by these lessons. Rather than
 relying on treasury management or discretionary allocation, the new protocol is
 structured as neutral, non-extractive market infrastructure focused exclusively
-on facilitating carbon retirement through transparency, programmatic
-settlement, and open participation.
+on facilitating carbon retirement through transparency, programmatic settlement,
+and open participation.
 
 The Klima&nbsp;2.0 protocol replaces treasury-backed mechanisms with a
 rules-based coordination model that uses protocol-native tokens to parameterise
@@ -180,7 +180,8 @@ layers that together support continuous, non-discretionary operation:
     - **kVCM** holders may **time-lock** their **kVCM** for a fixed time period
     of their choice, making them eligible to receive **kVCM** base accrual,
     **K2** incentives, and to allocate their **kVCM** to carbon classes -- which
-    increases the comparative weighting of these carbon classes in the inventory.
+    increases the comparative weighting of these carbon classes in the
+    inventory.
 
     - **K2** holders may **user-lock** their **K2** for at least 48 hours,
     making them eligible to receive **kVCM** and **K2** incentives, and to
@@ -226,7 +227,7 @@ execution terms of **each class**, for both suppliers and retirees, by defining:
 
 Thus the protocol is driven by its own native token allocations, acting as
 rules-based carbon market infrastructure to connect available supply with
-retirement demand. 
+retirement demand.
 
 ### Tokens {#sec-tokens}
 
@@ -312,7 +313,8 @@ independent:
 :::
 
 1. **Time lock**: The **kVCM** token is locked for a specific period of time
-which determines a **kVCM** 'base accrual' rate. This time period cannot be amended.
+which determines a **kVCM** 'base accrual' rate. This time period cannot be
+amended.
 
 2. **Execution terms allocation**: Collective signalling of carbon classes via
 **kVCM** allocations determines the protocol's execution terms for carbon intake
@@ -422,7 +424,7 @@ future emissions are distributed autonomously via carbon swaps and incentives.
     extractive financial product. The protocol does not charge fees, take hidden
     spreads, or operate profit-taking mechanisms for any sponsor, foundation, or
     investor. Standard trading fees charged by external automated market makers
-    and venues are separate from, and not controlled by, the protocol. 
+    and venues are separate from, and not controlled by, the protocol.
 
     **Design intent**: Reduce opaque intermediation and hidden margins common in
     carbon markets, not replace them with a new rent-seeking intermediary.
@@ -450,11 +452,12 @@ future emissions are distributed autonomously via carbon swaps and incentives.
 
 4. **Autonomous, Rules-based Operation**
 
-    All core economic behaviour is governed by deterministic smart contracts. Once
-    deployed, the systems day-to-day operations are autonomous and do not rely on
-    discretionary decisions by any individual, committee, or organisation. Any material 
-    upgrades or migrations of the protocol implementation will be publicly disclosed 
-    and applied uniformly to all participants.
+    All core economic behaviour is governed by deterministic smart contracts.
+    Once deployed, the system's day-to-day operations are autonomous and do not
+    rely on discretionary decisions by any individual, committee, or
+    organisation. Any material upgrades or migrations of the protocol
+    implementation will be publicly disclosed and applied uniformly to all
+    participants.
 
     **Design intent**: Build a trustless, auditable system, that is not based on
     subjective, opaque intervention.
@@ -488,7 +491,7 @@ certificates as **C\***.
 
 Three types of mechanics enable the Klima Protocol to find equilibrium through
 continuous, rule-based feedback mechanisms representing system
-state&nbsp;(supply, demand, coordinator allocations). 
+state&nbsp;(supply, demand, coordinator allocations).
 
 1. **Time-locking mechanics**: **A** token holders can time-lock their tokens
 until a set date to have the ability to select carbon classes for inventory
