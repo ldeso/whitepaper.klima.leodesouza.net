@@ -464,7 +464,7 @@ Table 1: Token Summary
 4.  **Autonomous, Rules-based Operation**
 
     All core economic behaviour is governed by deterministic smart
-    contracts. Once deployed, the systems day-to-day operations are
+    contracts. Once deployed, the system’s day-to-day operations are
     autonomous and do not rely on discretionary decisions by any
     individual, committee, or organisation. Any material upgrades or
     migrations of the protocol implementation will be publicly disclosed
